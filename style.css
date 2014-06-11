@@ -1,0 +1,167 @@
+body{
+	margin: 0;
+}
+
+h1, h2, h3, h4, p, ul, ol, logo{
+	font-family: "Helvetica Neue",Arial,Tahoma,Helvetica,sans-serif;
+	color: #494949;
+	margin: 0;
+}
+
+.light{
+	font-weight: 100;
+}
+
+.bold{
+	font-weight: 400;
+}
+
+h1{
+	color: #ffffff;
+	font-size: 55px;
+}
+
+h3{
+	color: #ffffff;
+	font-size: 20px;
+}
+
+logo{
+	font-weight: 600;
+	font-size: 24px;
+	color: #ffffff;
+}
+
+.title{
+	position: relative;
+	z-index: 1;
+}
+
+.tag{
+	position: relative;
+	z-index: 1;
+}
+
+.action{
+	font-weight: 400;
+	font-size: 13px;
+	color: #ffffff;
+	text-align: center;
+}
+
+.logo{
+	position: relative;
+	display: table-cell;
+	float: left;
+	height: 70px;
+	vertical-align: middle;
+}
+
+.colorBar{
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 10px;
+}
+
+.colorBlock{
+	position: relative;
+	float: left;
+	display: block;
+	width: 25%;
+	height: 100%;
+}
+
+.pink{
+	background-color: #F55164;
+}
+
+.dark{
+	background-color: #212B32;	
+}
+
+.blue{
+	background-color: #19DEC6;
+}
+
+.yellow{
+	background-color: #FFC56A;
+}
+
+#headerGraphic{
+	position: relative;
+	display: block;
+	float: left;
+	width: 100%;	
+}
+
+#headerImage{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-image: url('resources/header_img.jpg');
+}
+
+#headerStyle{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.45);
+}
+
+#headerText{
+	position: relative;
+	top: 62%;
+}
+
+.innerContainer{
+	position: relative;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1150px;
+}
+
+.buttonContainer{
+	display: table-cell;
+	vertical-align: middle;
+	height: 100%;
+	width: 100%
+}
+
+#headerButton{
+	position: relative;
+	display: table;
+	width: 170px;
+	height: 40px;
+	background-color:rgba(255,255,255,0.50);
+	border: 1px solid white;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	margin-top: 12px;
+}
+
+#header{
+	width: 100%;
+	height: inherit;
+}
+
+#nav{
+	width: 100%;
+	height: 70px;
+	display: table;
+}
+
+#menu{
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	float: right;
+	height: 70px;
+}
+
+#menu ul li{
+	display: inline;
+}
