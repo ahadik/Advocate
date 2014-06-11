@@ -30,6 +30,8 @@ logo{
 	font-weight: 600;
 	font-size: 24px;
 	color: #ffffff;
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .title{
@@ -51,10 +53,9 @@ logo{
 
 .logo{
 	position: relative;
-	display: table-cell;
+	display: table;
 	float: left;
 	height: 70px;
-	vertical-align: middle;
 }
 
 .colorBar{
@@ -122,11 +123,24 @@ logo{
 	width: 1150px;
 }
 
+.navCenter{
+	height: 70px;
+	display: table;
+}
+
 .buttonContainer{
 	display: table-cell;
 	vertical-align: middle;
 	height: 100%;
 	width: 100%
+}
+
+.textWrapper{
+	position: relative;
+	float: left;
+	width: 550px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #headerButton{
@@ -156,12 +170,20 @@ logo{
 
 #menu{
 	position: relative;
-	display: table-cell;
-	vertical-align: middle;
+	display: table;
 	float: right;
 	height: 70px;
 }
 
+#menu ul{
+	display: table-cell;
+	vertical-align: middle;
+}
+
 #menu ul li{
 	display: inline;
+	margin-left: 24px;
+	color: #ffffff;
+	font-weight: 500;
+	font-size: 13px;
 }
