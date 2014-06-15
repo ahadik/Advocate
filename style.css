@@ -55,12 +55,10 @@ h4{
 	margin-bottom: 60px;
 }
 
-.logo img{
-	font-weight: 600;
-	font-size: 24px;
-	color: #ffffff;
+.logoWrap{
 	display: table-cell;
 	vertical-align: middle;
+	height: 100%;
 }
 
 .title{
@@ -178,6 +176,7 @@ p.footerText{
 	margin-right: auto;
 	width: 650px;
 	margin-bottom: 120px;
+	margin-top: 85px;
 }
 
 .explanation{
