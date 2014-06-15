@@ -21,12 +21,41 @@ h1{
 	font-size: 55px;
 }
 
+h2{
+	margin-top: 136px;
+	font-size: 37px;
+}
+
+.banner h2{
+	color: white;
+	font-weight: 300;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 22px;
+	margin-right: 22px;
+	font-size: 27px;
+}
+
 h3{
 	color: #ffffff;
 	font-size: 20px;
 }
 
-logo{
+h4{
+	font-weight: 200;
+	font-size: 22px;
+}
+
+.textWrapper p{
+	font-weight: 200;
+	margin-bottom: 70px;
+}
+
+.textWrapper h2{
+	margin-bottom: 60px;
+}
+
+.logo img{
 	font-weight: 600;
 	font-size: 24px;
 	color: #ffffff;
@@ -56,6 +85,14 @@ logo{
 	display: table;
 	float: left;
 	height: 70px;
+}
+
+p.footerText{
+	display: table-cell;
+	vertical-align: middle;
+	color: white;
+	font-size: 15px;
+	font-weight: 100;
 }
 
 .colorBar{
@@ -89,6 +126,67 @@ logo{
 	background-color: #FFC56A;
 }
 
+.grey{
+	background-color: #F2F2F2;
+}
+
+.sloganPosition{
+	height: 100%;
+}
+
+.icon{
+	position: relative;
+	float: left;
+	width: 50%;
+}
+
+.iconPos{
+	position: relative;
+	float: right;
+	padding-right: 200px;
+}
+
+.info{
+	position: relative;
+	float: left;
+	width: 50%;
+}
+
+.arrowPosition{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+	height: 0px;
+}
+
+.downArrow{
+	position: relative;
+	float: left;
+	margin-left: auto;
+	margin-right: auto;
+
+	border-bottom: 60px solid transparent;
+	border-top: 60px solid #F2F2F2;
+	border-right: 60px solid transparent;
+	border-left: 60px solid transparent;
+}
+
+.sectionContent{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 650px;
+	margin-bottom: 120px;
+}
+
+.explanation{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 75%;
+}
+
 #headerGraphic{
 	position: relative;
 	display: block;
@@ -117,10 +215,17 @@ logo{
 
 .innerContainer{
 	position: relative;
-	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	width: 1150px;
+}
+
+.innerSection{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: intrinsic;
+	padding-bottom: 120px;
 }
 
 .navCenter{
@@ -137,10 +242,25 @@ logo{
 
 .textWrapper{
 	position: relative;
-	float: left;
 	width: 550px;
 	margin-left: auto;
 	margin-right: auto;
+	text-align: center;
+}
+
+.banner{
+	position: relative;
+	float: left;
+	width: intrinsic;
+	height: intrinsic;
+	margin-bottom: 45px;
+}
+
+.bannerText{
+	position: relative;
+	float: left;
+	padding-right: 
+	width: 100%;
 }
 
 #headerButton{
@@ -186,4 +306,25 @@ logo{
 	color: #ffffff;
 	font-weight: 500;
 	font-size: 13px;
+}
+
+#video{
+	display: block;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 750px;
+	height: 450px;
+	background-color: #b7d0ff;
+}
+
+.videoWrapper{
+	margin-bottom: 200px;
+}
+
+#footer{
+	position: relative;
+	float: left;
+	height: 70px;
+	width: 100%;
 }
