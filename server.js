@@ -2,7 +2,7 @@ var http = require('http');
 var parse = require('url').parse;
 var join = require('path').join;
 var fs = require('fs');
-
+var port = Number(process.env.PORT || 5000);
 var root = __dirname;
 
 var server = http.createServer(function(req, res){
@@ -34,4 +34,6 @@ var server = http.createServer(function(req, res){
 	});
 });
 
-server.listen(3000);
+server.listen(port, function(){
+	console.log('Listening on port: ' + port);
+});
