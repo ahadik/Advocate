@@ -8,6 +8,11 @@ h1, h2, h3, h4, p, ul, ol, logo{
 	margin: 0;
 }
 
+li a{
+	text-decoration: none;
+	color: white;
+}
+
 .light{
 	font-weight: 100;
 }
@@ -21,7 +26,7 @@ h1{
 	font-size: 55px;
 }
 
-h2{
+.headTitle{
 	margin-top: 136px;
 	font-size: 37px;
 }
@@ -43,7 +48,7 @@ h3{
 
 h4{
 	font-weight: 200;
-	font-size: 22px;
+	font-size: 18px;
 }
 
 .textWrapper p{
@@ -53,6 +58,10 @@ h4{
 
 .textWrapper h2{
 	margin-bottom: 60px;
+}
+
+.leftAlign{
+	text-align: left;
 }
 
 .logoWrap{
@@ -128,6 +137,18 @@ p.footerText{
 	background-color: #F2F2F2;
 }
 
+.darkGrey{
+	background-color: #f1f1f1;
+}
+
+.mediumGrey{
+	background-color: #f1f1f1;
+}
+
+.lightGrey{
+	background-color: #f1f1f1;
+}
+
 .sloganPosition{
 	height: 100%;
 }
@@ -163,11 +184,21 @@ p.footerText{
 	float: left;
 	margin-left: auto;
 	margin-right: auto;
-
 	border-bottom: 60px solid transparent;
-	border-top: 60px solid #F2F2F2;
 	border-right: 60px solid transparent;
 	border-left: 60px solid transparent;
+}
+
+.downArrowDark{
+	border-top: 60px solid #F3F3F3;
+}
+
+.downArrowMedium{
+	border-top: 60px solid #F2F2F2;
+}
+
+.downArrowLight{
+	border-top: 60px solid #F1F1F1;
 }
 
 .sectionContent{
@@ -176,14 +207,14 @@ p.footerText{
 	margin-right: auto;
 	width: 650px;
 	margin-bottom: 120px;
-	margin-top: 85px;
+	margin-top: 80px;
 }
 
 .explanation{
 	position: relative;
 	float: left;
 	width: 100%;
-	height: 75%;
+	height: 0px;
 }
 
 #headerGraphic{
@@ -225,6 +256,7 @@ p.footerText{
 	width: 100%;
 	height: intrinsic;
 	padding-bottom: 120px;
+	mar
 }
 
 .navCenter{
@@ -258,8 +290,34 @@ p.footerText{
 .bannerText{
 	position: relative;
 	float: left;
-	padding-right: 
 	width: 100%;
+}
+
+.columnWrapper{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+.fullWidthWrapper{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.halfColumn{
+	position: relative;
+	width: 47.5%;
+	float: left;
+}
+
+.columnLeftMargin{
+	margin-left: 2.5%;
+}
+
+.columnRightMargin{
+	margin-right: 2.5%;
 }
 
 #headerButton{
@@ -318,7 +376,11 @@ p.footerText{
 }
 
 .videoWrapper{
-	margin-bottom: 200px;
+	position: relative;
+	width: intrinsic;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 75px;
 }
 
 #footer{
@@ -326,4 +388,25 @@ p.footerText{
 	float: left;
 	height: 70px;
 	width: 100%;
+}
+
+#about{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: inherit;
+}
+
+#features{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: intrinsic;
+}
+
+#contact{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: intrinsic;
 }

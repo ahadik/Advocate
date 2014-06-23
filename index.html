@@ -2,7 +2,8 @@
 	<head>
 		<title>Advocate</title>
 		<link rel="stylesheet" href="style.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
-		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="jquery.scrollTo-1.4.3.1-min.js" charset="utf-8"></script>
 	</head>
 	<body>
 		<div id="wrapper">
@@ -44,9 +45,9 @@
 					</div>
 					<div id="menu">
 						<ul>
-							<li>ABOUT US</li>
-							<li>FEATURES</li>
-							<li>SIGN UP</li>
+							<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
+							<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
+							<li><a href="#contact" onclick="$.scrollTo('#contact',500);">GET IN TOUCH</a></li>
 						</ul>
 					</div>
 				</div>
@@ -54,12 +55,11 @@
 			<div id="about">
 				<div class="innerContainer innerSection">
 					<div class="textWrapper">
-						<h2>ABOUT US</h2>
+						<h2 class="headTitle">ABOUT US</h2>
 						<p>We provide a curated marketplace for community service experiences with social network integration verification for hours served.</p>
 					</div>
 					<div class="videoWrapper">
-						<div id="video">
-						</div>
+						<iframe width="640" height="360" src="//www.youtube.com/embed/XBuMw3N3IDY?rel=0" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div>
 			</div>
@@ -74,9 +74,9 @@
 					<div class="yellow colorBlock">
 					</div>
 				</div>
-				<div class="innerContainer innerSection grey">
+				<div class="innerContainer innerSection darkGrey">
 					<div class="textWrapper">
-						<h2>FEATURES</h2>
+						<h2 class="headTitle">FEATURES</h2>
 					</div>
 					<div class="sectionContent">
 						<div class="icon">
@@ -87,21 +87,23 @@
 								<h2>EVENT BASED</h2>
 							</div>
 							<div class="bannerText">
-								<h4>Get involved on your own terms - when you want, how you want.</h4>
+								<h4>Get involved on your own terms - when you want, how you want.<br><br>Time and date slots make it easy for organizers and volunteers to find a time that works with, not against your schedule.</h4>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="innerContainer">
+				<!--
+				<div class="innerContainer mediumGrey">
 					<div class="arrowPosition">
-						<div class="downArrow">
+						<div class="downArrow downArrowDark">
 						</div>
 					</div>
 					<div class="explanation">
 					</div>
 				</div>
 			</div>
-			<div class="innerContainer innerSection grey">
+			-->
+			<div class="innerContainer innerSection mediumGrey">
 					<div class="sectionContent">
 						<div class="icon">
 							<img class="iconPos" src="resources/social_icon.png" />
@@ -111,20 +113,22 @@
 								<h2>SOCIAL INTEGRATION</h2>
 							</div>
 							<div class="bannerText">
-								<h4>Community service is a social event!</h4>
+								<h4>Community service is a social event!<br><br>Integration means you can see what your friends are going to and easily share fun events.</h4>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="innerContainer">
+				<!--
+				<div class="innerContainer lightGrey">
 					<div class="arrowPosition">
-						<div class="downArrow">
+						<div class="downArrow downArrowMedium">
 						</div>
 					</div>
 					<div class="explanation">
 					</div>
 				</div>
-				<div class="innerContainer innerSection grey">
+				-->
+				<div class="innerContainer innerSection lightGrey">
 					<div class="sectionContent">
 						<div class="icon">
 							<img class="iconPos" src="resources/tracking_icon.png" />
@@ -134,20 +138,23 @@
 								<h2>TRACKING</h2>
 							</div>
 							<div class="bannerText">
-								<h4>Checking-in is as easy as clicking a button!</h4>
+								<h4>Checking-in is as easy as clicking a button!<br><br>Certified organizations sign off on hours as you arrive, so that every service hour you've ever done is automatically logged on your profile.</h4>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="innerContainer">
+			</div>
+			<!--
+				<div class="innerContainer lightGrey">
 					<div class="arrowPosition">
-						<div class="downArrow">
+						<div class="downArrow downArrowLight">
 						</div>
 					</div>
 					<div class="explanation">
 					</div>
 				</div>
-			<div id="partners">
+				-->
+			<!--<div id="partners">
 				<div class="colorBar">
 					<div class="pink colorBlock">
 					</div>
@@ -163,7 +170,7 @@
 						<h2>PARTNER ORGS</h2>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			<div id="contact">
 				<div class="colorBar">
 					<div class="pink colorBlock">
@@ -177,7 +184,23 @@
 				</div>
 				<div class="innerContainer innerSection">
 					<div class="textWrapper">
-						<h2>GET IN TOUCH</h2>
+						<h2 class="headTitle">GET IN TOUCH</h2>
+						<p>We are currently testing out the platform starting August 2013. Please sign up if you would like to be a part of the beta!</p>
+						<div class="columnWrapper">
+							<div class="halfColumn columnRightMargin">
+								<h2 class="light">Schools and Companies</h2>
+								<h3>Maximize your impact</h3>
+								<p class="leftAlign">Track your students, employee, or volunteer hours with helpful of relevant data visualizations to help measure and maximize your community impact.</p>
+							</div>
+							<div class="halfColumn columnLeftMargin">
+								<h2 class="light">Non-Profits</h2>
+								<h3>Have an idea?</h3>
+								<p class="leftAlign">Post events for free and see exactly who and when your volunteers are coming, as well as have access to our powerful management tools!</p>
+							</div>
+						</div>
+						<div class="fullWidthWrapper">
+							<p>Get in touch! <a href="mailto:hello@getadvocate.co">hello@getadvocate.co</a></p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -188,9 +211,9 @@
 					</div>
 					<div id="menu">
 						<ul>
-							<li>ABOUT US</li>
-							<li>FEATURES</li>
-							<li>SIGN UP</li>
+							<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
+							<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
+							<li><a href="#contact" onclick="$.scrollTo('#contact',500);">GET IN TOUCH</a></li>
 						</ul>
 					</div>
 				</div>
