@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ahadik/Advocate/issues"
   },
-  "homepage": "https://github.com/ahadik/Advocate"
+  "homepage": "https://github.com/ahadik/Advocate",
+  "dependencies": {
+	  "pg": "2.x"
+  }
 }
