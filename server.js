@@ -5,16 +5,6 @@ var fs = require('fs');
 var port = Number(process.env.PORT || 5000);
 var root = __dirname;
 
-var pg = require('pg');
-
-pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-  client.query('SELECT * FROM your_table', function(err, result) {
-    done();
-    if(err) return console.error(err);
-    console.log(result.rows);
-  });
-});
-
 var server = http.createServer(function(req, res){
 	var url = parse(req.url);
 	var path = join(root, url.pathname);
