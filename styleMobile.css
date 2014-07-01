@@ -132,7 +132,7 @@ p.footerText{
 }
 
 .blue{
-	background-color: #19DEC6;
+	background-color: #19dec7;
 }
 
 .yellow{
@@ -430,7 +430,8 @@ p.footerText{
 
 #header{
 	width: 100%;
-	height: inherit;
+	/*height: inherit;*/
+	display: table;
 }
 
 #nav{
@@ -457,6 +458,11 @@ p.footerText{
 	color: #ffffff;
 	font-weight: 500;
 	font-size: 13px;
+}
+
+#wrapper{
+	position: relative;
+	width: intrinsic;
 }
 
 #video{

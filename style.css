@@ -459,6 +459,11 @@ p.footerText{
 	font-size: 13px;
 }
 
+#wrapper{
+	position: relative;
+	width: intrinsic;
+}
+
 #video{
 	display: block;
 	position: relative;
