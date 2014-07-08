@@ -6,6 +6,34 @@
 		<script src="jquery.scrollTo-1.4.3.1-min.js" charset="utf-8"></script>
 	</head>
 	<body>
+		<div class="overlay">
+			<div class="popup">
+				<h2 class="headTitle centerAlign">GET IN TOUCH</h2>
+				<div class="colorBar">
+					<div class="pink colorBlock">
+					</div>
+					<div class="dark colorBlock">
+					</div>
+					<div class="blue colorBlock">
+					</div>
+					<div class="yellow colorBlock">
+					</div>
+				</div>
+				<form>
+					<div class="form_radio">
+						<input type="radio" name="organization" value="school"><span class="listAlign">school</span>
+						<input type="radio" name="organization" value="compnay"><span class="listAlign">company</span>
+						<input type="radio" name="organization" value="non-profit"><span class="listAlign">non-profit<br>
+					</div>
+					<div class="form_text">
+						<input type="text" name="orgname" placeholder="organization name" class="formtext"><br>
+						<input type="email" name="orgname" placeholder="email" class="formtext"><br>
+						<input type="submit" class="submitButton"></input>
+						<p class="formtext" onclick="toggleDialogue()">close</p>
+					</div>
+				</form>
+			</div>
+		</div>
 		<div id="wrapper">
 			<div id="header">
 				<div class="colorBar">
@@ -28,7 +56,7 @@
 									<div id="headerButton">
 										
 											<div class="buttonContainer">
-												<a href="#contact" onclick="$.scrollTo('#contact',500);"><span class="buttonClick"></span></a>
+												<a onclick="toggleDialogue()"><span class="buttonClick"></span></a>
 												<p class="action">SIGN UP HERE</p>
 											</div>
 										
@@ -50,7 +78,7 @@
 						<ul>
 							<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
 							<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
-							<li class="buttonize"><a href="#contact" onclick="$.scrollTo('#contact',500);">GET IN TOUCH</a></li>
+							<li class="buttonize"><a onclick="toggleDialogue()">GET IN TOUCH</a></li>
 						</ul>
 					</div>
 				</div>

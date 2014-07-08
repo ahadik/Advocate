@@ -3,6 +3,9 @@ var header = document.getElementById("header");
 
 var $winwidth;
 var $winheight;
+var toggleIndicator = 0;
+
+$(".overlay").hide();
 
 if( typeof( window.innerWidth ) == 'number' ) {
     //Non-IE
@@ -20,3 +23,14 @@ if( typeof( window.innerWidth ) == 'number' ) {
 
 headerImg.style.height = $winwidth*.46875+"px";
 header.style.height = $winwidth*.46875+10+"px";
+
+function toggleDialogue(){
+	if(!toggleIndicator){
+		$( ".overlay" ).fadeIn( "slow");
+		toggleIndicator=1;
+	}else{
+		$( ".overlay" ).fadeOut( "slow");
+		toggleIndicator=0;
+	}
+	
+}
