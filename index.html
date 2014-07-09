@@ -15,10 +15,13 @@
 			ga('create', 'UA-52390719-1', 'auto');
 			ga('send', 'pageview');
 		</script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/public/form.js"></script>
+		<script src="/public/form_ui.js"></script>
 	</head>
 	<body>
-		<div class="overlay">
-			<div class="popup">
+		<div class="overlay" onclick="toggleDialogue()">
+			<div class="popup" onclick="preventHide()">
 				<h2 class="headTitle centerAlign">GET IN TOUCH</h2>
 				<div class="colorBar">
 					<div class="pink colorBlock">
@@ -33,14 +36,13 @@
 				<form>
 					<div class="form_radio">
 						<input type="radio" name="organization" value="school"><span class="listAlign">school</span>
-						<input type="radio" name="organization" value="compnay"><span class="listAlign">company</span>
+						<input type="radio" name="organization" value="company"><span class="listAlign">company</span>
 						<input type="radio" name="organization" value="non-profit"><span class="listAlign">non-profit<br>
 					</div>
 					<div class="form_text">
-						<input type="text" name="orgname" placeholder="organization name" class="formtext"><br>
-						<input type="email" name="orgname" placeholder="email" class="formtext"><br>
-						<input type="submit" class="submitButton"></input>
-						<p class="formtext" onclick="toggleDialogue()">close</p>
+						<input type="text" id="orgname" name="orgname" placeholder="organization name" class="formtext"><br>
+						<input type="email" id="emailAddress" name="orgname" placeholder="email" class="formtext"><br>
+						 <input id='submit' type='submit' value='Send' class='submitButton' onsubmit="return false" onclick="formSubmission(); return false;"/>
 					</div>
 				</form>
 			</div>
