@@ -64,7 +64,7 @@
 									<h3 class="light">ARE YOU AN ORGANIZATION?</h3>
 									<div id="headerButton">
 										<div class="buttonContainer">
-											<a href="#contact" onclick="$.scrollTo('#contact',500);"><span class="buttonClick"></span></a>
+											<a onclick="toggleDialogue()"><span class="buttonClick"></span></a>
 											<p class="action">SIGN UP HERE</p>
 										</div>
 									</div>
@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			<div id="nav" class="pink">
-				<div class="innerContainer navCenter">
+				<div class="navCenter">
 					<div class="logo">
 						<div class="logoWrap">
 							<img src="resources/logo-web.png" />
@@ -91,13 +91,15 @@
 				</div>
 			</div>
 			<div id="about">
-				<div class="innerContainer innerSection">
-					<div class="textWrapper">
-						<h2 class="headTitle">ABOUT US</h2>
-						<p>We provide a curated marketplace for community service experiences with social network integration and verification for hours served.</p>
-					</div>
-					<div class="videoWrapper">
-						<iframe width="853" height="480" src="//www.youtube.com/embed/9zUVQIZjRAM?rel=0" frameborder="0" allowfullscreen></iframe>
+				<div class="innerSection">
+					<div class="innerContainer">
+						<div class="textWrapper">
+							<h2 class="headTitle">ABOUT US</h2>
+							<p>We provide a curated marketplace for community service experiences with social network integration and verification for hours served.</p>
+						</div>
+						<div class="videoWrapper">
+							<iframe width="853" height="480" src="//www.youtube.com/embed/9zUVQIZjRAM?rel=0" frameborder="0" allowfullscreen></iframe>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -112,20 +114,22 @@
 					<div class="yellow colorBlock">
 					</div>
 				</div>
-				<div class="innerContainer innerSection darkGrey">
-					<div class="textWrapper">
-						<h2 class="headTitle">FEATURES</h2>
-					</div>
-					<div class="sectionContent">
-						<div class="icon">
-							<img class="iconPos" src="resources/calendar_icon.png" />
+				<div class="innerSection darkGrey">
+					<div class="innerContainer">
+						<div class="textWrapper">
+							<h2 class="headTitle">FEATURES</h2>
 						</div>
-						<div class="info">
-							<div class="banner pink">
-								<h2>EVENT BASED</h2>
+						<div class="sectionContent">
+							<div class="icon">
+								<img class="iconPos" src="resources/calendar_icon.png" />
 							</div>
-							<div class="bannerText">
-								<h4><span class="bold">Get involved on your own terms - when you want, how you want.</span><br><br>Time and date slots make it easy for organizers and volunteers to find a time that works with, not against your schedule.</h4>
+							<div class="info">
+								<div class="banner pink">
+									<h2>EVENT BASED</h2>
+								</div>
+								<div class="bannerText">
+									<h4><span class="bold">Get involved on your own terms - when you want, how you want.</span><br><br>Time and date slots make it easy for organizers and volunteers to find a time that works with, not against your schedule.</h4>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -146,17 +150,19 @@
 						</div>
 					</div>
 				</div>
-				<div class="innerContainer innerSection mediumGrey">
-					<div class="sectionContent">
-						<div class="icon">
-							<img class="iconPos" src="resources/social_icon.png" />
-						</div>
-						<div class="info">
-							<div class="banner blue">
-								<h2>SOCIAL INTEGRATION</h2>
+				<div class="innerSection mediumGrey">
+					<div class="innerContainer">
+						<div class="sectionContent">
+							<div class="icon">
+								<img class="iconPos" src="resources/social_icon.png" />
 							</div>
-							<div class="bannerText">
-								<h4><span class="bold">Community service is a social event!</span><br><br>Integration means you can see what your friends are going to and easily share fun events.</h4>
+							<div class="info">
+								<div class="banner blue">
+									<h2>SOCIAL INTEGRATION</h2>
+								</div>
+								<div class="bannerText">
+									<h4><span class="bold">Community service is a social event!</span><br><br>Integration means you can see what your friends are going to and easily share fun events.</h4>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -185,17 +191,19 @@
 					</div>
 				</div>
 
-				<div class="innerContainer innerSection lightGrey">
-					<div class="sectionContent">
-						<div class="icon">
-							<img class="iconPos" src="resources/tracking_icon.png" />
-						</div>
-						<div class="info">
-							<div class="banner yellow">
-								<h2>TRACKING</h2>
+				<div class="innerSection lightGrey">
+					<div class="innerContainer">
+						<div class="sectionContent">
+							<div class="icon">
+								<img class="iconPos" src="resources/tracking_icon.png" />
 							</div>
-							<div class="bannerText">
-								<h4><span class="bold">Checking-in is as easy as clicking a button!</span><br><br>Certified organizations sign off on hours as you arrive, so that every service hour you've ever done is automatically logged on your profile.</h4>
+							<div class="info">
+								<div class="banner yellow">
+									<h2>TRACKING</h2>
+								</div>
+								<div class="bannerText">
+									<h4><span class="bold">Checking-in is as easy as clicking a button!</span><br><br>Certified organizations sign off on hours as you arrive, so that every service hour you've ever done is automatically logged on your profile.</h4>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -235,24 +243,26 @@
 					<div class="yellow colorBlock">
 					</div>
 				</div>
-				<div class="innerContainer innerSection">
-					<div class="textWrapper">
-						<h2 class="headTitle">GET IN TOUCH</h2>
-						<p>We are currently testing out the platform starting August 2013. Please sign up if you would like to be a part of the beta!</p>
-						<div class="columnWrapper">
-							<div class="halfColumn columnRightMargin">
-								<h2 class="light">Schools and Companies</h2>
-								<h3>Maximize your impact</h3>
-								<p class="leftAlign">Track your students, employee, or volunteer hours with helpful of relevant data visualizations to help measure and maximize your community impact.</p>
+				<div class="innerSection">
+					<div class="innerContainer">
+						<div class="textWrapper">
+							<h2 class="headTitle">GET IN TOUCH</h2>
+							<p>We are currently testing out the platform starting August 2013. Please sign up if you would like to be a part of the beta!</p>
+							<div class="columnWrapper">
+								<div class="halfColumn columnRightMargin">
+									<h2 class="light">Schools and Companies</h2>
+									<h3>Maximize your impact</h3>
+									<p class="leftAlign">Track your students, employee, or volunteer hours with helpful of relevant data visualizations to help measure and maximize your community impact.</p>
+								</div>
+								<div class="halfColumn columnLeftMargin">
+									<h2 class="light">Non-Profits</h2>
+									<h3>Have an idea?</h3>
+									<p class="leftAlign">Post events for free and see exactly who and when your volunteers are coming, as well as have access to our powerful management tools!</p>
+								</div>
 							</div>
-							<div class="halfColumn columnLeftMargin">
-								<h2 class="light">Non-Profits</h2>
-								<h3>Have an idea?</h3>
-								<p class="leftAlign">Post events for free and see exactly who and when your volunteers are coming, as well as have access to our powerful management tools!</p>
+							<div class="fullWidthWrapper">
+								<p>Get in touch! <a href="mailto:hello@getadvocate.co">hello@getadvocate.co</a></p>
 							</div>
-						</div>
-						<div class="fullWidthWrapper">
-							<p>Get in touch! <a href="mailto:hello@getadvocate.co">hello@getadvocate.co</a></p>
 						</div>
 					</div>
 				</div>

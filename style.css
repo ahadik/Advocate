@@ -23,7 +23,7 @@ li a{
 
 h1{
 	color: #ffffff;
-	font-size: 55px;
+	font-size: 50px;
 }
 
 h1.title{
@@ -80,7 +80,7 @@ h4{
 
 .title{
 	position: relative;
-	z-index: 1;
+	z-index: 0;
 }
 
 .tag{
@@ -315,6 +315,7 @@ p.footerText{
 }
 
 .submitButton{
+	outline: none;
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
@@ -322,6 +323,7 @@ p.footerText{
 	background-color: white;
 	border-color: #F55164;
 	border-width: 1px;
+	box-shadow: none;
 	color: #F55164;
 	border-bottom-left-radius: 3px;
 	border-bottom-right-radius: 3px;
@@ -331,6 +333,7 @@ p.footerText{
 	height: 24px;
 	font-weight: 100;
 	margin-bottom: 24px;
+	cursor: hand;
 }
 
 
@@ -361,6 +364,7 @@ p.footerText{
 	top: 0;
 	width: 100%;
 	height: 100%;
+	cursor: hand;
 }
 
 #headerGraphic{
@@ -393,7 +397,9 @@ p.footerText{
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-	width: 1150px;
+	min-width: 975px;
+	padding-left: 25px;
+	padding-right: 25px;
 }
 
 .innerSection{
@@ -405,15 +411,17 @@ p.footerText{
 }
 
 .navCenter{
-	height: 70px;
-	display: table;
+	position: relative;
+	padding-left: 25px;
+	padding-right: 25px;
 }
 
 .buttonContainer{
 	display: table-cell;
 	vertical-align: middle;
 	height: 100%;
-	width: 100%
+	width: 100%;
+	cursor: hand;
 }
 
 .textWrapper{
@@ -503,6 +511,7 @@ p.footerText{
 	border-bottom-right-radius: 3px;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
+	cursor: hand;
 }
 
 #header{
@@ -539,6 +548,8 @@ p.footerText{
 #wrapper{
 	position: relative;
 	width: intrinsic;
+	min-width: 1024px;
+	width: 100%;
 }
 
 #video{
