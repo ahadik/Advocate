@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/ahadik/Advocate",
   "dependencies": {
-	  "pg": "2.x",
+	  "mongodb": "1.4.x",
 	  "socket.io": "~0.9.6"
   }
 }
