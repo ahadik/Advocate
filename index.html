@@ -33,16 +33,16 @@
 					<div class="yellow colorBlock">
 					</div>
 				</div>
-				<form>
+				<form id="interestForm">
 					<div class="form_radio">
-						<input type="radio" name="organization" value="school"><span class="listAlign">school</span>
-						<input type="radio" name="organization" value="company"><span class="listAlign">company</span>
-						<input type="radio" name="organization" value="non-profit"><span class="listAlign">non-profit<br>
+						<input type="radio" name="organization" value="school" class="validateInterest" required><span class="listAlign">school</span>
+						<input type="radio" name="organization" value="company" class="validateInterest"><span class="listAlign">company</span>
+						<input type="radio" name="organization" value="non-profit" class="validateInterest"><span class="listAlign">non-profit<br>
 					</div>
 					<div class="form_text">
-						<input type="text" id="orgname" name="orgname" placeholder="organization name" class="formtext"><br>
-						<input type="email" id="emailAddress" name="orgname" placeholder="email" class="formtext"><br>
-						 <input id='submit' type='submit' value='Send' class='submitButton' onsubmit="return false" onclick="formSubmission(); return false;"/>
+						<input type="text" id="orgname" name="orgname" placeholder="organization name" class="formtext validateInterest" required><br>
+						<input type="email" id="emailAddress" name="orgname" placeholder="email" class="formtext validateInterest" required><br>
+						<input id='submit' type='submit' value='Send' class='submitButton' onclick="formSubmission();"/>
 					</div>
 				</form>
 			</div>
