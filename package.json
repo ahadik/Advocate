@@ -19,6 +19,14 @@
   "homepage": "https://github.com/ahadik/Advocate",
   "dependencies": {
 	  "mongodb": "1.4.x",
-	  "socket.io": "~0.9.6"
+    "install": "^0.1.7",
+	  "socket.io": "~0.9.6",
+    "express": "3.4.0",
+    "ejs": "~0.8.4",
+    "mongoose": "~3.6.19",
+    "install": "^0.1.7",
+    "passport": "^0.2.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^0.3.0"
   }
 }

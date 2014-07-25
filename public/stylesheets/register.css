@@ -1,0 +1,104 @@
+#formContainer {
+	position: relative;
+	width: 1025px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	margin-top: 100px;
+}
+
+.textCenter{
+	text-align: center;
+}
+
+#formContainer h2{
+	padding-top: 18px;
+	margin-bottom: 12px;
+}
+
+.formBlock{
+	border-top: 1px dashed black;
+	position: relative;
+	width: 900px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 18px;
+	margin-top: 18px;
+	margin-bottom: 18px;
+}
+
+.registerRadio{
+	position: relative;
+	width: intrinsic;
+	margin-top: 24px;
+	margin-bottom: 18px;
+	margin-left: 12px;
+}
+
+.right{
+	position: relative;
+	width: 70%;
+	display: inline-block;
+}
+
+.left{
+	position: inherit;
+	width: 25%;
+	display: inline-block;
+	height: min-intrinsic;
+}
+
+.dropDown{
+	width: 268px;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 1;
+	border: 1px solid black;
+	border-radius: 0;
+	height: 25px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.formInput{
+	color: #717171;
+	background-color: transparent;
+	height: 24px;
+	padding-left: 3px;
+	padding-right: 3px;
+	margin-bottom: 6px;
+	font-size: medium;
+	padding: 12px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.box{
+	border: 1px solid black;
+	height: 75px;	
+}
+
+#registerSubmit{
+	float: left;
+	width: 185px;
+	height: 48px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	color: white;
+	font-size: large;
+	box-shadow: none;
+	border:0 none;
+	cursor: hand;
+}
+
+.field{
+	border: none;
+	border-bottom: 1px solid black;
+}
+
+.formInput:focus{
+	outline-width: 0;
+}

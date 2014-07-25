@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Advocate Form Submissions</title>
+		<link rel="stylesheet" href="public/backend_style.css" title="Advocate Backend Styling" type="text/css" media="screen" charset="utf-8">
+	</head>
+	<body>
+		<h1>Advocate</h1>
+		<h2>Interest Form Submissions</h2>
+		<table>
+			<thead>
+				<tr><td>Organization Type</td><td>Organization Name</td><td>Contact Email</td></tr>
+			</thead>
+			<tbody>
+			<% registrations.forEach(function(registration) { %>
+				<tr>
+					<td><%=registration.orgtype%></td>
+					<td><%=registration.orgname%></td>
+					<td><a href='mailto:<%=registration.email%>'><%=registration.email%></a></td>
+				</tr>
+			<% }) %>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,288 @@
+<html>
+	<head>
+		<title>Advocate</title>
+		<link rel="stylesheet" href="/public/stylesheets/style.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
+		<!--<link rel="stylesheet" href="/public/stylesheets/styleMobile.css" title="Advocate Styling" type="text/css" media='only screen and (-webkit-min-device-pixel-ratio: 2)' charset="utf-8">-->
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="/public/javascripts/jquery.scrollTo-1.4.3.1-min.js" charset="utf-8"></script>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			
+			ga('create', 'UA-52390719-1', 'auto');
+			ga('send', 'pageview');
+		</script>
+		<script src="/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script src="/public/javascripts/form.js"></script>
+		<script src="/public/javascripts/form_ui.js"></script>
+	</head>
+	<body>
+		<div class="overlay" onclick="toggleDialogue()">
+			<div class="popup" onclick="preventHide()">
+				<h2 class="headTitle centerAlign">GET IN TOUCH</h2>
+				<div class="colorBar">
+					<div class="pink colorBlock">
+					</div>
+					<div class="dark colorBlock">
+					</div>
+					<div class="blue colorBlock">
+					</div>
+					<div class="yellow colorBlock">
+					</div>
+				</div>
+				<form id="interestForm">
+					<div class="form_radio">
+						<input type="radio" name="organization" value="school" class="validateInterest" required><span class="listAlign">school</span>
+						<input type="radio" name="organization" value="company" class="validateInterest"><span class="listAlign">company</span>
+						<input type="radio" name="organization" value="non-profit" class="validateInterest"><span class="listAlign">non-profit<br>
+					</div>
+					<div class="form_text width100">
+						<input type="text" id="orgname" name="orgname" placeholder="organization name" class="formtext width100 validateInterest" required><br>
+						<input type="email" id="emailAddress" name="orgname" placeholder="email" class="formtext width100 validateInterest" required><br>
+						<input id='submit' type='submit' value='Send' class='submitButton' onclick="formSubmission();"/>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="wrapper">
+			<div id="header">
+				<div class="colorBar">
+					<div class="pink colorBlock"></div>
+					<div class="dark colorBlock"></div>
+					<div class="blue colorBlock"></div>
+					<div class="yellow colorBlock"></div>
+				</div>
+				<div id="headerGraphic">
+					<div id="headerImage">
+						<div id="headerStyle">
+							<div class="innerContainer sloganPosition">
+								<div id="headerText">
+									<h1 class="title"><span class="light">"COMMUNITY SERVICE</span> <span class="bold">SUPERCHARGED.</span><span class="light">"</span></h1>
+									<h3 class="light">ARE YOU AN ORGANIZATION?</h3>
+									<div id="headerButton">
+										<div class="buttonContainer">
+											<a onclick="toggleDialogue()"><span class="buttonClick"></span></a>
+											<p class="action">SIGN UP HERE</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="nav" class="pink">
+				<div class="navCenter">
+					<div class="logo">
+						<div class="logoWrap">
+							<img src="resources/logo-web.png" />
+						</div>
+					</div>
+					<div id="menu">
+						<ul>
+							<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
+							<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
+							<li class="buttonize"><a onclick="toggleDialogue()">GET IN TOUCH</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="about">
+				<div class="innerSection">
+					<div class="innerContainer">
+						<div class="textWrapper">
+							<h2 class="headTitle">ABOUT US</h2>
+							<p>We provide a curated marketplace for community service experiences with social network integration and verification for hours served.</p>
+						</div>
+						<div class="videoWrapper">
+							<iframe width="853" height="480" src="//www.youtube.com/embed/9zUVQIZjRAM?rel=0" frameborder="0" allowfullscreen></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="features">
+				<div class="colorBar">
+					<div class="pink colorBlock">
+					</div>
+					<div class="dark colorBlock">
+					</div>
+					<div class="blue colorBlock">
+					</div>
+					<div class="yellow colorBlock">
+					</div>
+				</div>
+				<div class="innerSection darkGrey">
+					<div class="innerContainer">
+						<div class="textWrapper">
+							<h2 class="headTitle">FEATURES</h2>
+						</div>
+						<div class="sectionContent">
+							<div class="icon">
+								<img class="iconPos" src="resources/calendar_icon.png" />
+							</div>
+							<div class="info">
+								<div class="banner pink">
+									<h2>EVENT BASED</h2>
+								</div>
+								<div class="bannerText">
+									<h4><span class="bold">Get involved on your own terms - when you want, how you want.</span><br><br>Time and date slots make it easy for organizers and volunteers to find a time that works with, not against your schedule.</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="innerContainer mediumGrey">
+					<div class="arrowPosition">
+						<div class="downArrow downArrowDark">
+						</div>
+					</div>
+					<div class="explanation">
+						<div class="interfacePreview">
+							<img class="preview" src="resources/time-page-web.png" />
+						</div>
+						<div class="pointerWrapper">
+							<div class="pointer">
+								<p class="pointerText">Pick the times that work for you</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="innerSection mediumGrey">
+					<div class="innerContainer">
+						<div class="sectionContent">
+							<div class="icon">
+								<img class="iconPos" src="resources/social_icon.png" />
+							</div>
+							<div class="info">
+								<div class="banner blue">
+									<h2>SOCIAL INTEGRATION</h2>
+								</div>
+								<div class="bannerText">
+									<h4><span class="bold">Community service is a social event!</span><br><br>Integration means you can see what your friends are going to and easily share fun events.</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="innerContainer lightGrey">
+					<div class="arrowPosition">
+						<div class="downArrow downArrowMedium">
+						</div>
+					</div>
+					<div class="explanation">
+						<div class="interfacePreview">
+							<img class="preview" src="resources/event-page-web.png" />
+						</div>
+						<div id="socialPointer" class="pointerWrapper">
+							<div class="pointer socialSpace">
+								<p class="pointerText">See volunteer spots available</p>
+							</div>
+							<div class="pointer socialSpace">
+								<p class="pointerText">Find a cause that fits you</p>
+							</div>
+							<div class="pointer socialSpace">
+								<p class="pointerText">See who's coming</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="innerSection lightGrey">
+					<div class="innerContainer">
+						<div class="sectionContent">
+							<div class="icon">
+								<img class="iconPos" src="resources/tracking_icon.png" />
+							</div>
+							<div class="info">
+								<div class="banner yellow">
+									<h2>TRACKING</h2>
+								</div>
+								<div class="bannerText">
+									<h4><span class="bold">Checking-in is as easy as clicking a button!</span><br><br>Certified organizations sign off on hours as you arrive, so that every service hour you've ever done is automatically logged on your profile.</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="innerContainer lightGrey">
+					<div class="arrowPosition">
+						<div class="downArrow downArrowLight">
+						</div>
+					</div>
+					<div class="explanation">
+						<div class="interfacePreview">
+							<img class="preview" src="resources/profile-page-web.png" />
+						</div>
+						<div id="trackingPointer" class="pointerWrapper">
+							<div class="pointer trackingSpace">
+								<p class="pointerText">Check your progress towards your goal</p>
+							</div>
+							<div class="pointer trackingSpace">
+								<p class="pointerText">See all your awards and qualifications</p>
+							</div>
+							<div class="pointer trackingSpace">
+								<p class="pointerText">See your impact</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="contact">
+				<div class="colorBar">
+					<div class="pink colorBlock">
+					</div>
+					<div class="dark colorBlock">
+					</div>
+					<div class="blue colorBlock">
+					</div>
+					<div class="yellow colorBlock">
+					</div>
+				</div>
+				<div class="innerSection">
+					<div class="innerContainer">
+						<div class="textWrapper">
+							<h2 class="headTitle">GET IN TOUCH</h2>
+							<p>We are currently testing out the platform starting August 2013. Please sign up if you would like to be a part of the beta!</p>
+							<div class="columnWrapper">
+								<div class="halfColumn columnRightMargin">
+									<h2 class="light">Schools and Companies</h2>
+									<h3>Maximize your impact</h3>
+									<p class="leftAlign">Track your students, employee, or volunteer hours with helpful of relevant data visualizations to help measure and maximize your community impact.</p>
+								</div>
+								<div class="halfColumn columnLeftMargin">
+									<h2 class="light">Non-Profits</h2>
+									<h3>Have an idea?</h3>
+									<p class="leftAlign">Post events for free and see exactly who and when your volunteers are coming, as well as have access to our powerful management tools!</p>
+								</div>
+							</div>
+							<div class="fullWidthWrapper">
+								<p class="buttonize pink" style="width: intrinsic; color: white; position: relative; margin-left: auto; margin-right: auto;"><a onclick="toggleDialogue()">GET IN TOUCH</a></p>
+								<p>Feel free to contact us! <a href="mailto:hello@getadvocate.co">hello@getadvocate.co</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="footer" class="pink">
+				<div class="innerContainer navCenter">
+					<div class="logo">
+						<p class="footerText">2014 ADVOCATE. ALL RIGHTS RESERVED</p>
+					</div>
+					<div id="menu">
+						<ul>
+							<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
+							<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
+							<li><a href="#contact" onclick="$.scrollTo('#contact',500);">GET IN TOUCH</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/public/javascripts/js.js"></script>
+	</body>
+</html>
