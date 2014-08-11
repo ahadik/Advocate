@@ -7,10 +7,12 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 //var routes = require('./routes');
 var registrations = require('./routes/registrations');
+var accountCreate = require('./routes/register');
 var index = require('./routes/index');
 var register = require('./routes/register');
 var app = express();
 var socketio = require('socket.io');
+var flash    = require('connect-flash');
 
 
 // all environments
@@ -25,6 +27,7 @@ app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(app.router);
 app.use(express.static(path.join(__dirname, '')));
 app.use(express.favicon());
@@ -55,14 +58,16 @@ app.get('/register', register.form);
 app.post('/register', function(req, res) {
 	console.log('Registration submitted');
     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+        //if the post produces an error
         if (err) {
         	console.log('error');
         	console.log(err);
             return res.render('register', { account : account });
         }
-
+		//if no error - call the authenticate function of the passport
         passport.authenticate('local')(req, res, function () {
-        res.redirect('/');
+        	accountCreate.setOrg(req, res);
+        	res.redirect('/');
         });
 	});
 });

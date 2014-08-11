@@ -57,83 +57,27 @@
 							<div class="right">
 							<input type="text" name="username" placeholder="username" class="formInput field width45 floatLeft" required>
 							<input type="password" name="password" placeholder="password" class="formInput field width45 floatRight" required>
-							<input type="text" placeholder="organization name"  class="formInput field width100" required>
+							<input type="text" placeholder="organization name" name="orgName"  class="formInput field width100" required>
 							<div class="registerRadio">
 								<p class="floatLeft rightMarginMed medGray">registered 501 c3?</p>
 								<input type="radio" name="registeredNPO" value="yes" class="validateInterest" required><span class="listAlign medGray">yes</span>
 								<input type="radio" name="registeredNPO" value="no" class="validateInterest"><span class="listAlign medGray">no</span><br>
 							</div>
-							<input type="website" placeholder="website" class="formInput field width100" required>
-							<input type="email" placeholder="email" class="formInput field width100" required>
+							<input type="website" placeholder="website" name="website" class="formInput field width100" required>
+							<input type="email" placeholder="email" name="email" class="formInput field width100" required>
 							</div>
 						</div>
 						<div class="formBlock">
 							<div class="left">
 							<h2>for the volunteers</h2>
 							</div>
-							<div class="right">
-							<input type="text" placeholder="street" class="formInput field width60 floatLeft" required>
-							<input type="text" placeholder="city" class="formInput field width25 floatRight" required>
-							<select placeholder="select state" class="floatLeft dropDown" required>
-								<option default>select your state</option>
-								<option value="AL">Alabama</option>
-								<option value="AK">Alaska</option>
-								<option value="AZ">Arizona</option>
-								<option value="AR">Arkansas</option>
-								<option value="CA">California</option>
-								<option value="CO">Colorado</option>
-								<option value="CT">Connecticut</option>
-								<option value="DE">Delaware</option>
-								<option value="DC">District Of Columbia</option>
-								<option value="FL">Florida</option>
-								<option value="GA">Georgia</option>
-								<option value="HI">Hawaii</option>
-								<option value="ID">Idaho</option>
-								<option value="IL">Illinois</option>
-								<option value="IN">Indiana</option>
-								<option value="IA">Iowa</option>
-								<option value="KS">Kansas</option>
-								<option value="KY">Kentucky</option>
-								<option value="LA">Louisiana</option>
-								<option value="ME">Maine</option>
-								<option value="MD">Maryland</option>
-								<option value="MA">Massachusetts</option>
-								<option value="MI">Michigan</option>
-								<option value="MN">Minnesota</option>
-								<option value="MS">Mississippi</option>
-								<option value="MO">Missouri</option>
-								<option value="MT">Montana</option>
-								<option value="NE">Nebraska</option>
-								<option value="NV">Nevada</option>
-								<option value="NH">New Hampshire</option>
-								<option value="NJ">New Jersey</option>
-								<option value="NM">New Mexico</option>
-								<option value="NY">New York</option>
-								<option value="NC">North Carolina</option>
-								<option value="ND">North Dakota</option>
-								<option value="OH">Ohio</option>
-								<option value="OK">Oklahoma</option>
-								<option value="OR">Oregon</option>
-								<option value="PA">Pennsylvania</option>
-								<option value="RI">Rhode Island</option>
-								<option value="SC">South Carolina</option>
-								<option value="SD">South Dakota</option>
-								<option value="TN">Tennessee</option>
-								<option value="TX">Texas</option>
-								<option value="UT">Utah</option>
-								<option value="VT">Vermont</option>
-								<option value="VA">Virginia</option>
-								<option value="WA">Washington</option>
-								<option value="WV">West Virginia</option>
-								<option value="WI">Wisconsin</option>
-								<option value="WY">Wyoming</option>
-							</select>
-							<input type="text" placeholder="ZIP code" class="formInput field floatRight width25" required>
-							<input type="email" placeholder="contact email address" class="formInput field width50 floatLeft" required>
-							<input type="tel" placeholder="phone number" class="formInput field width45 floatRight" required>
-							<textarea type="text" placeholder="your mission statement" class="formInput box floatLeft width100" required></textarea>
-							<textarea type="text" placeholder="tell us your story in 3 sentences" class="formInput box floatLeft width100" required></textarea>
-							<button  id="registerSubmit" type="submit" class="pink">SUBMIT</button>
+							<div class="right">							
+								<input type="text" placeholder="ZIP code" name="zip" class="formInput field floatRight width25" required>
+								<input type="email" placeholder="contact email address" name="orgEmail" class="formInput field width50 floatLeft" required>
+								<input type="tel" placeholder="phone number" name="telephone" class="formInput field width45 floatRight" required>
+								<textarea type="text" placeholder="your mission statement" name="mission" class="formInput box floatLeft width100" required></textarea>
+								<textarea type="text" placeholder="tell us your story in 3 sentences" name="story" class="formInput box floatLeft width100" required></textarea>
+								<button  id="registerSubmit" type="submit" class="pink">SUBMIT</button>
 							</div>
 						</div>
 					</form>
