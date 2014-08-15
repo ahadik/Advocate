@@ -11,6 +11,10 @@ exports.form = function(req, res){
 	})
 };
 
+exports.twitter = function(req, res){
+	res.render('twitter', {});
+}
+
 exports.setOrg = function(req, res){
 	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		var collection = db.collection('organizations');

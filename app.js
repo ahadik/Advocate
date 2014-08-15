@@ -55,6 +55,7 @@ if ('development' == app.get('env')) {
 app.get('/', index.index);
 app.get('/submits', registrations.form);
 app.get('/register', register.form);
+app.get('/auth', register.twitter);
 app.post('/register', function(req, res) {
 	console.log('Registration submitted');
     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
