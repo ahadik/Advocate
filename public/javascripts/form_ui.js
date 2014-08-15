@@ -12,6 +12,9 @@ var socket = io.connect();
 
 var formApp = new Form(socket);
 
+function checkUsername(){
+	//DO SHIT HERE
+}
 	
 function formSubmission(){
 

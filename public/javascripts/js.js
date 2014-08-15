@@ -39,3 +39,7 @@ function toggleDialogue(){
 		toggleIndicator=0;
 	}
 }
+
+function twitterLogin(){
+	location.href="/auth/twitter";
+}

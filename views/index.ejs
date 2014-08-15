@@ -22,7 +22,7 @@
 	<body>
 		<div class="overlay" onclick="toggleDialogue()">
 			<div class="popup" onclick="preventHide()">
-				<h2 class="headTitle centerAlign">GET IN TOUCH</h2>
+				<h1 class="headTitle centerAlign">SIGN UP</h1>
 				<div class="colorBar">
 					<div class="pink colorBlock">
 					</div>
@@ -32,17 +32,39 @@
 					</div>
 					<div class="yellow colorBlock">
 					</div>
-				</div>
-				<form id="interestForm">
-					<div class="form_radio">
-						<input type="radio" name="organization" value="school" class="validateInterest" required><span class="listAlign">school</span>
-						<input type="radio" name="organization" value="company" class="validateInterest"><span class="listAlign">company</span>
-						<input type="radio" name="organization" value="non-profit" class="validateInterest"><span class="listAlign">non-profit<br>
+				</div>		
+				<form role="form" action="/register" method="post" id="registerForm">
+					<div id="formWrapper">
+						<p class="centerAlign">Have an account? <a href="/login">Log in</a></p>
+						<div id="twitterAuth" onclick="twitterLogin();">
+							<div class="buttonTable">
+								<div class="buttonContent">
+									<div class="buttonLogo" id="twitter"></div>
+									<h3 class="buttonText">log in with twitter</h3>
+								</div>
+							</div>
+						</div>
+						<p class="caption">we'll never post anything without your permission!</p>
+						<div class="optionDivider">
+							<div class="dividerWrapper">
+								<div class="dividerLine">
+								</div>
+								<h1 class="dividerText">OR</h1>
+								<div class="dividerLine">
+								</div>
+							</div>
+						</div>
+						<div class="modalForm width100">
+							<input type="text" id="firstName" name="firstName" placeholder="first name" class="formtext width48 validateInterest" required>
+							<input type="text" id="lastName" name="lastName" placeholder="last name" class="formtext width48 floatRight validateInterest" required><br>
+							<input type="text" id="affiliate" name="affiliate" placeholder="affiliated schools or organizations" class="formtext width100 validateInterest" required><br>
+							<input type="text" id="username" name="username" placeholder="username" onblur="checkUsername();" class="formtext width100 validateInterest" required><br>
+							<input type="email" id="emailAddress" name="emailAddress" placeholder="email" class="formtext width100 validateInterest" required><br>
+							<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
+						</div>
 					</div>
-					<div class="form_text width100">
-						<input type="text" id="orgname" name="orgname" placeholder="organization name" class="formtext width100 validateInterest" required><br>
-						<input type="email" id="emailAddress" name="orgname" placeholder="email" class="formtext width100 validateInterest" required><br>
-						<input id='submit' type='submit' value='Send' class='submitButton' onclick="formSubmission();"/>
+					<div id="buttonContainer">
+						<button type="submit" class="buttonize pink centerBox">SUBMIT</button>
 					</div>
 				</form>
 			</div>
@@ -85,7 +107,7 @@
 						<ul>
 							<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
 							<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
-							<li class="buttonize"><a onclick="toggleDialogue()">GET IN TOUCH</a></li>
+							<li class="buttonize"><a onclick="toggleDialogue()">SIGN UP</a></li>
 						</ul>
 					</div>
 				</div>

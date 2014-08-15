@@ -5,14 +5,20 @@ var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
 //var routes = require('./routes');
 var registrations = require('./routes/registrations');
 var accountCreate = require('./routes/register');
 var index = require('./routes/index');
 var register = require('./routes/register');
+var twitter = require('./routes/twitter');
 var app = express();
 var socketio = require('socket.io');
 var flash    = require('connect-flash');
+var mongodb = require('mongodb')
+  , MongoClient = mongodb.MongoClient;
+  
+twitter.twitter(passport, TwitterStrategy);
 
 
 // all environments
@@ -23,8 +29,8 @@ app.set('view engine', 'ejs');
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
-app.use(express.session());
+app.use(express.cookieParser('chip chocolate chip'));
+app.use(express.session({secret : 'in service of what?'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -53,11 +59,17 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', index.index);
+app.get('/clear', function(req, res){
+	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
+		var accounts = db.collection('accounts');
+		accounts.remove({}, function(err, docs){});
+	});
+	res.redirect('/');
+});
 app.get('/submits', registrations.form);
 app.get('/register', register.form);
 app.get('/auth', register.twitter);
 app.post('/register', function(req, res) {
-	console.log('Registration submitted');
     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
         //if the post produces an error
         if (err) {
@@ -67,10 +79,40 @@ app.post('/register', function(req, res) {
         }
 		//if no error - call the authenticate function of the passport
         passport.authenticate('local')(req, res, function () {
-        	accountCreate.setOrg(req, res);
+        	accountCreate.updateAccount(req, res);
         	res.redirect('/');
         });
 	});
+});
+
+app.get('/auth/twitter',
+	passport.authenticate('twitter'),
+	function(req, res){
+		//ain't nothin' happenin here
+});
+
+app.get('/auth/twitter/callback',
+	passport.authenticate('twitter', {failureRedirect: '/login'}),
+	function(req, res){
+		var nameSplit = req.user.displayName.split(" ");
+		var lastName = nameSplit.slice(1).join(" ");
+		var firstName = nameSplit[0];
+		var username = req.user.username;
+		MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
+			var collection = db.collection('accounts');
+			collection.insert([{firstName : firstName, lastName : lastName, username : username, source : 'twitter'}], function(err, docs) {
+				if (err){
+					return console.error(err);
+				}
+				console.log('New Twitter Account authentication: ', firstName+" "+lastName+": "+username);
+			});
+		});
+		res.redirect('/');
+	});
+	
+app.get('/logout', function(req, res){
+	req.logout();
+	res.redirect('/');
 });
 
 var server = http.createServer(app).listen(app.get('port'), function(){

@@ -26,3 +26,29 @@ exports.setOrg = function(req, res){
 		});
 	});
 }
+
+//INPUT: A req from the POST request of the account creation form
+//OUTPUT: Update the account field made by Passport to include other user information
+exports.updateAccount = function(req, res){
+	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
+		
+		var accounts = db.collection('accounts');
+		accounts.update(
+			{username : req.body.username},
+			{$set: {
+				firstname : req.body.firstName,
+				lastname : req.body.lastName,
+				email : req.body.emailAddress,
+				affiliates : req.body.affiliate
+			} },
+			{
+				upsert : false
+			}
+		,function(err, docs){
+			if(err){
+				return console.error(err);
+			}
+			console.log("New account created: ", req.body.username);
+		});
+	});
+}
