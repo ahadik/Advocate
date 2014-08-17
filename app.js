@@ -9,6 +9,8 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 //var routes = require('./routes');
 var registrations = require('./routes/registrations');
 var accountCreate = require('./routes/register');
+var upload = require('./routes/upload');
+var account = require('./routes/account');
 var index = require('./routes/index');
 var register = require('./routes/register');
 var twitter = require('./routes/twitter');
@@ -70,50 +72,62 @@ app.get('/submits', registrations.form);
 app.get('/register', register.form);
 app.get('/auth', register.twitter);
 app.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-        //if the post produces an error
-        if (err) {
-        	console.log('error');
-        	console.log(err);
-            return res.render('register', { account : account });
-        }
-		//if no error - call the authenticate function of the passport
-        passport.authenticate('local')(req, res, function () {
-        	accountCreate.updateAccount(req, res);
-        	res.redirect('/');
-        });
-	});
+	if(validateUsername(req.body.username)){
+		Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+	        //if the post produces an error
+	        if (err) {
+	        	console.log('error');
+	        	console.log(err);
+	            return res.render('register', { account : account });
+	        }
+			//if no error - call the authenticate function of the passport
+	        passport.authenticate('local')(req, res, function () {
+	        	accountCreate.updateAccount(req, res);
+	        	res.redirect('/');
+	        });
+		});
+	}else{
+		console.log('error');
+	    console.log('Username cannot start with @');
+		return res.render('register', { account : account });
+	}
 });
+
+app.get('/login', function(req, res){
+	res.render('login', {user : req.user});
+});
+
+app.post('/login', passport.authenticate('local'), function(req, res) {
+	
+	res.redirect('/account');
+});
+
+app.get('/logout', function(req, res) {
+	req.logout();
+	res.redirect('/');
+});
+
+app.get('/account', account.accountView);
+
+app.get('/profileComplete', account.accountComplete);
+
+app.get('/sign_s3', upload.sign);
+
+app.post('/submit_form', upload.submit_form);
 
 app.get('/auth/twitter',
 	passport.authenticate('twitter'),
 	function(req, res){
-		//ain't nothin' happenin here
+		console.log("authenticated");
 });
 
 app.get('/auth/twitter/callback',
 	passport.authenticate('twitter', {failureRedirect: '/login'}),
 	function(req, res){
-		var nameSplit = req.user.displayName.split(" ");
-		var lastName = nameSplit.slice(1).join(" ");
-		var firstName = nameSplit[0];
-		var username = req.user.username;
-		MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
-			var collection = db.collection('accounts');
-			collection.insert([{firstName : firstName, lastName : lastName, username : username, source : 'twitter'}], function(err, docs) {
-				if (err){
-					return console.error(err);
-				}
-				console.log('New Twitter Account authentication: ', firstName+" "+lastName+": "+username);
-			});
-		});
+		
 		res.redirect('/');
 	});
-	
-app.get('/logout', function(req, res){
-	req.logout();
-	res.redirect('/');
-});
+
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
@@ -121,3 +135,11 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 
 var formServer = require('./lib/form_server');
 formServer.listen(server, socketio);
+
+function validateUsername(username){
+	if(username.indexOf('@')==0){
+		return false;
+	}else{
+		return true;
+	}
+}

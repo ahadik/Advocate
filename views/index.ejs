@@ -107,7 +107,7 @@
 						<ul>
 							<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
 							<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
-							<li class="buttonize"><a onclick="toggleDialogue()">SIGN UP</a></li>
+							<%if (user) {%><li><%= user.username %> <%}%><%if (!user) {%><li class="buttonize"><a onclick="toggleDialogue()">SIGN UP</a><%}%></li>
 						</ul>
 					</div>
 				</div>

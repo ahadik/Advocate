@@ -34,23 +34,23 @@
 							<ul>
 								<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
 								<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
-								<li class="buttonize"><a href="/login">LOG IN</a></li>
+								<li class="buttonize"><a href="/register">SIGN UP</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div id="formContainer">
-				<h1 class="headTitle centerAlign">SIGN UP</h1>
+				<h1 class="headTitle centerAlign">LOG IN</h1>
 				<div class="colorBar">
 					<div class="pink colorBlock"></div>
 					<div class="dark colorBlock"></div>
 					<div class="blue colorBlock"></div>
 					<div class="yellow colorBlock"></div>
 				</div>
-				<form role="form" action="/register" method="post" id="registerForm">
+				<form role="form" action="/login" method="post" id="registerForm">
 					<div id="formWrapper">
-						<p class="centerAlign">Have an account? <a href="/login">Log in</a></p>
+						<p class="centerAlign">Don't have an account? <a href="/register">Sign Up</a></p>
 						<div id="twitterAuth" onclick="location.href='/auth/twitter';">
 							<div class="buttonTable">
 								<div class="buttonContent">
@@ -70,11 +70,8 @@
 							</div>
 						</div>
 						<div class="modalForm width100">
-							<input type="text" id="firstName" name="firstName" placeholder="first name" class="formtext width48 validateInterest" required>
-							<input type="text" id="lastName" name="lastName" placeholder="last name" class="formtext width48 floatRight validateInterest" required><br>
-							<input type="text" id="affiliate" name="affiliate" placeholder="affiliated schools or organizations" class="formtext width100 validateInterest" required><br>
-							<input type="text" id="username" name="username" placeholder="username" onblur="checkUsername();" class="formtext width100 validateInterest" required><br>
-							<input type="email" id="emailAddress" name="emailAddress" placeholder="email" class="formtext width100 validateInterest" required><br>
+							<p class="centerAlign">Sign in with your Advocate username.</p>
+							<input type="text" id="username" name="username" placeholder="username" class="formtext width100 validateInterest" required><br>
 							<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
 						</div>
 					</div>

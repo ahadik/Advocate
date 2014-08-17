@@ -760,9 +760,15 @@ p.caption{
 	background-image: url('../../resources/twitter_icon_small.png');
 }
 
+#formContainer{
+	padding-top: 36px;
+}
+
 #registerForm{
 	position: relative;
 	width: 100%;
+	margin-bottom: 50px;
+	padding-bottom: 20px;
 }
 
 /*DIVIDER SHIT*/
