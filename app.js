@@ -19,6 +19,8 @@ var socketio = require('socket.io');
 var flash    = require('connect-flash');
 var mongodb = require('mongodb')
   , MongoClient = mongodb.MongoClient;
+var MemoryStore = express.session.MemoryStore;
+var sessionStore = new MemoryStore();
   
 twitter.twitter(passport, TwitterStrategy);
 
@@ -32,7 +34,10 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('chip chocolate chip'));
-app.use(express.session({secret : 'in service of what?'}));
+app.use(express.session({
+		secret : 'in service of what?',
+		store : sessionStore
+	}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -83,7 +88,7 @@ app.post('/register', function(req, res) {
 			//if no error - call the authenticate function of the passport
 	        passport.authenticate('local')(req, res, function () {
 	        	accountCreate.updateAccount(req, res);
-	        	res.redirect('/');
+	        	res.redirect('/profileComplete');
 	        });
 		});
 	}else{
@@ -134,7 +139,7 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 });
 
 var formServer = require('./lib/form_server');
-formServer.listen(server, socketio);
+formServer.listen(server, socketio, express, sessionStore);
 
 function validateUsername(username){
 	if(username.indexOf('@')==0){

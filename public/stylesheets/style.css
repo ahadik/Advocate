@@ -66,6 +66,12 @@ h4{
 	font-size: 14pt;
 }
 
+p{
+	font-size: 14pt;
+	font-weight: 200;
+	color: gray;
+}
+
 button{
 	color: white;
 	font-size: 18pt;
@@ -705,7 +711,6 @@ p.caption{
 	margin-right: auto;
 	margin-top: 20px;
 	padding-top: 20px;
-	background-color: #E6E7E8;
 	padding-bottom: 30px;
 }
 
@@ -762,13 +767,13 @@ p.caption{
 
 #formContainer{
 	padding-top: 36px;
+	margin-bottom: 36px;
+	padding-bottom: 20px;
 }
 
 #registerForm{
 	position: relative;
 	width: 100%;
-	margin-bottom: 50px;
-	padding-bottom: 20px;
 }
 
 /*DIVIDER SHIT*/
@@ -804,4 +809,93 @@ h1.dividerText{
 	color: #808184;
 	font-weight: 200;
 	float: left;
+}
+
+.formSection{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: intrinsic;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #E6E7E8;
+	margin-bottom: 20px;
+}
+
+.leftSection{
+	position: relative;
+	float: left;
+	width: 30%;
+	height: 100%;
+	margin-left: 20px;
+}
+
+.rightColumn{
+	position: relative;
+	float: left;
+	width: 445px;
+}
+
+.rightSection{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: intrinsic;
+	display: table;
+	background-color: white;
+	padding-left: 20px;
+	padding-top: 20px;
+	margin-right: 20px;
+}
+
+.rightInput{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.rightInput input{
+	width: 465px;
+	padding-left: 20px;
+}
+
+#profileText{
+	position: relative;
+	width: intrinsic;
+	height: 20px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#status{
+	width: 100%;
+	float: left;
+	text-align: center;
+	margin-bottom: 12px;
+}
+
+#profileWrapper{
+	position: relative;
+	width: 60%;
+	height: 180px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#fileWrapper{
+	position: relative;
+	width: intrinsic;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#preview{
+	position: relative;
+	width: 180px;
+	height: 180px;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-size: cover;
 }

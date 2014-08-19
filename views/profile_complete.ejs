@@ -34,7 +34,7 @@
 							<ul>
 								<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
 								<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
-								<li class="buttonize"><a href="/register">SIGN UP</a></li>
+								<%if (username) {%><li><%= username %> <%}%><%if (!username) {%><li class="buttonize"><a onclick="toggleDialogue()">SIGN UP</a><%}%></li>
 							</ul>
 						</div>
 					</div>
@@ -48,37 +48,83 @@
 					<div class="blue colorBlock"></div>
 					<div class="yellow colorBlock"></div>
 				</div>
-				<form role="form" action="/login" method="post" id="registerForm">
+				<form role="form" id="registerForm" name="profileUpdate">
+					<input type="hidden" id="avatar_url" name="avatar_url" value="<%=profile%>" />
 					<div id="formWrapper">
-						<p class="centerAlign">Don't have an account? <a href="/register">Sign Up</a></p>
-						<div id="twitterAuth" onclick="location.href='/auth/twitter';">
-							<div class="buttonTable">
-								<div class="buttonContent">
-									<div class="buttonLogo" id="twitter"></div>
-									<h3 class="buttonText">log in with twitter</h3>
+						<div class="formSection">
+							<div class="leftSection">
+								<h2>profile picture</h2>
+							</div>
+							<div class="rightColumn">
+								<div class="rightSection">
+									<div id="profileText">
+										<p id="status">Select a new profile picture</p>
+										<div id="fileWrapper">
+											<input type="file" id="files"/>
+										</div>
+									</div>
+									<div id="profileWrapper">
+										
+										<div id="preview" style="background-image: url(<%=profile%>);">
+										</div>
+										
+									</div>
 								</div>
 							</div>
 						</div>
-						<p class="caption">we'll never post anything without your permission!</p>
-						<div class="optionDivider">
-							<div class="dividerWrapper">
-								<div class="dividerLine">
+						<div class="formSection">
+							<div class="leftSection">
+								<h2>the important bits</h2>
+							</div>
+							<div class="rightColumn">
+								<div class="rightSection">
+									<p>interests (choose all that apply)</p>
+									<% for(var i=0; i<interests.length; i++) { %>
+										<p><input type="checkbox" name="interest" value="<%=interests[i]%>" style="margin-right:1em;"><%=interests[i]%></p><br>
+								    <% } %>
 								</div>
-								<h1 class="dividerText">OR</h1>
-								<div class="dividerLine">
+								<div class="rightInput">
+									<input type="text" id="zipCode" name="zipCode" placeholder="ZIP code" class="formtext width100 validateInterest" value="<%=zipCode%>" required>
 								</div>
 							</div>
-						</div>
-						<div class="modalForm width100">
-							<p class="centerAlign">Sign in with your Advocate username.</p>
-							<input type="text" id="username" name="username" placeholder="username" class="formtext width100 validateInterest" required><br>
-							<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
 						</div>
 					</div>
 					<div id="buttonContainer">
-						<button type="submit" class="buttonize pink centerBox">SUBMIT</button>
+						<button id="saveButton" onclick="formSubmission('profileUpdate', ['interest'], updateUserProfile); return false;" class="buttonize pink centerBox">SAVE</button>
 					</div>
 				</form>
+				<script type="text/javascript" src="/public/javascripts/s3upload.js"></script>
+
+				<script type="text/javascript">
+					function s3_upload(){
+					    var status_elem = document.getElementById("status");
+					    var url_elem = document.getElementById("avatar_url");
+					    var preview_elem = document.getElementById("preview");
+					    var s3upload = new S3Upload({
+					        file_dom_selector: 'files',
+					        s3_sign_put_url: '/sign_s3',
+					        onProgress: function(percent, message) {
+					            status_elem.innerHTML = 'Upload progress: ' + percent + '% ' + message;
+					        },
+					        onFinishS3Put: function(public_url) {
+					            status_elem.innerHTML = 'Upload completed.';
+					            url_elem.value = public_url;
+					            console.log(public_url);
+					            $('#preview').css("background-image","url('"+public_url+"')");
+					            completionNotification(public_url);
+					        },
+					        onError: function(status) {
+					            status_elem.innerHTML = 'Upload error: ' + status;
+					        }
+					    });
+					}
+					
+					(function() {
+					    var input_element = document.getElementById("files");
+					    input_element.onchange = s3_upload;
+					})();
+				</script>
+				
 			</div>
 			<div id="footer" class="pink">
 				<div class="innerContainer navCenter">

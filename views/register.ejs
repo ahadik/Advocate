@@ -50,32 +50,34 @@
 				</div>
 				<form role="form" action="/register" method="post" id="registerForm">
 					<div id="formWrapper">
-						<p class="centerAlign">Have an account? <a href="/login">Log in</a></p>
-						<div id="twitterAuth" onclick="location.href='/auth/twitter';">
-							<div class="buttonTable">
-								<div class="buttonContent">
-									<div class="buttonLogo" id="twitter"></div>
-									<h3 class="buttonText">log in with twitter</h3>
+						<div class="formSection">
+							<p class="centerAlign">Have an account? <a href="/login">Log in</a></p>
+							<div id="twitterAuth" onclick="location.href='/auth/twitter';">
+								<div class="buttonTable">
+									<div class="buttonContent">
+										<div class="buttonLogo" id="twitter"></div>
+										<h3 class="buttonText">log in with twitter</h3>
+									</div>
 								</div>
 							</div>
-						</div>
-						<p class="caption">we'll never post anything without your permission!</p>
-						<div class="optionDivider">
-							<div class="dividerWrapper">
-								<div class="dividerLine">
-								</div>
-								<h1 class="dividerText">OR</h1>
-								<div class="dividerLine">
+							<p class="caption">we'll never post anything without your permission!</p>
+							<div class="optionDivider">
+								<div class="dividerWrapper">
+									<div class="dividerLine">
+									</div>
+									<h1 class="dividerText">OR</h1>
+									<div class="dividerLine">
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="modalForm width100">
-							<input type="text" id="firstName" name="firstName" placeholder="first name" class="formtext width48 validateInterest" required>
-							<input type="text" id="lastName" name="lastName" placeholder="last name" class="formtext width48 floatRight validateInterest" required><br>
-							<input type="text" id="affiliate" name="affiliate" placeholder="affiliated schools or organizations" class="formtext width100 validateInterest" required><br>
-							<input type="text" id="username" name="username" placeholder="username" onblur="checkUsername();" class="formtext width100 validateInterest" required><br>
-							<input type="email" id="emailAddress" name="emailAddress" placeholder="email" class="formtext width100 validateInterest" required><br>
-							<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
+							<div class="modalForm width100">
+								<input type="text" id="firstName" name="firstName" placeholder="first name" class="formtext width48 validateInterest" required>
+								<input type="text" id="lastName" name="lastName" placeholder="last name" class="formtext width48 floatRight validateInterest" required><br>
+								<input type="text" id="affiliate" name="affiliate" placeholder="affiliated schools or organizations" class="formtext width100 validateInterest" required><br>
+								<input type="text" id="username" name="username" placeholder="username" onblur="checkUsername();" class="formtext width100 validateInterest" required><br>
+								<input type="email" id="emailAddress" name="emailAddress" placeholder="email" class="formtext width100 validateInterest" required><br>
+								<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
+							</div>
 						</div>
 					</div>
 					<div id="buttonContainer">

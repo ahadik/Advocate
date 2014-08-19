@@ -41,7 +41,9 @@ exports.updateAccount = function(req, res){
 				email : req.body.emailAddress,
 				affiliates : req.body.affiliate,
 				profile : '/resources/temp_profile.png',
-				source : 'web'
+				source : 'web',
+				zipCode : '',
+				interests : []
 			} },
 			{
 				upsert : false

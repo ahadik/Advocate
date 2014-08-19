@@ -50,29 +50,31 @@
 				</div>
 				<form role="form" action="/login" method="post" id="registerForm">
 					<div id="formWrapper">
-						<p class="centerAlign">Don't have an account? <a href="/register">Sign Up</a></p>
-						<div id="twitterAuth" onclick="location.href='/auth/twitter';">
-							<div class="buttonTable">
-								<div class="buttonContent">
-									<div class="buttonLogo" id="twitter"></div>
-									<h3 class="buttonText">log in with twitter</h3>
+						<div class="formSection">
+							<p class="centerAlign">Don't have an account? <a href="/register">Sign Up</a></p>
+							<div id="twitterAuth" onclick="location.href='/auth/twitter';">
+								<div class="buttonTable">
+									<div class="buttonContent">
+										<div class="buttonLogo" id="twitter"></div>
+										<h3 class="buttonText">log in with twitter</h3>
+									</div>
 								</div>
 							</div>
-						</div>
-						<p class="caption">we'll never post anything without your permission!</p>
-						<div class="optionDivider">
-							<div class="dividerWrapper">
-								<div class="dividerLine">
-								</div>
-								<h1 class="dividerText">OR</h1>
-								<div class="dividerLine">
+							<p class="caption">we'll never post anything without your permission!</p>
+							<div class="optionDivider">
+								<div class="dividerWrapper">
+									<div class="dividerLine">
+									</div>
+									<h1 class="dividerText">OR</h1>
+									<div class="dividerLine">
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="modalForm width100">
-							<p class="centerAlign">Sign in with your Advocate username.</p>
-							<input type="text" id="username" name="username" placeholder="username" class="formtext width100 validateInterest" required><br>
-							<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
+							<div class="modalForm width100">
+								<p class="centerAlign">Sign in with your Advocate username.</p>
+								<input type="text" id="username" name="username" placeholder="username" class="formtext width100 validateInterest" required><br>
+								<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
+							</div>
 						</div>
 					</div>
 					<div id="buttonContainer">
