@@ -19,6 +19,8 @@
 		<script src="/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script src="/public/javascripts/form.js"></script>
 		<script src="/public/javascripts/form_ui.js"></script>
+		<script src="/public/javascripts/profileComplete.js"></script>
+		<script src="/public/javascripts/geo.js"></script>
 	</head>
 	<body>
 		<div id="wrapper">
@@ -48,7 +50,7 @@
 					<div class="blue colorBlock"></div>
 					<div class="yellow colorBlock"></div>
 				</div>
-				<form role="form" id="registerForm" name="profileUpdate">
+				<form role="form" method="post" action="/complete" id="registerForm" name="profileUpdate">
 					<input type="hidden" id="avatar_url" name="avatar_url" value="<%=profile%>" />
 					<div id="formWrapper">
 						<div class="formSection">
@@ -84,13 +86,20 @@
 								    <% } %>
 								</div>
 								<div class="rightInput">
-									<input type="text" id="zipCode" name="zipCode" placeholder="ZIP code" class="formtext width100 validateInterest" value="<%=zipCode%>" required>
+									<div id="geoLocation">
+										<%if(state) {%>
+											<h2>Location:</h2>
+											<p><%=city%></p>
+											<p><%=state%></p>
+										<%}%>
+									</div>
+									<input type="number" pattern="[0-9]*" maxlength="5" min="0" id="zipCode" name="zipCode" placeholder="Update ZIP Code" class="formtext width100 validateInterest" onkeyup="findCityState();" <%if(!state) {%>required<%}%>>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div id="buttonContainer">
-						<button id="saveButton" onclick="formSubmission('profileUpdate', ['interest'], updateUserProfile); return false;" class="buttonize pink centerBox">SAVE</button>
+						<button id="saveButton" class="buttonize pink centerBox">COMPLETE</button>
 					</div>
 				</form>
 				<script type="text/javascript" src="/public/javascripts/s3upload.js"></script>

@@ -3,7 +3,7 @@ var mongodb = require('mongodb')
   , ObjectID = require('mongodb').ObjectID;
 
 exports.accountView = function(req, res){
-	renderProfilePages('account', req, res);
+	renderProfilePages('account', req, res, {});
 }
 
 exports.accountComplete = function(req, res){
@@ -24,26 +24,38 @@ exports.accountComplete = function(req, res){
 function renderProfilePages(page, req, res, options){
 	if(req.user){
 		MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
-			var accounts = db.collection('accounts');
-			accounts.find({username: req.user.username}).toArray(function(err, users) {
+			var userData = db.collection('userData');
+			var userID;
+			
+			if(req.user.source){
+				userID = req.user.userID;
+			}else{
+				userID = req.user._id.toString();
+			}
+			
+			userData.find({userID: userID}).toArray(function(err, users) {
 				//if there's no users, then something went wrong up above, so we return null resulting in a redirect to /login
 				if( err || !users){
 					console.log("No users found");
 					return done(null, null);
 					//if there's more than one user with this user name, we done fucked up somewhere and we return null again
 					//really this should redirect the user to a warning and generate a log sent to our backend dashboard to look into the issue
-				} else if(users.length != 1){
+				} else if(users.length > 1){
 					console.log("Multiple users found - something's fucked up!");  
 					return done(null, null);
 					//if we've made it this far, all is good and we can log the account details and return the account object from the database
 				} else{
 					var account = users[0];
-					var data = {username : account.username, firstName : account.firstname, lastName : account.lastname, profile : account.profile, email : account.email, zipCode : "", interests : []};
-					//when you start - figure out how to loop through an object and add each element of the object to the data object
+					
+					console.log(users);
+					
+					var data = {username : account.username, firstName : account.firstname, lastName : account.lastname, profile : account.profile, email : account.email, city : account.city, state : account.state, interests : account.interests};
 					
 					for(var option in options){
 						data[option] = options[option];
 					}
+					
+					console.log(data);
 					
 					res.render(page, data);
 				}

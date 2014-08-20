@@ -14,6 +14,7 @@ var account = require('./routes/account');
 var index = require('./routes/index');
 var register = require('./routes/register');
 var twitter = require('./routes/twitter');
+var geo = require('./lib/geo.js');
 var app = express();
 var socketio = require('socket.io');
 var flash    = require('connect-flash');
@@ -51,8 +52,16 @@ app.use(express.errorHandler());
 // passport config
 var Account = require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 
 
 // mongoose
@@ -70,6 +79,8 @@ app.get('/clear', function(req, res){
 	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		var accounts = db.collection('accounts');
 		accounts.remove({}, function(err, docs){});
+		var userData = db.collection('userData');
+		userData.remove({}, function(err, docs){});
 	});
 	res.redirect('/');
 });
@@ -97,6 +108,63 @@ app.post('/register', function(req, res) {
 		return res.render('register', { account : account });
 	}
 });
+
+app.post('/complete', function(req, res){
+	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
+		var userData = db.collection('userData');
+		//If the zipcode field has a value, then the city, state, lat and long need to be recomputed and updated in the database
+		
+		if(req.body.zipCode != ''){
+			geo.createLocationfromZip(req.body.zipCode, function(location){
+				console.log("Location retrieved");
+				console.log(location);
+				userData.update(
+					{username : req.user.username},
+					{$set: {
+						city : location.city,
+						state : location.state,
+						latitude : location.latitude,
+						longitude : location.longitude,
+						interests : req.body.interest
+					} },
+					{
+						upsert : true
+					}
+				,function(err, docs){
+					if(err){
+						console.log("There was an error.");
+						return console.error(err);
+					}
+					console.log("Profile updated: ", req.user.username);
+				});
+				userData.find({username : req.user.username}).toArray(function(err, users){
+					console.log("Account creation complete. Rendering account page");
+					res.redirect('/account');
+				});
+			});
+		//otherwise, only the interests section needs to be updated
+		}else{
+			userData.update(
+				{username : req.user.username},
+				{$set: {
+					interests : req.body.interest
+				} },
+				{
+					upsert : true
+				}
+			,function(err, docs){
+				if(err){
+					return console.error(err);
+				}
+				console.log("Profile updated: ", req.user.username);
+			});
+			userData.find({username : req.user.username}).toArray(function(err, users){
+				res.render('account', users[0]);
+				account.renderProfilePages('account', req, res, {});
+			});
+		}
+	});
+})
 
 app.get('/login', function(req, res){
 	res.render('login', {user : req.user});
@@ -130,7 +198,7 @@ app.get('/auth/twitter/callback',
 	passport.authenticate('twitter', {failureRedirect: '/login'}),
 	function(req, res){
 		
-		res.redirect('/');
+		res.redirect('/profileComplete');
 	});
 
 

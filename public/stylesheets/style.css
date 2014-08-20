@@ -846,6 +846,7 @@ h1.dividerText{
 	padding-left: 20px;
 	padding-top: 20px;
 	margin-right: 20px;
+	padding-bottom: 20px;
 }
 
 .rightInput{
@@ -898,4 +899,9 @@ h1.dividerText{
 	overflow: hidden;
 	background-repeat: no-repeat;
 	background-size: cover;
+}
+
+#geoLocation{
+	margin-top: 20px;
+	margin-left: 20px;
 }
