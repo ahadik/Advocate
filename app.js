@@ -159,8 +159,8 @@ app.post('/complete', function(req, res){
 				console.log("Profile updated: ", req.user.username);
 			});
 			userData.find({username : req.user.username}).toArray(function(err, users){
-				res.render('account', users[0]);
-				account.renderProfilePages('account', req, res, {});
+				//res.render('account', users[0]);
+				account.accountView('account', req, res, {});
 			});
 		}
 	});
