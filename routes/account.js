@@ -3,6 +3,7 @@ var mongodb = require('mongodb')
   , ObjectID = require('mongodb').ObjectID;
 
 exports.accountView = function(req, res){
+
 	renderProfilePages('account', req, res, {});
 }
 
