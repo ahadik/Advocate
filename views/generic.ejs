@@ -52,23 +52,59 @@
 								<div id="navName">
 									<p class="navText"><%=user.firstname%> <%=user.lastname%></p>
 								</div>
-								<div id="navSettings">
+								<div id="navSettings" onclick="toggleDropdown('settingsDropdown');">
+									<div id="settingsDropdown" class="dropDown">
+										<div class="arrow-up dropArrow"></div>
+									<!-- To make this work, as part of any authenticated session, you need to pass the following attributes: accounts- an array of objects for each account the user administers; activeAccount- the name of the account that the user is operating as with two properties, .name and .type. .name is the text name and .type is either 'personal', 'organization' or 'administration';  -->
+										<%if(user.accounts.length) { %>
+											<p class="dropdownHeader">Use Advocate as:</p>
+											<ul>
+												<%for(account in user.accounts){%>
+													<%if(user.accounts[account].name != user.activeAccount.name){%><li class="orgsDropdownEntry"><img src="<%=user.accounts[account].profile%>" width="25px" height="25px"/> <%=user.accounts[account].name%></li><%}%>
+												<%}%>
+											</ul>
+											<%if(user.activeAccount.type == 'organization'){%>
+												<div class="dropDownDivide"></div>
+												<ul>
+													<li><a href="/create" class="dropdownText">Create an event</a></li>
+													<li><a href="/track" class="dropdownText">Track your volunteers</a></li>
+												</ul>
+												<div class="dropDownDivide"></div>
+											<%}else if(user.activeAccount.type == 'administration'){%>
+												<div class="dropDownDivide"></div>
+												<ul>
+													<li><a href="/track" class="dropdownText">Track your members</a></li>
+												</ul>
+												<div class="dropDownDivide"></div>
+											<%}%>
+										<%}%>
+										<ul>
+											<li><a href="/help" class="dropdownText">Help</a></li>
+											<li><a href="/settings" class="dropdownText">Settings</a></li>
+											<li><a href="/logout" class="dropdownText">Log Out</a></li>
+										</ul>
+									</div>
 								</div>
-								<div id="navNotifications">
+								<div id="navNotifications" onclick="toggleDropdown('notifDropdown');">
+									<div id="notifDropdown" class="dropDown">
+										<div class="arrow-up dropArrow"></div>
+										<!-- To make this work, you need to add an attribute to the userData entries for notifications, which will include: .title, .body, .summary(100 chars), .viewed(true or false), .profile(org prof pic) -->
+										<%for(notif in user.notifs){%>
+											<div class="notifWrapper">
+												<div class="notifLeft" style="background-image: url(<%=user.notifs[notif].account.profile%>);">
+												</div>
+												<div class="notifRight <%if(user.notifs[notif].viewed){%>notifViewed<%}else{%>notifUnviewed<%}%>">
+													<h3><%=user.notifs[notif].account.name%></h3>
+													<a href="" style="font-weight:400;"><%=user.notifs[notif].title%></a>
+													<p><%=user.notifs[notif].body%></p>
+												</div>
+											</div>
+										<%}%>
+									</div>
 								</div>
 							<%}%>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="colorBar">
-				<div class="pink colorBlock">
-				</div>
-				<div class="blue colorBlock">
-				</div>
-				<div class="aqua colorBlock">
-				</div>
-				<div class="yellow colorBlock">
 				</div>
 			</div>
 			<div id="content" class="gridWrapper">
@@ -83,6 +119,16 @@
 				<br>
 				<br>
 				<br>
+			</div>
+			<div class="colorBar">
+				<div class="pink colorBlock">
+				</div>
+				<div class="blue colorBlock">
+				</div>
+				<div class="aqua colorBlock">
+				</div>
+				<div class="yellow colorBlock">
+				</div>
 			</div>
 			<div id="footer" class="pink banner">
 				<div class="gridWrapper">

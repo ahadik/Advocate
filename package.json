@@ -37,6 +37,7 @@
     "passport.socketio": "3.2.0",
     "connect-mongo" :  "*",
     "express-session" : "~1.7.6",
-    "request" : "*"
+    "request" : "*",
+    "moment" : "~2.8"
   }
 }

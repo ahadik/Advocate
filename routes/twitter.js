@@ -1,11 +1,16 @@
 var mongodb = require('mongodb')
   , MongoClient = mongodb.MongoClient;
 var ObjectID = require('mongodb').ObjectID;
+var Notif = require('../models/Notif');
 
 var geo = require('../lib/geo');
 
 var TWITTER_CONSUMER_KEY = "3F105wXBl8Hfmywi1s4vc557C";
 var TWITTER_CONSUMER_SECRET = "ndqHBZL5TYz6bRcv00Lf9wxdh4IFR6TXSYnLYR004zSwDE0MWp";
+
+
+
+/*THIS FUNCTION IS WAY TOO COMPLEX AND SHOULD BE VASTLY SIMPLIFIED TO SPEED UP TWITTER LOGIN*/
 
 exports.twitter = function(passport, TwitterStrategy){
 
@@ -50,53 +55,106 @@ exports.twitter = function(passport, TwitterStrategy){
 				var state = location[1];
 				
 				geo.createLocationfromCityState(city, state, function(location){
-					console.log(JSON.stringify(location));
-					userData.update(
-						{userID : profile._json.id_str},
-						{$set: {
-							username : username,
-							firstname : firstName,
-							lastname : lastName,
-							profile : profilePic,
-							city : city,
-							state : state,
-							latitude : location.latitude,
-							longitude : location.longitude,
-							source : profile.provider,
-							interests : [],
-							email : '',
-							affiliates : ''
-						} },
-						{
-							upsert : true
-						},
-						//as part of our call back we're going to do some error checking and then return the user object newly created/updated
-						function(err, docs){
-							if(err){
-								return console.error(err);
-							}
-							//Log this action
-							console.log("Account created/updated: ", firstName+" "+lastName+": "+username);
-							//retrieve the newly updated account
-							userData.find({username: username}).toArray(function(err, users) {
-								//if there's no users, then something went wrong up above, so we return null resulting in a redirect to /login
-								if( err || !users){
-									console.log("No users found");
-									return done(null, null);
-									//if there's more than one user with this user name, we done fucked up somewhere and we return null again
-									//really this should redirect the user to a warning and generate a log sent to our backend dashboard to look into the issue
-								} else if(users.length != 1){
-									console.log("Multiple users found - something's fucked up!");  
-									return done(null, null);
-									//if we've made it this far, all is good and we can log the account details and return the account object from the database
-								} else{
-									account = users[0];  
-									console.log("ACCOUNT: "+JSON.stringify(account));
-									return done(null, account);
+					
+					userData.find({userID: profile._json.id_str}).toArray(function(err, users) {
+						if(users.length){
+							
+							userData.update(
+								{userID : profile._json.id_str},
+								{$set: {
+									username : username,
+									firstname : firstName,
+									lastname : lastName,
+									profile : profilePic,
+									city : city,
+									state : state,
+									latitude : location.latitude,
+									longitude : location.longitude,
+									source : profile.provider
+								} },
+								{
+									upsert : true
+								},
+								//as part of our call back we're going to do some error checking and then return the user object newly created/updated
+								function(err, docs){
+									if(err){
+										return console.error(err);
+									}
+									//Log this action
+									console.log("Account created/updated: ", firstName+" "+lastName+": "+username);
+									//retrieve the newly updated account
+									userData.find({username: username}).toArray(function(err, users) {
+										//if there's no users, then something went wrong up above, so we return null resulting in a redirect to /login
+										if( err || !users){
+											console.log("No users found");
+											return done(null, null);
+											//if there's more than one user with this user name, we done fucked up somewhere and we return null again
+											//really this should redirect the user to a warning and generate a log sent to our backend dashboard to look into the issue
+										} else if(users.length != 1){
+											console.log("Multiple users found - something's fucked up!");  
+											return done(null, null);
+											//if we've made it this far, all is good and we can log the account details and return the account object from the database
+										} else{
+											account = users[0];  
+											console.log("ACCOUNT: "+JSON.stringify(account));
+											return done(null, account);
+										}
+									});
 								}
-							});
+							);
+						}else{
+							var firstNotif = new Notif.Notif('Welcome to Advocate!', 'This is where you\'ll find updates.', {name : 'Advocate', type : 'advocate', profile : '/resources/logo_square_small.png'});
+							userData.update(
+								{userID : profile._json.id_str},
+								{$set: {
+									username : username,
+									firstname : firstName,
+									lastname : lastName,
+									profile : profilePic,
+									city : city,
+									state : state,
+									latitude : location.latitude,
+									longitude : location.longitude,
+									source : profile.provider,
+									interests : [],
+									accounts : [],
+									email : '',
+									affiliates : '',
+									active : {name : username, type : 'personal'},
+									notifs : [firstNotif]
+								} },
+								{
+									upsert : true
+								},
+								//as part of our call back we're going to do some error checking and then return the user object newly created/updated
+								function(err, docs){
+									if(err){
+										return console.error(err);
+									}
+									//Log this action
+									console.log("Account created/updated: ", firstName+" "+lastName+": "+username);
+									//retrieve the newly updated account
+									userData.find({username: username}).toArray(function(err, users) {
+										//if there's no users, then something went wrong up above, so we return null resulting in a redirect to /login
+										if( err || !users){
+											console.log("No users found");
+											return done(null, null);
+											//if there's more than one user with this user name, we done fucked up somewhere and we return null again
+											//really this should redirect the user to a warning and generate a log sent to our backend dashboard to look into the issue
+										} else if(users.length != 1){
+											console.log("Multiple users found - something's fucked up!");  
+											return done(null, null);
+											//if we've made it this far, all is good and we can log the account details and return the account object from the database
+										} else{
+											account = users[0];  
+											console.log("ACCOUNT: "+JSON.stringify(account));
+											return done(null, account);
+										}
+									});
+								}
+							);
 						}
-					);
+					})
 				});
 			});
 	    });

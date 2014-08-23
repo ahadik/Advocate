@@ -4,6 +4,7 @@ var join = path.join;
 var formServer = require('../lib/form_server');
 var mongodb = require('mongodb')
   , MongoClient = mongodb.MongoClient;
+var Notif = require('../models/Notif');
 
 exports.form = function(req, res){
 	formServer.report(function(data){
@@ -50,6 +51,7 @@ exports.updateAccount = function(req, res){
 					
 					
 					var accountData = db.collection('userData');
+					var firstNotif = new Notif.Notif('Welcome to Advocate!', 'This is where you\'ll find updates.', {name : 'Advocate', type : 'advocate', profile : '/resources/logo_square_small.png'});
 					accountData.insert(
 						{
 							userID : userID.toString(),
@@ -64,7 +66,10 @@ exports.updateAccount = function(req, res){
 							state : null,
 							latitude : null,
 							longitute : null,
-							interests : []
+							interests : [],
+							accounts : [],
+							active : {name : req.body.username, type : 'personal'},
+							notifs : [firstNotif]
 						},function(err, docs){
 							if(err){
 								return console.error(err);
