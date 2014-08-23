@@ -77,15 +77,29 @@ if ('development' == app.get('env')) {
 
 app.get('/', index.index);
 app.get('/style', function(req, res){
-	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db){
-		var userData = db.collection('userData');
-		userData.find({userID : req.user._id}).toArray(function(err, users){
-			console.log("adaasdfa");
-			console.log(users[0]);
-		
-			res.render('generic', {user : users[0]})
+	if(req.user){
+		MongoClient.connect(process.env.MONGOHQ_DB, function(err, db){
+	
+			var userID;
+			//if the source attribute exists, this is a twitter account with the userData object supplied as the header
+			if(req.user.source){
+				userID = req.user.userID;
+			//otherwise it's a normal account
+			}else{
+				userID = req.user._id.toString();
+			}
+					
+			var userData = db.collection('userData');
+			userData.find({userID : userID}).toArray(function(err, users){
+				console.log("adaasdfa");
+				console.log(users[0]);
+			
+				res.render('generic', {auth : true, user : users[0]})
+			});
 		});
-	});
+	}else{
+		res.render('generic', {auth : false});
+	}
 });
 app.get('/clear', function(req, res){
 	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {

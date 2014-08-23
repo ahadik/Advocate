@@ -43,11 +43,10 @@
 					</div>
 					<div class="navWrapper">
 						<div id="navRight">
-							<%if(!user){%>
+							<%if(!auth){%>
 								<a href="/login" class="navText" style="margin-right: 24px;">Log In</a>
 								<a href="/register" class="smallButtonize" style="font-size: 14pt;">Sign Up!</a>
-							<%}%>
-							<%if(user){%>
+							<%}else{%>
 								<div id="navProfilePic" style="background-image: url(<%=user.profile%>); background-size: cover;">
 								</div>
 								<div id="navName">
