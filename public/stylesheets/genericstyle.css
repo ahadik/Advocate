@@ -1,0 +1,415 @@
+body{
+	margin: 0;
+	background-color: #F2F2F2;
+}
+
+h1, h2, h3, h4, p, ul, ol, logo, form, input, a{
+	font-family: "Helvetica Neue",Arial,Tahoma,Helvetica,sans-serif;
+	color: #494949;
+	margin: 0;
+}
+
+h1{
+	color: black;
+	font-size: 24pt;
+	font-weight: 400;
+}
+
+h2{
+	font-size: 14pt;
+	font-weight: 400;
+	color: #BA434F;
+}
+
+h3{
+	color: black;
+	font-size: 14pt;
+	font-weight: 500;
+}
+
+p{
+	font-size: 14pt;
+	font-weight: 200;
+	color: #808284;
+}
+
+a{
+	font-size: 14pt;
+	font-weight: 200;
+	color: #2A3A4F;
+	text-decoration:none;	
+}
+
+a:hover{
+	color: #6D97CF;
+	text-decoration: none;
+}
+
+a:visited{
+	color: #2A3A4F;
+	text-decoration: none;
+}
+
+.banner p{
+	color: white;
+}
+
+button{
+	color: white;
+	font-size: 18pt;
+	font-weight: 200;
+	font-family: "Helvetica Neue",Arial,Tahoma,Helvetica,sans-serif;
+}
+
+/*GRID STUFF STARTS HERE*/
+
+.gridWrapper{
+	position: relative;
+	width: 974px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.padding{
+	padding: 14px;
+}
+
+.fullWidth{
+	position: relative;
+	width: 946px;
+}
+
+.threeQuarterWidth{
+	position: relative;
+	width: 706px;
+}
+
+.halfWidth{
+	position: relative;
+	width: 466px;
+}
+
+.quarterWidth{
+	position: relative;
+	width: 226px;
+}
+
+.thirdWidth{
+	position: relative;
+	width: 306px;
+}
+
+.twoThirdsWidth{
+	position: relative;
+	width: 626px;
+}
+
+.tenWidth{
+	position: relative;
+	
+}
+
+/*COLORS*/
+
+.colorBar{
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 10px;
+}
+
+.colorBlock{
+	position: relative;
+	float: left;
+	display: block;
+	width: 25%;
+	height: 100%;
+}
+
+.pink{
+	background-color: #EC5665;
+}
+
+.pinkDark{
+	background-color: #BA434F;
+}
+
+.pinkLight{
+	background-color: #EF9EA7;
+}
+
+.blue{
+	background-color: #456084;	
+}
+
+.blueDark{
+	background-color: #2A3A4F;	
+}
+
+.blueLight{
+	background-color: #6D97CF;	
+}
+
+.aqua{
+	background-color: #68C6B8;
+}
+
+.aquaDark{
+	background-color: #4A9488;
+}
+
+.aquaLight{
+	background-color: #ABCFC9;
+}
+
+.yellow{
+	background-color: #FEC56A;
+}
+
+.yellowDark{
+	background-color: #CA9C53;
+}
+
+.yellowLight{
+	background-color: #FEE1B4;
+}
+
+/*ALIGNMENT*/
+
+.tableView{
+	display: table;
+}
+
+/*WIDTH CLASSES*/
+.width100{
+	width: 100%;
+}
+
+.width75{
+	width: 75%;
+}
+.width60{
+	width: 60%;
+}
+.width50{
+	width: 50%;
+}
+.width45{
+	width: 45%;
+}
+.width48{
+	width: 48%;
+}
+.width30{
+	width: 30%;
+}
+
+.width25{
+	width: 25%;
+}
+
+.height100{
+	height: 100%;
+}
+
+/*BUTTON STYLING*/
+
+.smallButtonize{
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 4px;
+	padding-right: 4px;
+	border: 1px solid white;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	cursor: pointer;
+	color: white;
+	font-size: 18pt;
+	font-weight: 200;
+	font-family: "Helvetica Neue",Arial,Tahoma,Helvetica,sans-serif;
+}
+
+.smallButtonize:hover{
+	color: white;
+}
+
+.buttonize{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 12px;
+	padding-right: 12px;
+	border: 1px solid white;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	cursor: pointer;
+	color: white;
+	font-size: 18pt;
+	font-weight: 200;
+	font-family: "Helvetica Neue",Arial,Tahoma,Helvetica,sans-serif;
+}
+
+.buttonizeButton{
+	position: relative;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+}
+
+/*POPUP STYLING*/
+
+.overlay{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.4);
+	z-index: 1;
+}
+
+.popup{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 830px;
+	background-color: white;
+	z-index: 30;
+	margin-top: 50px;
+	padding-top: 36px;
+	padding-bottom: 36px;
+}
+
+/*TWITTER LOGIN*/
+#twitterAuth{
+	position: relative;
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	width: 90%;
+	height: 70px;
+	background-color: #55ACEE;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+
+#twitter{
+	background-image: url('../../resources/twitter_icon_small.png');
+}
+
+/*NAVIGATION STYLING*/
+
+#nav{
+	position: relative;
+	width: 100%;
+	height: 40px;
+}
+
+#logo{
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	height: 26px;
+	width: 165px;
+	padding-right: 40px;
+}
+
+#navLeft{
+	position: relative;
+	width: 175px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#navRight{
+	position: relative;
+	height: 40px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.navWrapper{
+	position: relative;
+	float: right;
+	height: 100%;
+}
+
+.navText, .navText a{
+	font-size: 14pt;
+	font-weight: 400;
+	color : #BA434F;
+	text-align: center;
+}
+
+.navText:hover, .navText a:hover{
+	color: #EF9EA7
+}
+
+#navProfilePic{
+	position: relative;
+	float: left;
+	height: 25px;
+	width: 25px;
+	margin-right: 15px;
+}
+
+#navName{
+	position: relative;
+	float: left;
+	margin-right: 30px;
+}
+
+#navSettings{
+	position: relative;
+	float: left;
+	width: 25px;
+	height: 25px;
+	background-image: url('/resources/nav_icon-08.png');
+	margin-right: 15px;
+}
+
+#navNotifications{
+	position: relative;
+	float: left;
+	width: 25px;
+	height: 25px;
+	background-image: url('/resources/nav_icon-09.png');
+}
+
+/*DIVIDER*/
+.optionDivider{
+	position: relative;
+	text-align: center;
+	margin: 0 auto;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	width: auto;
+	
+}
+
+.dividerLine{
+	position: relative;
+	float: left;
+	width: 205px;
+	height: 17px;
+	border-bottom: 2px solid #676767;
+	margin-left: 24px;
+	margin-right: 24px;
+}
+
+.dividerWrapper{
+	position: relative;
+	margin: 0 auto;
+	width: 556px;
+}
+
+h1.dividerText{
+	font-size: 24pt;
+	color: #808184;
+	font-weight: 200;
+	float: left;
+	width: 50px;
+}

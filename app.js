@@ -22,6 +22,7 @@ var mongodb = require('mongodb')
   , MongoClient = mongodb.MongoClient;
 var MemoryStore = express.session.MemoryStore;
 var sessionStore = new MemoryStore();
+var ObjectID = require('mongodb').ObjectID;
   
 twitter.twitter(passport, TwitterStrategy);
 
@@ -75,6 +76,17 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', index.index);
+app.get('/style', function(req, res){
+	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db){
+		var userData = db.collection('userData');
+		userData.find({userID : req.user._id}).toArray(function(err, users){
+			console.log("adaasdfa");
+			console.log(users[0]);
+		
+			res.render('generic', {user : users[0]})
+		});
+	});
+});
 app.get('/clear', function(req, res){
 	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		var accounts = db.collection('accounts');

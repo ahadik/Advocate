@@ -66,7 +66,7 @@
 						</div>
 					</div>
 					<div id="buttonContainer">
-						<button type="submit" class="buttonize pink centerBox">SUBMIT</button>
+						<button type="submit" class="centerBox buttonize pink">SUBMIT</button>
 					</div>
 				</form>
 			</div>
@@ -109,7 +109,7 @@
 						<ul>
 							<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
 							<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
-							<%if (user) {%><li><%= user.username %> <%}%><%if (!user) {%><li class="buttonize"><a onclick="toggleDialogue()">SIGN UP</a><%}%></li>
+							<%if (user) {%><li><%= user.username %> <%}%><%if (!user) {%><li class="buttonize"><a onclick="toggleDialogue()"><span class="buttonizeButton">SIGN UP</span></a><%}%></li>
 						</ul>
 					</div>
 				</div>
