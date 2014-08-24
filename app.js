@@ -11,6 +11,7 @@ var accountCreate = require('./routes/register');
 var upload = require('./routes/upload');
 var account = require('./routes/account');
 var index = require('./routes/index');
+var orgs = require('./routes/orgs');
 var register = require('./routes/register');
 var twitter = require('./routes/twitter');
 var geo = require('./lib/geo.js');
@@ -30,6 +31,7 @@ twitter.twitter(passport, TwitterStrategy);
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
 app.use(express.logger('dev'));
@@ -192,11 +194,21 @@ app.get('/logout', function(req, res) {
 
 app.get('/account', account.accountView);
 
+app.get('/newOrganization', account.createOrg);
+
 app.get('/profileComplete', account.accountComplete);
 
-app.get('/sign_s3', upload.sign);
+app.get('/sign_s3', function(req,res){
+	upload.sign(req, res, process.env.S3_PROFILE_BUCKET)
+});
+
+app.get('/sign_orglogo', function(req, res){
+	upload.sign(req, res, process.env.S3_ORG_BUCKET)
+});
 
 app.post('/submit_form', upload.submit_form);
+
+app.post('/newOrganization', orgs.newOrg);
 
 app.get('/auth/twitter',
 	passport.authenticate('twitter'),

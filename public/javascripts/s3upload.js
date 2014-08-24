@@ -62,7 +62,9 @@
       var this_s3upload, xhr;
       this_s3upload = this;
       xhr = new XMLHttpRequest();
-      xhr.open('GET', this.s3_sign_put_url + '?s3_object_type=' + file.type + '&s3_object_name=' + this.s3_object_name, true);
+      
+      var type = file.type.split('/');
+      xhr.open('GET', this.s3_sign_put_url + '?s3_object_type=' + file.type + '&s3_object_name=' + makeid()+'.'+type[type.length-1], true);
       xhr.overrideMimeType('text/plain; charset=x-user-defined');
       xhr.onreadystatechange = function(e) {
         var result;
@@ -82,6 +84,9 @@
     };
 
     S3Upload.prototype.uploadToS3 = function(file, url, public_url) {
+    
+    console.log(public_url);
+    
       var this_s3upload, xhr;
       this_s3upload = this;
       xhr = this.createCORSRequest('PUT', url);
@@ -126,3 +131,13 @@
   })();
 
 }).call(this);
+
+function makeid(){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 10; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}

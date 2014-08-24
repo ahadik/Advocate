@@ -1,0 +1,106 @@
+<html>
+	<head>
+		<title>Advocate</title>
+		<link rel="stylesheet" href="/stylesheets/genericstyle.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="/stylesheets/orgcreate.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
+		<% include includes/boilerplate %>
+	</head>
+	<body>
+		<div class="overlay" onclick="toggleDialogue()">
+			<div class="popup" onclick="preventHide()">
+				<h1 class="headTitle centerAlign"></h1>
+				<div class="colorBar">
+					<div class="pink colorBlock">
+					</div>
+					<div class="blue colorBlock">
+					</div>
+					<div class="aqua colorBlock">
+					</div>
+					<div class="yellow colorBlock">
+					</div>
+				</div>		
+				<p></p>
+			</div>
+		</div>
+		<div id="wrapper">
+			<% include includes/header %>
+			<div class="gridWrapper" id="content">
+				<div class="pageTitle">
+					<h1>New Organization</h1>
+				</div>
+				<div class="fullWidth contentBox padding">
+					<form method="post" action="/newOrganization">
+						<input type="hidden" id="avatar_url" name="avatar_url" value="<%=user.profile%>" />
+						<div class="quarterWidth" style="margin-right:14px;">
+							<h3>For us!</h3>
+						</div>
+						<div class="threeQuarterWidth">
+							<input type="text" placeholder="organization name" name="orgName" class="formtext width100" required/>
+							<div class="formLine width100 genericText">
+								<div class="formQues">Registered 501c3?</div>
+								<div class="options"><div class="radioOption">yes<input type="radio" name="registered" value="yes"></div><div class="radioOption">no<input type="radio" name="registered" value="no"></div></div>
+							</div>
+							<input type="url" placeholder="website" name="orgWeb" class="formtext width100" required/>
+							<input type="email" placeholder="administrative email (optional)" name="orgEmail" class="formtext width100"/>
+						</div>
+						<div class="quarterWidth" style="margin-right:14px;">
+							<h3>For the volunteers!</h3>
+						</div>
+						<div class="threeQuarterWidth">
+							<input type="text" placeholder="ZIP Code" pattern="[0-9]*" maxlength="5" min="0" name="orgZIP" class="formtext width25"/>
+							<input type="email" placeholder="contact email" name="orgContactEmail" class="formtext width100" required/>
+							<input type="tel" placeholder="phone number" name="orgPhone" class="formtext width100" required/>
+							<textarea placeholder="Your mission statement. One sentence max please!" name="orgMission" class="height100px width100 formarea" required></textarea>
+							<textarea placeholder="Tell us your story! Three sentences max please!" name="orgStory" class="height150px width100 formarea" required></textarea>
+							<div id="profileText">
+								<p id="status">organization logo</p>
+								<div id="fileWrapper">
+									<input type="file" id="files"/>
+								</div>
+							</div>
+							<div id="profileWrapper">
+								<div id="preview" style="background-image: url('/resources/default_med.jpg');">
+								</div>
+							</div>
+							<div id="buttonContainer">
+								<button type="submit" class="buttonize pink centerBox">SUBMIT</button>
+							</div>
+						</div>
+					</form>
+					<script type="text/javascript" src="/javascripts/s3upload.js"></script>
+
+					<script type="text/javascript">
+						function s3_upload(){
+						    var status_elem = document.getElementById("status");
+						    var url_elem = document.getElementById("avatar_url");
+						    var preview_elem = document.getElementById("preview");
+						    var s3upload = new S3Upload({
+						        file_dom_selector: 'files',
+						        s3_sign_put_url: '/sign_orglogo',
+						        onProgress: function(percent, message) {
+						            status_elem.innerHTML = 'Upload progress: ' + percent + '% ' + message;
+						        },
+						        onFinishS3Put: function(public_url) {
+						            status_elem.innerHTML = 'Upload completed.';
+						            url_elem.value = public_url;
+						            $('#preview').css("background-image","url('"+public_url+"')");
+						        },
+						        onError: function(status) {
+						            status_elem.innerHTML = 'Upload error: ' + status;
+						        }
+						    });
+						}
+						
+						(function() {
+						    var input_element = document.getElementById("files");
+						    input_element.onchange = s3_upload;
+						})();
+					</script>
+				</div>
+			</div>
+			<% include includes/footer %>
+		</div>
+		<script src="/javascripts/js_generic.js"></script>
+		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
+	</body>
+</html>

@@ -16,19 +16,6 @@ exports.twitter = function(req, res){
 	res.render('twitter', {user : req.user});
 }
 
-exports.setOrg = function(req, res){
-	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
-		var collection = db.collection('organizations');
-		collection.insert([{orgname: req.body.orgName, npo: req.body.registeredNPO, email: req.body.orgEmail, zip: req.body.zip, phone: req.body.telephone, mission: req.body.mission, story: req.body.story}], function(err, docs) {
-			console.log("ORG HERE");
-			if (err){
-				return console.error(err);
-			}
-			console.log('New organization submitted: ', req.body.orgName);
-		});
-	});
-}
-
 //INPUT: A req from the POST request of the account creation form
 //OUTPUT: Update the account field made by Passport to include other user information
 exports.updateAccount = function(req, res){

@@ -1,6 +1,7 @@
 var mongodb = require('mongodb')
   , MongoClient = mongodb.MongoClient
   , ObjectID = require('mongodb').ObjectID;
+var dBase = require('../lib/db');
 
 exports.accountView = function(req, res){
 
@@ -20,6 +21,17 @@ exports.accountComplete = function(req, res){
 		});
 	});
 	
+}
+
+exports.createOrg = function(req, res){
+	dBase.checkAuth(req, res, function(auth, user){
+		if(auth){
+			res.render('org_create', {auth : auth, user : user});
+		}else{
+			res.redirect('/login');
+		}
+		
+	})
 }
 
 function renderProfilePages(page, req, res, options){
