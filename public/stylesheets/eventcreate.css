@@ -1,0 +1,356 @@
+@import url('masterstyle.css');
+@import url('datepicker.css');
+
+/*STYLING FOR PROGRESSIVE ORG CREATION FORM*/
+#newEventForm{
+	position: relative;
+	float: left;
+	overflow: hidden;
+}
+
+#creationProgressWrapper{
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	margin-top: 80px;
+	height: 80px;
+}
+
+#creationBar{
+	height: 5px;
+	background-color: #A7A9AB;
+}
+
+#creationProgress{
+	height: 5px;
+	float: left;
+	background-color: #68C6B8;
+}
+
+.progressCap{
+	position: relative;
+	float: left;
+	width: 25%;
+	text-align: center;
+}
+
+.progressCap p{
+	font-size: 12pt;
+}
+
+#fullFormWrap{
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	width: 2922px;
+	overflow: hidden;
+}
+
+.slidingSection{
+	position: relative;
+	float: left;
+	margin-top: 66px;
+	padding-left: 174px;
+	padding-right: 174px;
+}
+
+.infoBox{
+	position: relative;
+	float: left;
+	width: 158px;
+	height: 205px;
+	padding: 14px;
+	background-color: #E6E7E8;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border: 5px solid #E6E7E8;
+	cursor: pointer;
+}
+
+
+.infoBox:hover{
+	border: 5px solid #8d8d8d;
+}
+
+.infoBoxBorder{
+	border: 5px solid #68C6B8;
+}
+
+.infoBox p{
+	font-size: 12pt;
+}
+
+#zipWrap{
+	border: 1px solid #808284;
+	color: #717171;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	height: 43px;
+	margin-bottom: 6px;
+	font-size: 18pt;
+	font-weight: 200;
+	margin-top: 18px;
+}
+
+#zipLocation{
+	position: relative;
+	float: right;
+	width: 40%;
+	height: 43px;
+}
+
+#modalContent{
+	position: relative;
+	width: 974px;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+#modalTop{
+	position: relative;
+	float: left;
+	margin-bottom: 80px;
+	width: 100%;
+}
+
+#modalBottom{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+#modalTitle{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.modalLeft{
+	position: relative;
+	float: left;
+	width: 691px;
+	margin-right: 14px;
+}
+
+#modalMission{
+	position: relative;
+	float: left;
+	margin-bottom: 94px;
+	width: 100%;
+}
+
+#modalStory{
+	position: relative;
+	float: left;
+	margin-bottom: 94px;
+	width: 100%;
+}
+
+.modalRight{
+	position: relative;
+	float: left;
+	width: 200px;
+}
+
+#eventTypes{
+	list-style-type: none;
+}
+
+#bookmark{
+	position: relative;
+	float: left;
+	width: 75px;
+	height: 26px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	background-color: #BBBDC0;
+}
+
+#bookmark p a{
+	color: white;
+}
+
+#share{
+	position: relative;
+	float: right;
+	width: 75px;
+	height: 26px;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	background-color: #BBBDC0;
+}
+
+#timeSection{
+	position: relative;
+	float: left;
+	overflow: hidden;
+}
+
+#share p a{
+	color: white;
+}
+
+#modalCoverContent{
+	position: relative;
+	float: left;
+	width: 690px;
+	height: 460px;
+	background-position: center center;
+	background-size: cover;
+}
+
+.modalHeaderWrapper{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 66px;
+}
+
+.modalHeaderWrapper h1{
+	line-height: 66px;
+}
+
+.modalTextWrapper{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+#eventTypeWrapper{
+	position: relative;
+	float: left;
+	width: 100%;
+	margin-top: 14px;
+	margin-bottom: 14px;
+}
+
+.eventRepeat{
+	position: relative;
+	float: right;
+	width: 66px;
+	height: 23px;
+	background-color: #E6E7E8;	
+}
+
+.eventType{
+	position: relative;
+	float: left;
+	width: 66px;
+	height: 23px;
+	background-color: #E6E7E8;
+	margin-right: 14px;
+}
+
+.statsWrapper{
+	margin-bottom: 14px;
+}
+
+#subButtons{
+	margin-top: 14px;
+}
+
+.timeSelectDate{
+	position: relative;
+	float: left;
+	width: 100%;
+	margin-top: 14px;
+	height: auto;
+	min-height: 100px;
+	overflow: hidden;
+	margin-left: 14px;
+}
+
+.timeSelectWrap{
+	position: relative;
+	float: left;
+}
+
+.selectstart{
+	margin-right: 14px;
+}
+
+.timeSlotAdd{
+	position: relative;
+	float: left;
+	width: 100%;
+	background-color: #68C6B8;
+	height: 20px;
+	margin-top: 7px;
+	cursor: pointer;
+}
+
+.timeSlotAdd p{
+	text-align: center;
+	color: white;
+}
+
+.slotWrapper{
+	position: relative;
+	float: left;
+	display: inline-block;
+}
+
+.slotContainer{
+	position: relative;
+	float: left;
+	width: 360px;
+	overflow-x: scroll;
+	padding: 5px;
+}
+
+.timeSelectBorder{
+	border: 1px solid #8d8d8d;
+}
+
+.selectorWrapper{
+	position:relative;
+	float:left;
+	width: 190px;
+	overflow:hidden;
+	margin-right:14px;
+}
+
+.blockRow{
+	position: relative;
+	float: left;
+	overflow: hidden;
+	padding-right: 20px;
+	margin-left: 9px;
+	margin-top: 7px;
+}
+
+.hourRow{
+	position: relative;
+	float: left;
+	overflow: hidden;
+}
+
+.blockHalf{
+	position: relative;
+	float: left;
+	width: 28px;
+	height: 28px;
+	border: 1px solid #A7A9AB;
+	z-index: 10;
+}
+
+.hourBlockHighlight{
+	background-color: #67C6B7;
+}
+
+.hourSection{
+	position: relative;
+	float: left;
+}
+
+.hourSectionSize{
+	width: 20px;
+	margin-left: 39px;
+	text-align: right;
+}

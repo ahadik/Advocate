@@ -1,13 +1,14 @@
-var moment = require('moment');
+var dBase = require('../lib/db');
 
-exports.Notif = function(title, body, account){
+exports.Notif = function(title, body, account, notifs){
+	this.notifID = dBase.makeid(notifs);
+	this.account = {name : account.name, profile : account.profile};
 	this.title = title;
 	this.body = body;
 	this.summary = createSummary(body);
 	//Account is an object with the following attributes: .name, .type, .profile
-	this.account = account;
 	this.viewed = false;
-	this.timestamp = moment();
+	this.timestamp = new Date;
 }
 
 exports.Notif.prototype.setViewed = function(){

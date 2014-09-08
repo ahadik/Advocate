@@ -1,69 +1,158 @@
 <html>
 	<head>
 		<title>Advocate</title>
-		<link rel="stylesheet" href="/stylesheets/genericstyle.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
-		<link rel="stylesheet" href="/stylesheets/orgcreate.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="/stylesheets/orgcreate.css" title="New Organization Styling" type="text/css" media="screen" charset="utf-8" />
 		<% include includes/boilerplate %>
 	</head>
 	<body>
 		<div class="overlay" onclick="toggleDialogue()">
 			<div class="popup" onclick="preventHide()">
-				<h1 class="headTitle centerAlign"></h1>
-				<div class="colorBar">
-					<div class="pink colorBlock">
+				<div id="modalTop">
+					<div class="medProfPhoto" id="modalPhotoContent" style="position: relative; float: left;"></div>
+					<div id="modalTitle">
+						<h1 class="headTitle centerAlign" id="modalTitleContent"></h1>
 					</div>
-					<div class="blue colorBlock">
+				</div>
+				<div id="modalContent">
+					<div id="modalLeft">
+						<div id="modalMission">
+							<div style="height:66px;">
+								<h1>OUR MISSION</h1>
+							</div>
+							<p id="modalMissionContent"></p>
+						</div>
+						<div id="modalStory">
+							<div style="height:66px;">
+								<h1>OUR STORY</h1>
+							</div>
+							<p id="modalStoryContent"></p>
+						</div>
 					</div>
-					<div class="aqua colorBlock">
+					<div id="modalRight">
+						<h1>GET IN TOUCH</h1>
+						<p id="getInTouchTitle"></p>
+						<p id="getInTouchStreet"></p>
+						<p id="getInTouchCity"></p>
+						<p id="getInTouchTele"></p>
+						<br>
+						<p>email us at:</p>
+						<p id="getInTouchEmail"></p>
+						<br>
+						<p id="getInTouchWeb"></p>
 					</div>
-					<div class="yellow colorBlock">
+					<div id="modalBottom">
+						<div class="buttonContainer">
+							<button type="submit" form="newOrgForm" class="buttonize pink centerBox" style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic;">Confirm & Finish</button>
+						</div>
 					</div>
-				</div>		
+				</div>
 				<p></p>
 			</div>
 		</div>
 		<div id="wrapper">
 			<% include includes/header %>
-			<div class="gridWrapper" id="content">
+			<div class="gridWrapper hideOver" id="content">
 				<div class="pageTitle">
-					<h1>New Organization</h1>
+					<h1>Organization Account</h1>
 				</div>
-				<div class="fullWidth contentBox padding">
-					<form method="post" action="/newOrganization">
-						<input type="hidden" id="avatar_url" name="avatar_url" value="<%=user.profile%>" />
-						<div class="quarterWidth" style="margin-right:14px;">
-							<h3>For us!</h3>
+				<div id="creationProgressWrapper" class="twoThirdsWidth">
+					<div id="creationBar">
+						<div id="creationProgress">
 						</div>
-						<div class="threeQuarterWidth">
-							<input type="text" placeholder="organization name" name="orgName" class="formtext width100" required/>
-							<div class="formLine width100 genericText">
-								<div class="formQues">Registered 501c3?</div>
-								<div class="options"><div class="radioOption">yes<input type="radio" name="registered" value="yes"></div><div class="radioOption">no<input type="radio" name="registered" value="no"></div></div>
-							</div>
-							<input type="url" placeholder="website" name="orgWeb" class="formtext width100" required/>
-							<input type="email" placeholder="administrative email (optional)" name="orgEmail" class="formtext width100"/>
+					</div>
+					<div id="progressCaptions">
+						<div class="progressCap">
+							<p onclick="moveFormCreate();" style="cursor: pointer;">profile creation</p>
 						</div>
-						<div class="quarterWidth" style="margin-right:14px;">
-							<h3>For the volunteers!</h3>
+						<div class="progressCap">
+							<p onclick="moveFormEdit();" style="cursor: pointer;">edit details</p>
 						</div>
-						<div class="threeQuarterWidth">
-							<input type="text" placeholder="ZIP Code" pattern="[0-9]*" maxlength="5" min="0" name="orgZIP" class="formtext width25"/>
-							<input type="email" placeholder="contact email" name="orgContactEmail" class="formtext width100" required/>
-							<input type="tel" placeholder="phone number" name="orgPhone" class="formtext width100" required/>
-							<textarea placeholder="Your mission statement. One sentence max please!" name="orgMission" class="height100px width100 formarea" required></textarea>
-							<textarea placeholder="Tell us your story! Three sentences max please!" name="orgStory" class="height150px width100 formarea" required></textarea>
-							<div id="profileText">
-								<p id="status">organization logo</p>
-								<div id="fileWrapper">
-									<input type="file" id="files"/>
+						<div class="progressCap">
+							<p onclick="showPreview();" style="cursor: pointer;">finish</p>
+						</div>
+					</div>
+				</div>
+				<div class="fullWidth contentBox padding floatLeft">
+					<form method="post" action="/newOrganization" id="newOrgForm" class="fullWidth">
+						<div id="fullFormWrap" style="right: -974;">						
+							<div class="twoThirdsWidth slidingSection" style="margin-left: auto; margin-right: auto;">
+								<input type="hidden" id="avatar_url" name="avatar_url" value="" />
+								<input type="text" placeholder="organization name" name="orgName" class="formtext width100" required/>
+								<input type="email" placeholder="your company email" name="orgEmail" class="formtext width100" required/>
+								<div class="width100" style="position:relative; overflow:hidden; margin-bottom:14px;">
+									<div class="width100" style="position: relative; height:66px; margin-top:14px; margin-bottom: 14px;">
+										<p style="position: absolute; bottom:0;">What kind of organization are you?</p>
+									</div>
+									<input type="hidden" name="accountType"/>
+									<div class="infoBox" id="nonprofitBox" style="margin-right:14px;" onclick="infoBoxToggle('#nonprofitBox');">
+										<p><b>Event Poster</b></p>
+										<p>Non-Profits</p>
+										<br>
+										<p>Post events and see exactly who your volunteers are and when the are coming using our powerful event management tools!</p>
+										<br>
+										<p style="text-align: center;">Free</p>
+									</div>
+									<div class="infoBox" id="trackingBox" style="margin-right:14px;" onclick="infoBoxToggle('#trackingBox');">
+										<p><b>Tracking Organization</b></p>
+										<p>School or Company</p>
+										<br>
+										<p>Track your student or employee service hours with precise data visualizations to measure your community impact.</p>
+										<br>
+										<p style="text-align: center;">$3 per member/year</p>
+									</div>
+									<div class="infoBox" id="bothBox" onclick="infoBoxToggle('#bothBox');">
+										<p><b>Both</b></p>
+										<br>
+										<br>
+										<p>Need access to both tools? With proof of non-profit status you can both post events and track your member's hours!</p>
+										<br>
+										<p style="text-align: center;">$3 per member/year</p>
+									</div>
+								</div>
+							
+								<div class="formLine width100 genericText" style="position:relative; float:left;">
+									<div style="position: absolute; bottom: 0; overflow:hidden;">
+										<div class="formQues">Registered 501c3?</div>
+										<div class="options"><div class="radioOption">yes<input type="radio" name="registered" value="yes"></div><div class="radioOption">no<input type="radio" name="registered" value="no"></div></div>
+									</div>
+								</div>
+								<div class="width100" style="position: relative; float: left;">
+									<div class="buttonContainer">
+										<button type="button" class="buttonize pink centerBox" onclick="moveFormEdit();" style="width: 228px">Continue</button>
+									</div>
 								</div>
 							</div>
-							<div id="profileWrapper">
-								<div id="preview" style="background-image: url('/resources/default_med.jpg');">
+							<div class="twoThirdsWidth slidingSection" style="margin-left: auto; margin-right: auto;">
+								<input type="text" placeholder="website" name="orgWeb" class="formtext width100" required pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"/>
+								<input type="text" placeholder="street address" name="orgStreet" class="formtext twoThirdsWidth" style="margin-right:7px;"/>
+								<div id="zipWrap" class="twoThirdsWidth">
+									<input type="hidden" id="zipcity" name="zipcity" value=""/>
+									<input type="hidden" id="zipstate" name="zipstate" value=""/>
+									<input type="hidden" id="latitude" name="latitude" value=""/>
+									<input type="hidden" id="longitude" name="longitude" value=""/>
+									<input type="text" id="zipCode" placeholder="ZIP Code" pattern="[0-9]*" maxlength="5" min="0" name="orgZIP" style="height: 100%; width: 55%; border: none; font-size: 18pt; font-weight: 200; color: #717171; padding-left: 12px;" onchange="findCityState();"/>
+									<div id="zipLocation">
+									</div>
 								</div>
-							</div>
-							<div id="buttonContainer">
-								<button type="submit" class="buttonize pink centerBox">SUBMIT</button>
+								<input type="email" placeholder="contact email for oranization" name="orgContactEmail" class="formtext twoThirdsWidth" required/>
+								<input type="tel" placeholder="phone number" name="orgPhone" class="formtext twoThirdsWidth" required/>
+								<textarea placeholder="Your mission statement" name="orgMission" class="height100px twoThirdsWidth formarea" required></textarea>
+								<textarea placeholder="what's your story?" name="orgStory" class="height150px twoThirdsWidth formarea" required></textarea>
+								<div id="profilePhotoWrapper" class="divFormWrapper">
+									<p style="margin-left:14px; margin-top:14px;">add a company logo</p>
+									<div id="profileWrapper">
+										<div id="preview"></div>
+										<div id="fileWrapper">
+											<input type="file" id="files" value="upload a photo"/>
+										</div>
+										<div id="status"></div>
+									</div>
+								</div>
+								<div class="width100" style="position: relative; float: left;">
+									<div class="buttonContainer">
+										<button onclick="showPreview(); return false;" class="buttonize pink centerBox" style="width: 228">Continue</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</form>
@@ -102,5 +191,83 @@
 		</div>
 		<script src="/javascripts/js_generic.js"></script>
 		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
+		<script>
+			var selectedType;
+			var city;
+			var state;
+			function infoBoxToggle(selected){
+				$(".infoBox").removeClass('infoBoxBorder');
+				$(selected).addClass('infoBoxBorder');	
+				$('input[name="accountType"]').val(selected);
+			}
+			
+			function moveFormEdit(){
+				$('#fullFormWrap').animate({
+					right: '0'
+				}, 1000, function(){
+				});
+				$('#creationProgress').animate({
+					width: '313'
+				},1000, function(){
+					
+				});
+			}
+			
+			function moveFormCreate(){
+				$('#fullFormWrap').animate({
+					right: '-974'
+				}, 1000, function(){
+				});
+				$('#creationProgress').animate({
+					width: '100'
+				},1000, function(){
+					
+				});
+			}
+			
+			$('#creationProgress').css('width', '100px');
+			
+			function findCityState(){
+				if($('#zipCode').val().length==5){
+					createLocationfromZIP($('#zipCode').val(), function(location){
+						$('#zipLocation').html('<p style="text-align:right; line-height:43px; margin-right: 14px;">'+location.city+', '+location.state+'</p>');
+						geofromAddress($('#zipCode').val(), $('input[name=orgStreet]').val(), function(latLong){
+							$('input[name=zipcity]').val(location.city);
+							$('input[name=zipstate]').val(location.state);
+							$('input[name=latitude]').val(location.latitude);
+							$('input[name=longitude]').val(location.longitude);
+							city = location.city;
+							state = location.state;
+						});
+					});
+				}
+			}
+			
+			function showPreview(){
+				$('#modalPhotoContent').css({"background-image": 'url('+$('#avatar_url').val()+')'});
+				$('#modalTitleContent').html($('input[name=orgName]').val());
+				$('#modalMissionContent').html($('textarea[name=orgMission]').val());
+				$('#modalStoryContent').html($('textarea[name=orgStory]').val());
+				$('#getInTouchTitle').html($('input[name=orgName]').val());
+				$('#getInTouchStreet').html($('input[name=orgStreet]').val());
+				$('#getInTouchState').html(city);
+				$('#getInTouchState').html(state);
+				$('#getInTouchTele').html($('input[name=orgPhone]').val());
+				$('#getInTouchEmail').html('<a href=\"mailto:'+$('input[name=orgContactEmail]').val()+'\">'+$('input[name=orgContactEmail]').val()+'</a>');
+				var orgURL = $('input[name=orgWeb]').val();
+				if((orgURL.substring(0,7)!=='http://')&&(orgURL.substring(0,8)!=='https://')){
+					orgURL = 'http://'+orgURL;
+				}
+				$('#getInTouchWeb').html('<a href=\"'+orgURL+'\">'+orgURL+'</a>');
+				$('#creationProgress').animate({
+					width: '520'
+				},1000, function(){
+					
+				});
+				
+				toggleDialogue();
+				return false;
+			}
+		</script>
 	</body>
 </html>

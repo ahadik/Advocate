@@ -37,3 +37,17 @@ function geofromZIP(zip, callback){
 		callback(latLong);
 	});
 }
+
+function geofromAddress(zip, street, callback){
+	var address = street.split(' ');
+	var addrRequest = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+	for(word in address){
+		addrRequest+=address[word]+',+';
+	}
+	addrRequest+=zip+'&key=AIzaSyCP9syBFfHu5zfVSavGJLWS3f8bzL5mKMI';
+	
+	$.getJSON(addrRequest, function(data){
+		var latLong = [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng];
+		callback(latLong);
+	});
+}

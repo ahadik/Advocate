@@ -27,112 +27,104 @@ var dbase = require('./lib/db');
   
 twitter.twitter(passport, TwitterStrategy);
 
+var accountIDs = {};
+var notifIDs = {};
 
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.use(express.static(__dirname + '/public'));
-app.set('view engine', 'ejs');
-
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser('chip chocolate chip'));
-app.use(express.session({
-		secret : 'in service of what?',
-		store : sessionStore
-	}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash()); // use connect-flash for flash messages stored in session
-app.use(app.router);
-app.use(express.static(path.join(__dirname, '')));
-app.use(express.favicon());
-
-
-app.use(express.errorHandler());
-
-// passport config
-var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
-
-// mongoose
-mongoose.connect(process.env.MONGOHQ_DB);
-
-app.set('photos', __dirname + '/public/photos');
-
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
-
-app.get('/', index.index);
-app.get('/style', function(req, res){
-	dbase.checkAuth(req, res, function(auth, userInfo){
-		if(auth){
-			res.render('generic', {auth : auth, user : userInfo});
-		}else{
-			res.render('generic', {auth : auth});
+MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
+	if(err){return console.error(err);}
+	var organizations = db.collection('organizations');
+	var userData = db.collection('userData');
+	var systemData = db.collection('systemData');
+	var notifs = db.collection('notifs');
+	var events = db.collection('events');
+	var users = db.collection('users');
+	var eventSubmit = db.collection('eventSubmit');
+	
+	organizations.find({}).toArray(function(err, orgs){
+		for(org in orgs){
+			accountIDs[orgs[org].orgID] = 1;
 		}
 	});
-});
-
-app.get('/clear', function(req, res){
-	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
-		var accounts = db.collection('accounts');
-		accounts.remove({}, function(err, docs){});
-		var userData = db.collection('userData');
-		userData.remove({}, function(err, docs){});
+	
+	notifs.find({}).toArray(function(err, notifs){
+		for(notif in notifs){
+			notifIDs[notifs[notif].notifID] = 1;
+		}
 	});
-	res.redirect('/');
-});
-app.get('/submits', registrations.form);
-app.get('/register', register.form);
-app.get('/auth', register.twitter);
-app.post('/register', function(req, res) {
-	if(validateUsername(req.body.username)){
-		Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-	        //if the post produces an error
-	        if (err) {
-	        	console.log('error');
-	        	console.log(err);
-	            return res.render('register', { account : account });
-	        }
-			//if no error - call the authenticate function of the passport
-	        passport.authenticate('local')(req, res, function () {
-	        	accountCreate.updateAccount(req, res);
-	        	res.redirect('/profileComplete');
-	        });
-		});
-	}else{
-		console.log('error');
-	    console.log('Username cannot start with @');
-		return res.render('register', { account : account });
+	
+	
+	
+	// all environments
+	app.set('port', process.env.PORT || 3000);
+	app.set('views', __dirname + '/views');
+	app.use(express.static(__dirname + '/public'));
+	app.set('view engine', 'ejs');
+	
+	app.use(express.logger('dev'));
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(express.cookieParser('chip chocolate chip'));
+	app.use(express.session({
+			secret : 'in service of what?',
+			store : sessionStore
+		}));
+	app.use(passport.initialize());
+	app.use(passport.session());
+	app.use(flash()); // use connect-flash for flash messages stored in session
+	app.use(app.router);
+	app.use(express.static(path.join(__dirname, '')));
+	app.use(express.favicon());
+	app.use(express.errorHandler());
+	
+	
+	// mongoose
+	mongoose.connect(process.env.MONGOHQ_DB);
+	
+	require('./config/passport')(passport, accountIDs, notifIDs, users, userData, notifs); // pass passport for configuration
+	
+	app.set('photos', __dirname + '/public/photos');
+	
+	// development only
+	if ('development' == app.get('env')) {
+	  app.use(express.errorHandler());
 	}
-});
+	
+	app.get('/', index.index);
+	app.get('/style', function(req, res){
+		if(req.isAuthenticated()){
+			console.log(req.user);
+			account.renderProfilePages('generic', req, res, {auth : true}, userData, organizations, notifs);
+		}else{
+			res.render('generic', {auth : false});
+		}
+	});
+	
+	app.get('/clear', function(req, res){
+		var users = db.collection('users');
+		users.remove({}, function(err, docs){});
+		userData.remove({}, function(err, docs){});
+		notifs.remove({}, function(err, docs){});
+		res.redirect('/');
+	});
+	app.get('/submits', registrations.form);
+	app.get('/register', register.form);
+	app.get('/auth', register.twitter);
+	
+	app.post('/register', passport.authenticate('local-signup', {
+		successRedirect : '/profileComplete', // redirect to the secure profile section
+		failureRedirect : '/register', // redirect back to the signup page if there is an error
+		failureFlash : true // allow flash messages
+	}));
+	
+	app.post('/complete', function(req, res){
+		if(err){console.log(err);}
+		var accountUsername = req.user.username;
 
-app.post('/complete', function(req, res){
-	MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
-		var userData = db.collection('userData');
-		//If the zipcode field has a value, then the city, state, lat and long need to be recomputed and updated in the database
-		
+		//If the zipcode field has a value, then the city, state, lat and long need to be recomputed and updated in the database			
 		if(req.body.zipCode != ''){
 			geo.createLocationfromZip(req.body.zipCode, function(location){
-				console.log("Location retrieved");
-				console.log(location);
 				userData.update(
-					{username : req.user.username},
+					{username : accountUsername},
 					{$set: {
 						city : location.city,
 						state : location.state,
@@ -148,9 +140,9 @@ app.post('/complete', function(req, res){
 						console.log("There was an error.");
 						return console.error(err);
 					}
-					console.log("Profile updated: ", req.user.username);
+					console.log("Profile updated: ", accountUsername);
 				});
-				userData.find({username : req.user.username}).toArray(function(err, users){
+				userData.find({username : accountUsername}).toArray(function(err, users){
 					console.log("Account creation complete. Rendering account page");
 					res.redirect('/account');
 				});
@@ -158,10 +150,10 @@ app.post('/complete', function(req, res){
 		//otherwise, only the interests section needs to be updated
 		}else{
 			userData.update(
-				{username : req.user.username},
+				{username : accountUsername},
 				{$set: {
 					interests : req.body.interest
-				} },
+				}},
 				{
 					upsert : true
 				}
@@ -169,67 +161,126 @@ app.post('/complete', function(req, res){
 				if(err){
 					return console.error(err);
 				}
-				console.log("Profile updated: ", req.user.username);
+				console.log("Profile updated: ", accountUsername);
 			});
-			userData.find({username : req.user.username}).toArray(function(err, users){
-				account.accountView(req, res);
+			userData.find({username : accountUsername}).toArray(function(err, users){
+				account.accountView(req, res, userData, notifs);
 			});
 		}
 	});
-})
-
-app.get('/login', function(req, res){
-	res.render('login', {user : req.user});
-});
-
-app.post('/login', passport.authenticate('local'), function(req, res) {
 	
-	res.redirect('/account');
-});
-
-app.get('/logout', function(req, res) {
-	req.logout();
-	res.redirect('/');
-});
-
-app.get('/account', account.accountView);
-
-app.get('/newOrganization', account.createOrg);
-
-app.get('/profileComplete', account.accountComplete);
-
-app.get('/sign_s3', function(req,res){
-	upload.sign(req, res, process.env.S3_PROFILE_BUCKET)
-});
-
-app.get('/sign_orglogo', function(req, res){
-	upload.sign(req, res, process.env.S3_ORG_BUCKET)
-});
-
-app.post('/submit_form', upload.submit_form);
-
-app.post('/newOrganization', orgs.newOrg);
-
-app.get('/auth/twitter',
-	passport.authenticate('twitter'),
-	function(req, res){
-		console.log("authenticated");
-});
-
-app.get('/auth/twitter/callback',
-	passport.authenticate('twitter', {failureRedirect: '/login'}),
-	function(req, res){
-		
-		res.redirect('/profileComplete');
+	app.get('/login', function(req, res){
+		res.render('login', {user : req.user});
 	});
-
-
-var server = http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+	
+	
+	app.post('/login', function(req,res, next){
+		passport.authenticate('local-login', function(err, user, info){
+			if (err){return next(err);}
+			if(!user){return res.redirect('/login');}
+			req.logIn(user, function(err){
+				if(err){return next(err);}
+				var parsedQuery = require('url').parse(req.headers.referer, true);
+				if(parsedQuery.query.redirect){
+					return res.redirect('/'+parsedQuery.query.redirect);
+				}else{
+					return res.redirect('/style');
+				}
+				
+			});
+		})(req,res,next);
+	});
+	
+//exports.updateAccount = function(data, notifIDs, callback, users, accountData, notifs){
+	
+	app.get('/logout', function(req, res) {
+		req.logout();
+		res.redirect('/');
+	});
+	
+	app.get('/account', function(req, res){
+		account.accountView(req, res, userData, notifs);
+	});
+	
+	app.get('/switch', function(req,res){
+		account.switchAccounts(req, res, userData, organizations);
+	});
+	
+	app.get('/newOrganization', function(req, res){
+		account.createOrg(req, res, userData, organizations, notifs);
+	});
+	
+	app.get('/newEvent', function(req, res){
+		account.createEvent(req, res, systemData, userData, organizations, notifs);
+	});
+	
+	app.get('/profileComplete', function(req, res){
+		account.accountComplete(req, res, systemData, userData, notifs);
+	});
+	
+	app.get('/eventView', function(req, res){
+		account.eventView(req, res, userData, notifs, events, organizations);
+	});
+	
+	app.get('/sign_s3', function(req,res){
+		upload.sign(req, res, process.env.S3_PROFILE_BUCKET)
+	});
+	
+	app.get('/sign_orglogo', function(req, res){
+		upload.sign(req, res, process.env.S3_ORG_BUCKET)
+	});
+	
+	app.get('/sign_eventcover', function(req, res){
+		upload.sign(req, res, process.env.S3_EVENT_BUCKET)
+	});
+	
+	app.post('/submit_form', upload.submit_form);
+	
+	app.post('/newOrganization', function(req,res){
+		orgs.newOrg(req,res, accountIDs, notifIDs, organizations, userData, notifs);
+	});
+	
+	app.post('/newEvent', function(req, res){
+		orgs.newEvent(req, res, events, userData);
+	});
+	
+	app.get('/auth/twitter', passport.authenticate('twitter'));
+	
+	// handle the callback after twitter has authenticated the user
+	app.get('/auth/twitter/callback',
+		passport.authenticate('twitter', {
+			successRedirect : '/profileComplete',
+			failureRedirect : '/login'
+		})
+	);
+	
+	//TEMP EVENT CREATE FORM
+	app.post('/create', function(req, res){
+		orgs.tempEvent(req, res, eventSubmit);
+	});
+	
+	app.get('/create', function(req, res){
+		res.render('event_temp', {auth : false});
+	});
+	
+	var server = http.createServer(app).listen(app.get('port'), function(){
+	  console.log('Express server listening on port ' + app.get('port'));
+	});
+	
+	var formServer = require('./lib/form_server');
+	formServer.listen(server, socketio, express, sessionStore, userData);	
 });
 
-var formServer = require('./lib/form_server');
-formServer.listen(server, socketio, express, sessionStore);
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+	// if user is authenticated in the session, carry on
+	if (req.isAuthenticated())
+		return next();
+
+	// if they aren't redirect them to the home page
+	res.redirect('/');
+}
 
 function validateUsername(username){
 	if(username.indexOf('@')==0){

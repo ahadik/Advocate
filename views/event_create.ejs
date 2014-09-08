@@ -1,0 +1,589 @@
+<html>
+	<head>
+		<title>Advocate</title>
+		<link rel="stylesheet" href="/stylesheets/eventcreate.css" title="New Organization Styling" type="text/css" media="screen" charset="utf-8" />
+		<% include includes/boilerplate %>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+		<script src="/javascripts/jquery-ui.multidatespicker.js"></script>
+	</head>
+	<body>
+		<div class="overlay" onclick="toggleDialogue()">
+			<div class="popup" onclick="preventHide()">
+				<div id="modalTop">
+					<div id="modalTitle">
+						<h1 class="headTitle centerAlign" id="modalTitleContent"></h1>
+						<h3 class="centerAlign" id="modalSubtitleContent"></h3>
+						<p class="headSubtitle centerAlign" id="modalDateContent"></p>
+					</div>
+				</div>
+				<div id="modalContent">
+					<div class="modalLeft padding" style="float:left; background-color: white;">
+						<div id="modalCoverContent"></div>
+						<div id="eventTypeWrapper">
+						</div>
+						<h1 class="headSubtitle centerAlign" id="modalLocationContent"></h1>
+						<div class="modalHeaderWrapper">
+							<h1>What will I be doing?</h1>
+						</div>
+						<div class="modalTextWrapper">
+							<p id="modalEventDescriptionContent"></p>
+						</div>
+						<div class="modalHeaderWrapper">
+							<h1>What should I bring?</h1>
+						</div>
+						<div class="modalTextWrapper">
+							<p id="modalEventBringContent"></p>
+						</div>
+						<div id="modalMap"></div>
+					</div>
+					<div class="modalRight padding" style="float:left; background-color: white;">
+						<div class="statsWrapper">
+							<h1>0 of 30</h1>
+							<p>volunteer spots filled</p>
+							<div style="position:relative; width:100%; height:5px; background-color:#FEE1B4;"></div>
+						</div>
+						<div class="statsWrapper">
+							<h1 id="daysLeft"></h1>
+							<p>days left</p>
+						</div>
+						<div class="statsWrapper">
+							<h1>0</h1>
+							<p>bookmarks</p>
+						</div>
+						<div class="statsWrapper">
+							<h1>0</h1>
+							<p>friends going</p>
+						</div>
+						<br>
+						<div class="buttonContainer">
+							<button type="button" class="buttonize pink centerBox" style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic;">VOLUNTEER</button>
+							<div id="subButtons">
+								<div id="bookmark">
+									<p><a>bookmark</a></p>
+								</div>
+								<div id="share">
+									<p><a>share</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modalRight padding" style="float:left; margin-top:14px; background-color: white;">
+						<h1>Hosted by:</h1>
+						<div class="medProfPhoto" id="modalPhotoContent" style="position: relative; margin-left: auto; margin-right: auto; background-image: url('<%=user.active.profile%>');"></div>
+						<h3 id="modalOrgNameContent" style="text-align:center;"><%=user.active.name%></h3>
+					</div>
+				</div>
+				<div id="modalBottom">
+					<div class="buttonContainer">
+						<button type="submit" form="newEventForm" class="buttonize pink centerBox" style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic;">Confirm & Finish</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="wrapper">
+			<% include includes/header %>
+			<div class="gridWrapper hideOver" id="content">
+				<div class="pageTitle">
+					<h1>New Event</h1>
+				</div>
+				<div id="creationProgressWrapper" class="twoThirdsWidth">
+					<div id="creationBar">
+						<div id="creationProgress">
+						</div>
+					</div>
+					<div id="progressCaptions">
+						<div class="progressCap">
+							<p onclick="moveFormCreate();" style="cursor: pointer;">event creation</p>
+						</div>
+						<div class="progressCap">
+							<p onclick="moveDetails();" style="cursor: pointer;">details</p>
+						</div>
+						<div class="progressCap">
+							<p onclick="moveImage();" style="cursor: pointer;">image</p>
+						</div>
+						<div class="progressCap">
+							<p onclick="showPreview();" style="cursor: pointer;">finish</p>
+						</div>
+					</div>
+				</div>
+				<div class="fullWidth contentBox padding floatLeft">
+					<form method="post" action="/newEvent" id="newEventForm" class="fullWidth">
+						<div id="fullFormWrap" style="right: -1948;">						
+							<div class="twoThirdsWidth slidingSection" style="margin-left: auto; margin-right: auto;" id="eventCreate">
+								<input type="text" placeholder="event title" name="eventTitle" class="formtext width100" required/>
+								<input type="text" placeholder="a catchy tagline (e.g. protecting wildlife and fighting goo)" name="eventTagLine" class="formtext width100" required/>
+								<textarea placeholder="what we're doing" name="eventDescription" class="height100px twoThirdsWidth formarea" required></textarea>
+								<textarea placeholder="what we're bringing" name="eventToBring" class="height100px twoThirdsWidth formarea" required></textarea>
+								<div class="divFormWrapper">
+									<p style="margin-left:14px; margin-top:14px;">what kind of event is it?</p>
+									<ul id="eventTypes">
+										<% for(var i=0; i<interests.length; i++) { %>
+											<li><input type="checkbox" name="eventType" value="<%=interests[i]%>" style="margin-right:1em;"><%=interests[i]%></li>
+										<% } %>
+									</ul>
+								</div>
+								<div class="width100" style="position: relative; float: left;">
+									<div class="buttonContainer">
+										<button type="button" class="buttonize pink centerBox" onclick="moveDetails();" style="width: 228px">Continue</button>
+									</div>
+								</div>
+							</div>
+							<div class="twoThirdsWidth slidingSection" style="margin-left: auto; margin-right: auto;" id="eventDetails">
+								<input type="text" placeholder="street address" name="eventStreet" class="formtext twoThirdsWidth" style="margin-right:7px;"/>
+								<div id="zipWrap" class="twoThirdsWidth">
+									<input type="hidden" id="zipcity" name="zipcity" value=""/>
+									<input type="hidden" id="zipstate" name="zipstate" value=""/>
+									<input type="hidden" id="latitude" name="latitude" value=""/>
+									<input type="hidden" id="longitude" name="longitude" value=""/>
+									<input type="text" id="zipCode" placeholder="ZIP Code" pattern="[0-9]*" maxlength="5" min="0" name="eventZIP" style="height: 100%; width: 55%; border: none; font-size: 18pt; font-weight: 200; color: #717171; padding-left: 12px;" onchange="findCityState();"/>
+									<div id="zipLocation">
+									</div>
+								</div>
+								<div class="divFormWrapper">
+									<p style="margin-left:14px; margin-top:14px;">the dates</p>
+									<input type="hidden" id="selectedDates" name="selectedDates" value=""/>
+									<div id="datepicker"></div>
+								</div>
+								<div class="divFormWrapper">
+									<p style="margin-left:14px; margin-top:14px;">the times</p>
+									<br>
+									<div id="timeSection">
+										<p style="margin-left:14px;">Please select event dates</p>
+									</div>
+								</div>
+								<div class="width100" style="position: relative; float: left;">
+									<div class="buttonContainer">
+										<button onclick="moveImage(); return false;" class="buttonize pink centerBox" style="width: 228">Continue</button>
+									</div>
+								</div>
+							</div>
+							<div class="twoThirdsWidth slidingSection" style="margin-left: auto; margin-right: auto;" id="eventImage">	
+								<div class="divFormWrapper">
+									<input type="hidden" id="avatar_url" name="avatar_url" value="" />
+									<p style="margin-left:14px; margin-top:14px;">picture</p>
+									<div id="coverWrapper">
+										<div id="coverPreview"></div>
+										<div id="fileWrapper">
+											<input type="file" id="files" value="upload a photo"/>
+										</div>
+										<div id="status"></div>
+									</div>
+								</div>
+								<div class="width100" style="position: relative; float: left;">
+									<div class="buttonContainer">
+										<button onclick="showPreview(); return false;" class="buttonize pink centerBox" style="width: 228">Continue</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<script type="text/javascript" src="/javascripts/s3upload.js"></script>
+
+					<script type="text/javascript">
+						function s3_upload(){
+						    var status_elem = document.getElementById("status");
+						    var url_elem = document.getElementById("avatar_url");
+						    var preview_elem = document.getElementById("preview");
+						    var s3upload = new S3Upload({
+						        file_dom_selector: 'files',
+						        s3_sign_put_url: '/sign_eventcover',
+						        onProgress: function(percent, message) {
+						            status_elem.innerHTML = 'Upload progress: ' + percent + '% ' + message;
+						        },
+						        onFinishS3Put: function(public_url) {
+						            status_elem.innerHTML = 'Upload completed.';
+						            url_elem.value = public_url;
+						            $('#coverPreview').css("background-image","url('"+public_url+"')");
+						        },
+						        onError: function(status) {
+						            status_elem.innerHTML = 'Upload error: ' + status;
+						        }
+						    });
+						}
+						
+						(function() {
+						    var input_element = document.getElementById("files");
+						    input_element.onchange = s3_upload;
+						})();
+					</script>
+				</div>
+			</div>
+			<% include includes/footer %>
+		</div>
+		<script src="/javascripts/js_generic.js"></script>
+		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
+		<script>
+		
+		/*DOM TRAVERSAL IS HORRENDOUS. REWRITE THIS IN A WAY THAT ISN'T EXPLICITY TRAVERSING PARENTS, SIBLINGS AND CHILDREN*/
+		
+			var hourBlockDown = false;
+		
+			$( "#datepicker" ).multiDatesPicker({  
+	            inline: true,  
+	            showOtherMonths: true,  
+	            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+	            onSelect: function (date) {
+			        fillTimes();
+			        setInput();
+			        addExpand(100, function(){});
+			        $('select').change(function(){
+			        	var start = parseInt($($($($(this).parent()).parent().children())[0]).children()[1].value);
+			        	var end = parseInt($($($($(this).parent()).parent().children())[1]).children()[1].value);
+			        	
+			        	if(start >= end){
+				        	$($($($($(this).parent()).parent().children())[1]).children()[1]).val(start+1);
+				        	start = parseInt($($($($(this).parent()).parent().children())[0]).children()[1].value);
+							end = parseInt($($($($(this).parent()).parent().children())[1]).children()[1].value);
+			        	}
+			        	
+			        	
+			        	$($($($($(this).parent()).parent()).parent()).children()[2]).addClass("timeSelectBorder");
+						$($($($($($(this).parent()).parent()).parent()).children()[2]).children()[0]).html(genBlocks(start, end));
+						$($($($($($(this).parent()).parent()).parent()).children()[2]).children()[0]).append(buildHours(start, end));
+						$($($($($($(this).parent()).parent()).parent()).children()[2]).children()[0]).css('width', ((end-start)*60+29)+'px');
+
+						setEvents();
+						
+						$($($($(this).parent()).parent()).children()[2]).show();
+						
+					});
+					
+			    }
+			});
+			
+			function setEvents(){
+				$('.blockHalf').mousedown(function(){
+							
+					if(($($(this).prev()).hasClass("hourBlockHighlight"))&&($($(this).next()).hasClass("hourBlockHighlight"))){
+						$($($(this).parent()).children()).removeClass("hourBlockHighlight");
+						$(this).toggleClass("hourBlockHighlight");
+					}else if($(this).hasClass("hourBlockHighlight")){
+						$(this).toggleClass("hourBlockHighlight");
+					}else{
+						hourBlockDown = true;
+						if((!$($(this).prev()).hasClass("hourBlockHighlight"))&&(!$($(this).next()).hasClass("hourBlockHighlight"))){
+							$($($(this).parent()).children()).removeClass("hourBlockHighlight");
+						}								
+						$(this).toggleClass("hourBlockHighlight");
+					}
+				});
+				
+				$('.blockHalf').mouseenter(function(){
+					if(hourBlockDown){
+						$(this).toggleClass("hourBlockHighlight");
+					}
+				});
+				
+				$('.blockHalf').mouseup(function(){
+					hourBlockDown = false;
+				});
+				
+				$('.slotContainer').mouseleave(function(){
+					hourBlockDown = false;
+				});
+			}
+			
+			$('.ui-datepicker-calendar thead tr').attr('bgcolor', '#E6E7E8');
+			$('#newEventForm').css('height','1100');
+			
+			var times = [{std : {hr : '', tm : 'midnight'}, mlt : 0},{std : {hr : 1, tm : 'am'}, mlt : 1},{std : {hr : 2, tm : 'am'}, mlt : 2},{std : {hr : 3, tm : 'am'}, mlt : 3},{std : {hr : 4, tm : 'am'}, mlt : 4},{std : {hr : 5, tm : 'am'}, mlt : 5},{std : {hr : 6, tm : 'am'}, mlt : 6},{std : {hr : 7, tm : 'am'}, mlt : 7},{std : {hr : 8, tm : 'am'}, mlt : 8},{std : {hr : 9, tm : 'am'}, mlt : 9},{std : {hr : 10, tm : 'am'}, mlt : 10},{std : {hr : 11, tm : 'am'}, mlt : 11},{std : {hr : '', tm : 'noon'}, mlt : 12},{std : {hr : 1, tm : 'pm'}, mlt : 13},{std : {hr : 2, tm : 'pm'}, mlt : 14},{std : {hr : 3, tm : 'pm'}, mlt : 15},{std : {hr : 4, tm : 'pm'}, mlt : 16},{std : {hr : 5, tm : 'pm'}, mlt : 17},{std : {hr : 6, tm : 'pm'}, mlt : 8},{std : {hr : 7, tm : 'pm'}, mlt : 19},{std : {hr : 8, tm : 'pm'}, mlt : 20},{std : {hr : 9, tm : 'pm'}, mlt : 21},{std : {hr : 10, tm : 'pm'}, mlt : 22},{std : {hr : 11, tm : 'pm'}, mlt : 23}];
+			
+			function setInput(){
+				var dates = $('#datepicker').multiDatesPicker('getDates', 'object');
+				var value = '';
+				for(date in dates){
+					value+=dates[date].toString()+'+';
+				}
+				//remove dangling +
+				value = value.substring(0, value.length - 1);
+				$('#selectedDates').val(value);
+			}
+			
+			function makeDateTitle(){
+				var masterdates = $('#datepicker').multiDatesPicker('getDates', 'object');
+				var dates = [];
+				for(date in masterdates){
+					dates.push(masterdates[date]);
+				}
+				if(dates.length>0){
+					var storedDate = dates.shift().toDateString().split(" ");
+					var title = storedDate[1]+' '+storedDate[2];
+					while(dates.length!=0){
+						var workingDate = dates.shift().toDateString().split(" ");
+						if(workingDate[1]==storedDate[1]){
+							title+=', '+workingDate[2];
+							storedDate = workingDate;
+						}else{
+							title+=', '+workingDate[1]+' '+workingDate[2];
+							storedDate = workingDate;
+						}
+					}
+				}
+				return title;
+			}
+			
+			function getCheckedTypes(){
+				var types = [];
+				$('input:checkbox[name=eventType]:checked').each(function(){
+					console.log($(this).val());
+					types.push($(this).val());
+				});
+				return types;
+			}
+			
+			function buildHours(start, end){
+				var hours = end-start;
+				var blocks = '';
+				var time = start%12;
+				if(!time){
+					time = 12;
+				}
+				var hourBlocks = '<div class="hourSection" style="width:20px;"><p class="blockHour"> '+time+' </p></div>';
+				for(i=1; i<=hours; i++){
+					var hour = (i+start)%12;
+					if(!hour){
+						hour=12;
+					}
+					
+					hourBlocks += '<div class="hourSection hourSectionSize"><p class="blockHour"> '+hour+' </p></div>';
+				}	
+				hourBlocks = '<div class="hourRow">'+hourBlocks+'</div>'
+				return hourBlocks;
+			}
+			
+			function genBlocks(start, end){
+				var hours = end-start;
+				var blocks = '';
+				var time = start%12;
+				if(!time){
+					time = 12;
+				}
+				
+				for(i=1; i<=hours; i++){
+					var hour = (i+start)%12;
+					if(!hour){
+						hour=12;
+					}
+					blocks += '<div class="blockHalf" ></div><div class="blockHalf"></div>';
+				}
+				blocks = '<div class="blockRow">'+blocks+'</div>';
+				return blocks;
+			}
+			
+			function addRow(ref){
+				$(genBlocks($($($(ref).siblings()[0]).children()[1]).val(), $($($(ref).siblings()[1]).children()[1]).val())).insertBefore($($($($($(ref).parent()).parent()).children()[2]).children()[0]).children().last());
+				//setEvents();
+				addExpand(65, setEvents);
+			}
+			
+			function fillTimes(that){
+				var dates = $('#datepicker').multiDatesPicker('getDates', 'object');
+				var html = '';
+				for(date in dates){
+					var dateString = dates[date].toDateString().split(" ");
+					html+='<div class="timeSelectDate"><h3>'+dateString+'</h3>'+
+					'<div class="selectorWrapper">'+
+						'<div class="timeSelectWrap selectstart">'+
+							'<p>no earlier than</p>'+
+							'<select class="timeSelect startinput" name="'+dateString+',start"></select>'+
+						'</div>'+
+						'<div class="timeSelectWrap selectend">'+
+							'<p>no later than</p>'+
+							'<select class="timeSelect endinput" name="'+dateString+',end"></select>'+
+						'</div>'+
+						'<div class="timeSlotAdd" style="display:none;" onclick="addRow(this);"><p>+ add spot</p></div>'+
+					'</div>'+
+					'<div class="slotContainer">'+
+						'<div class="slotWrapper"></div>'+
+					'</div>'+
+				'</div>';
+				}
+				$('#timeSection').html(html);
+				$('.timeSelect').html(generateTimeDropdown());
+			}
+			
+			function generateTimeDropdown(){
+				var html = '';
+				for(time in times){
+					html+='<option value=\"'+times[time].mlt+'\">'+times[time].std.hr+' '+times[time].std.tm+'</option>\n';
+				}
+				return html;
+			}
+			
+			var selectedType;
+			var city;
+			var state;
+			function infoBoxToggle(selected){
+				$(".infoBox").removeClass('infoBoxBorder');
+				$(selected).addClass('infoBoxBorder');	
+				$('input[name="accountType"]').val(selected);
+			}
+			
+			function moveFormCreate(){
+				$('#fullFormWrap').animate({
+					right: '-1948'
+				}, 1000, function(){
+				});
+				$('#creationProgress').animate({
+					width: '75'
+				},1000, function(){
+					
+				});
+				$('#newEventForm').animate({
+					height: $('#eventCreate').height()+100
+				},1000,function(){
+					
+				});
+			}
+			
+			function moveDetails(){
+				$('#fullFormWrap').animate({
+					right: '-974'
+				}, 1000, function(){
+				});
+				$('#creationProgress').animate({
+					width: '240'
+				},1000, function(){
+					
+				});
+				$('#newEventForm').animate({
+					height: $('#eventDetails').height()+100
+				},1000,function(){
+					
+				});
+			}
+			
+			function moveImage(){
+				$('#fullFormWrap').animate({
+					right: '0'
+				}, 1000, function(){
+				});
+				$('#creationProgress').animate({
+					width: '390'
+				},1000, function(){
+					
+				});
+				$('#newEventForm').animate({
+					height: $('#eventImage').height()+100
+				},1000,function(){
+					
+				});
+			}
+			
+			function addExpand(amount, callback){
+				var height = $('#eventDetails').height()+amount;
+				$('#newEventForm').animate({
+					height: height
+				},500,callback());
+			}
+			
+			
+			$('#creationProgress').css('width', '75px');
+			
+			function findCityState(){
+				if($('#zipCode').val().length==5){
+					createLocationfromZIP($('#zipCode').val(), function(location){
+						$('#zipLocation').html('<p style="text-align:right; line-height:43px; margin-right: 14px;">'+location.city+', '+location.state+'</p>');
+						geofromAddress($('#zipCode').val(), $('input[name=eventStreet]').val(), function(latLong){
+							$('input[name=zipcity]').val(location.city);
+							$('input[name=zipstate]').val(location.state);
+							$('input[name=latitude]').val(location.latitude);
+							$('input[name=longitude]').val(location.longitude);
+							city = location.city;
+							state = location.state;
+						});
+					});
+				}
+			}
+			
+			var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+			function dateDiffInDays() {
+			  var currentDate = new Date;
+			  var dates = $('#datepicker').multiDatesPicker('getDates', 'object');
+			  var firstDate = dates[0];
+			  
+			  var utc1 = Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+			  var utc2 = Date.UTC(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate());
+			  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+			}
+			
+			function calcTimes(){
+				var dateData = {};
+				var dayChoices = $('#timeSection .timeSelectDate').toArray();
+				for(dayChoice in dayChoices){
+					var date = $('h3', dayChoices[dayChoice]).html();
+					
+					var start = parseInt($('.selectorWrapper .selectstart select', dayChoices[dayChoice]).val());
+					var end = parseInt($('.selectorWrapper .selectend select', dayChoices[dayChoice]).val());
+					
+					var rows = $('.blockRow', dayChoices[dayChoice]).toArray();
+					for(row in rows){
+						var blocks = $('.blockHalf', rows[row]).toArray();
+						var selectedStart = 0.0;
+						var selectedEnd = 0.0;
+						var started = false;
+						for(block in blocks){
+							if($(blocks[block]).hasClass("hourBlockHighlight")){
+								started=true;
+								selectedEnd+=0.5;
+							}else if(!started){
+								selectedStart+=0.5;
+								selectedEnd+=0.5;
+							}
+						}
+						if(dateData.hasOwnProperty(date)){
+							dateData[date].push([selectedStart+start, selectedEnd+start]);
+						}else{
+							dateData[date] = [[selectedStart+start, selectedEnd+start]];
+						}
+					}
+				}
+				return dateData;
+			}
+			
+			function showPreview(){
+				$('#modalTitleContent').html($('input[name=eventTitle]').val());
+				$('#modalSubtitleContent').html($('input[name=eventTagLine]').val());
+				$('#modalLocationContent').html($('input[name=eventStreet]').val()+' '+$('input[name=zipcity]').val()+', '+$('input[name=zipstate]').val());
+				$('#modalDateContent').html(makeDateTitle());
+				var types = getCheckedTypes();
+				//we clear the internal HTML so that we can append to a clean slate
+				$('#eventTypeWrapper').html('');
+				for(type in types){
+					$('#eventTypeWrapper').append('<div class="eventType"><p style="text-align:center;">'+types[type]+'</p></div>');
+				}
+				$('#modalCoverContent').css({"background-image": 'url('+$('#avatar_url').val()+')'});
+				$('#modalEventDescriptionContent').html($('textarea[name=eventDescription]').val());
+				$('#modalEventBringContent').html($('textarea[name=eventToBring]').val());
+				var numDays;
+				if($('#datepicker').multiDatesPicker('getDates', 'object').length){
+					numDays = dateDiffInDays();
+				}else{
+					numDays = 0;
+				}
+				$('#daysLeft').html(numDays);
+				
+				var dateData = calcTimes();
+				
+				for(var date in dateData){
+					var slotNum = 0;
+					for(slot in dateData[date]){
+					
+						if($('input[name="'+date+'?'+slotNum+'"]').length){
+							$('input[name="'+date+'?'+slotNum+'"]').val(dateData[date][slot][0]+','+dateData[date][slot][1]);
+						}else{
+							$('#fullFormWrap').append('<input type="hidden" name="'+date+'?'+slotNum+'" value="'+dateData[date][slot][0]+','+dateData[date][slot][1]+'"/>');
+						}
+						slotNum++;
+					}
+					
+				}
+
+				toggleDialogue();
+				return false;
+			}
+			
+		</script>
+	</body>
+</html>

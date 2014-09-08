@@ -1,0 +1,94 @@
+<html>
+	<head>
+		<title>Advocate</title>
+		<link rel="stylesheet" href="/stylesheets/eventTemp.css" title="New Organization Styling" type="text/css" media="screen" charset="utf-8" />
+		<% include includes/boilerplate %>
+	</head>
+	<body>
+		<div id="wrapper">
+			<% include includes/header %>
+			<div class="gridWrapper hideOver" id="content">
+				<div class="pageTitle">
+					<h1>Submit Event Info</h1>
+				</div>
+				<div class="fullWidth contentBox padding floatLeft">
+					<form method="post" action="/create" id="newOrgForm" class="fullWidth">
+						<div id="fullFormWrap" class="twoThirdsWidth">						
+							<input type="email" placeholder="your email" name="eventEmail" class="formtext twoThirdsWidth" required/>
+							<input type="text" placeholder="organization name" name="orgName" class="formtext twoThirdsWidth" required/>
+							<input type="text" placeholder="event title" name="eventName" class="formtext twoThirdsWidth" required/>
+							<input type="text" placeholder="a catchy tagline" name="eventTag" class="formtext twoThirdsWidth" required/>
+							
+							<h3 style="margin-top:14px;">Event Date</h3>
+							<input type="date" placeholder="Event Date" name="eventDate" class="formtext twoThirdsWidth" required/>
+							<div id="zipWrap" class="twoThirdsWidth">
+								<input type="hidden" id="zipcity" name="zipcity" value=""/>
+								<input type="hidden" id="zipstate" name="zipstate" value=""/>
+								<input type="hidden" id="latitude" name="latitude" value=""/>
+								<input type="hidden" id="longitude" name="longitude" value=""/>
+								<input type="text" id="zipCode" placeholder="ZIP Code" pattern="[0-9]*" maxlength="5" min="0" name="eventZIP" style="height: 100%; width: 55%; border: none; font-size: 18pt; font-weight: 200; color: #717171; padding-left: 12px;" onchange="findCityState();"/>
+								<div id="zipLocation">
+								</div>
+							</div>
+							<p>How many volunteers can I handle at once? Enter 10 for no limit.</p>
+							<input id="defaultSlider" name="volunNum" type="range" min="0" max="10" />
+							<p class="note">Current value: <span id="currentValue">0</span></p>
+							<textarea placeholder="what we're doing" name="eventDescription" class="height100px twoThirdsWidth formarea" required></textarea>
+							<textarea placeholder="what we're bringing" name="eventToBring" class="height100px twoThirdsWidth formarea" required></textarea>
+							<div class="divFormWrapper">
+								<p style="margin-left:14px; margin-top:14px;">what kind of event is it?</p>
+								<ul id="eventTypes">
+									<li><input type="checkbox" name="eventType" value="art" style="margin-right:1em;">art</li>
+									<li><input type="checkbox" name="eventType" value="animal" style="margin-right:1em;">animal</li>
+									<li><input type="checkbox" name="eventType" value="youth" style="margin-right:1em;">youth</li>
+									<li><input type="checkbox" name="eventType" value="health" style="margin-right:1em;">health</li>
+									<li><input type="checkbox" name="eventType" value="hunger" style="margin-right:1em;">hunger</li>
+									<li><input type="checkbox" name="eventType" value="disaster" style="margin-right:1em;">disaster</li>
+									<li><input type="checkbox" name="eventType" value="outdoor" style="margin-right:1em;">outdoor</li>
+									<li><input type="checkbox" name="eventType" value="women" style="margin-right:1em;">women</li>
+									<li><input type="checkbox" name="eventType" value="poverty" style="margin-right:1em;">poverty</li>
+								</ul>
+							</div>
+							<div class="width100" style="position: relative; float: left;">
+								<div class="buttonContainer">
+									<button type="submit" class="buttonize pink centerBox" style="width: 228px">Continue</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<% include includes/footer %>
+		</div>
+		<script src="/javascripts/js_generic.js"></script>
+		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
+		<script>
+			$(function(){
+			
+			    var currentValue = $('#currentValue');
+			
+			    $('#defaultSlider').change(function(){
+			        currentValue.html(this.value);
+			    });
+			
+			    // Trigger the event on load, so
+			    // the value field is populated:
+			
+			    $('#defaultSlider').change();
+			
+			});
+			
+			var selectedType;
+			var city;
+			var state;
+			function findCityState(){
+				if($('#zipCode').val().length==5){
+					createLocationfromZIP($('#zipCode').val(), function(location){
+						$('#zipLocation').html('<p style="text-align:right; line-height:43px; margin-right: 14px;">'+location.city+', '+location.state+'</p>');
+					});
+				}
+			}
+
+		</script>
+	</body>
+</html>

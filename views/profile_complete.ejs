@@ -21,7 +21,7 @@
 							<ul>
 								<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
 								<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
-								<%if (username) {%><li><%= username %> <%}%><%if (!username) {%><li class="buttonize"><a onclick="toggleDialogue()">SIGN UP</a><%}%></li>
+								<%if (user.username) {%><li><%= user.username %> <%}%><%if (!user.username) {%><li class="buttonize"><a onclick="toggleDialogue()">SIGN UP</a><%}%></li>
 							</ul>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
 					<div class="yellow colorBlock"></div>
 				</div>
 				<form role="form" method="post" action="/complete" id="registerForm" name="profileUpdate">
-					<input type="hidden" id="avatar_url" name="avatar_url" value="<%=profile%>" />
+					<input type="hidden" id="avatar_url" name="avatar_url" value="<%=user.profile%>" />
 					<div id="formWrapper">
 						<div class="formSection">
 							<div class="leftSection">
@@ -52,7 +52,7 @@
 									</div>
 									<div id="profileWrapper">
 										
-										<div id="preview" style="background-image: url(<%=profile%>);">
+										<div id="preview" style="background-image: url(<%=user.profile%>);">
 										</div>
 										
 									</div>
@@ -72,13 +72,13 @@
 								</div>
 								<div class="rightInput">
 									<div id="geoLocation">
-										<%if(state) {%>
+										<%if(user.state) {%>
 											<h2>Location:</h2>
-											<p><%=city%></p>
-											<p><%=state%></p>
+											<p><%=user.city%></p>
+											<p><%=user.state%></p>
 										<%}%>
 									</div>
-									<input type="number" pattern="[0-9]*" maxlength="5" min="0" id="zipCode" name="zipCode" placeholder="Update ZIP Code" class="formtext width100 validateInterest" onkeyup="findCityState();" <%if(!state) {%>required<%}%>>
+									<input type="number" pattern="[0-9]*" maxlength="5" min="0" id="zipCode" name="zipCode" placeholder="Update ZIP Code" class="formtext width100 validateInterest" onkeyup="findCityState();" <%if(!user.state) {%>required<%}%>>
 								</div>
 							</div>
 						</div>

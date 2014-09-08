@@ -28,13 +28,13 @@
 
 		<input type="file" id="files"/>
 		<p id="status">Please select a file</p>
-		<div style="border:1px solid gray;width:300px;"  id="preview"><img src="<%=profile%>" style="width:300px;" /></div>
+		<div style="border:1px solid gray;width:300px;"  id="preview"><img src="<%=user.profile%>" style="width:300px;" /></div>
 
 		<h2>Your information</h2>
-		<p>First Name: <%=firstName%></p>
-		<p>Last Name: <%=lastName%></p>
-		<p>Email: <%=email%></p>
-		<p>Username: <%=username%></p>
+		<p>Name: <%=user.firstname%></p>
+		<p>Last Name: <%=user.lastname%></p>
+		<p>Email: <%=user.email%></p>
+		<p>Username: <%=user.username%></p>
 
 		<form method="POST" action="/submit_form/">
 			<input type="hidden" id="avatar_url" name="avatar_url" value="/images/default.png" />

@@ -12,35 +12,38 @@
 					<a href="/login" class="navText" style="margin-right: 24px;">Log In</a>
 					<a href="/register" class="smallButtonize" style="font-size: 14pt;">Sign Up!</a>
 				<%}else{%>
-					<div id="navProfilePic" style="background-image: url(<%=user.profile%>); background-size: cover;">
+					<div id="navProfilePic" style="background-image: url(<%=user.active.profile%>); background-size: cover;">
 					</div>
 					<div id="navName">
-						<p class="navText"><%=user.firstname%> <%=user.lastname%></p>
+						<p class="navText"><%=user.active.name%></p>
 					</div>
 					<div id="navSettings" onclick="toggleDropdown('settingsDropdown');">
 						<div id="settingsDropdown" class="dropDown">
 							<div class="arrow-up dropArrow"></div>
 							<%if(user.accounts.length) { %>
 								<p class="dropdownHeader">Use Advocate as:</p>
-								<ul>
+								<ul style="padding-left:0;">
+									<%if(user.active.type == "org"){%>
+										<li class="orgsDropdownEntry"><img src="<%=user.profile%>" width="25px" height="25px" style="margin-right:8px;"/><a href="/switch?account=<%=user.userID%>"><%=user.name%></a></li>
+									<%}%>
 									<%for(account in user.accounts){%>
-										<%if(user.accounts[account].name != user.activeAccount.name){%><li class="orgsDropdownEntry"><img src="<%=user.accounts[account].profile%>" width="25px" height="25px"/> <%=user.accounts[account].name%></li><%}%>
+										<%if(user.accounts[account].id != user.active.id){%><li class="orgsDropdownEntry"><img src="<%=user.accounts[account].profile%>" width="25px" height="25px" style="margin-right:8px;"/><a href="/switch?account=<%=user.accounts[account].id%>"><%=user.accounts[account].name%></a></li><%}%>
 									<%}%>
 								</ul>
-								<%if(user.activeAccount.type == 'organization'){%>
+								<%if(user.active.type == 'organization'){%>
 									<div class="dropDownDivide"></div>
 									<ul>
 										<li><a href="/create" class="dropdownText">Create an event</a></li>
 										<li><a href="/track" class="dropdownText">Track your volunteers</a></li>
 									</ul>
 									<div class="dropDownDivide"></div>
-								<%}else if(user.activeAccount.type == 'administration'){%>
+								<%}else if(user.active.type == 'administration'){%>
 									<div class="dropDownDivide"></div>
 									<ul>
 										<li><a href="/track" class="dropdownText">Track your members</a></li>
 									</ul>
-									<div class="dropDownDivide"></div>
 								<%}%>
+								<div class="dropDownDivide"></div>
 							<%}%>
 							<ul>
 								<li><a href="/help" class="dropdownText">Help</a></li>

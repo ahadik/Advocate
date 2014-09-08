@@ -21,6 +21,10 @@
 	background-color: #A7A9AB;
 }
 
+#eventTypes{
+	list-style-type: none;
+}
+
 #creationProgress{
 	height: 5px;
 	float: left;
@@ -39,10 +43,10 @@
 }
 
 #fullFormWrap{
-	position: absolute;
+	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-	width: 1948px;
+	width: 626px;
 	overflow: hidden;
 }
 
