@@ -210,7 +210,7 @@ module.exports = function(passport, orgs, notifIDs, usersDB, userData, notifs){
                     console.log(req.body);
                     var data = {source : 'local', username : req.body.username, firstname : req.body.firstName, lastname : req.body.lastName, emailAddress : req.body.emailAddress, affiliate : req.body.affiliate};
                                  
-                    accountCreate.updateAccount(data, notifIDs, users, userData, notifs, function(createdUser){
+                    accountCreate.updateAccount(data, notifIDs, usersDB, userData, notifs, function(createdUser){
 	                    return done(null, createdUser);
                     });
                 });
