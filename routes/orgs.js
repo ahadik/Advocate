@@ -70,7 +70,16 @@ exports.tempEvent = function(req, res, eventSubmit){
 		date: req.body.eventDate,
 		doing: req.body.eventDescription,
 		bringing: req.body.eventToBring,
-		type: req.body.eventType
+		type: req.body.eventType,
+		street : req.body.eventStreet,
+		latitude : req.body.latitude,
+		longitude : req.body.longitude,
+		ZIP : req.body.eventZIP,
+		city : req.body.zipcity,
+		state : req.body.zipstate,
+		duration : req.body.eventDur,
+		time : req.body.eventTime,
+		
 	}, function(err,docs){
 		if(err){return console.error(err);}
 	});

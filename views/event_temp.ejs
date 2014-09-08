@@ -18,18 +18,6 @@
 							<input type="text" placeholder="organization name" name="orgName" class="formtext twoThirdsWidth" required/>
 							<input type="text" placeholder="event title" name="eventName" class="formtext twoThirdsWidth" required/>
 							<input type="text" placeholder="a catchy tagline" name="eventTag" class="formtext twoThirdsWidth" required/>
-							
-							<h3 style="margin-top:14px;">Event Date</h3>
-							<input type="date" placeholder="Event Date" name="eventDate" class="formtext twoThirdsWidth" required/>
-							<div id="zipWrap" class="twoThirdsWidth">
-								<input type="hidden" id="zipcity" name="zipcity" value=""/>
-								<input type="hidden" id="zipstate" name="zipstate" value=""/>
-								<input type="hidden" id="latitude" name="latitude" value=""/>
-								<input type="hidden" id="longitude" name="longitude" value=""/>
-								<input type="text" id="zipCode" placeholder="ZIP Code" pattern="[0-9]*" maxlength="5" min="0" name="eventZIP" style="height: 100%; width: 55%; border: none; font-size: 18pt; font-weight: 200; color: #717171; padding-left: 12px;" onchange="findCityState();"/>
-								<div id="zipLocation">
-								</div>
-							</div>
 							<p>How many volunteers can I handle at once? Enter 10 for no limit.</p>
 							<input id="defaultSlider" name="volunNum" type="range" min="0" max="10" />
 							<p class="note">Current value: <span id="currentValue">0</span></p>
@@ -49,6 +37,23 @@
 									<li><input type="checkbox" name="eventType" value="poverty" style="margin-right:1em;">poverty</li>
 								</ul>
 							</div>
+							<input type="text" placeholder="street address" name="eventStreet" class="formtext twoThirdsWidth" style="margin-right:7px;"/>
+							<div id="zipWrap" class="twoThirdsWidth">
+								<input type="hidden" id="zipcity" name="zipcity" value=""/>
+								<input type="hidden" id="zipstate" name="zipstate" value=""/>
+								<input type="hidden" id="latitude" name="latitude" value=""/>
+								<input type="hidden" id="longitude" name="longitude" value=""/>
+								<input type="text" id="zipCode" placeholder="ZIP Code" pattern="[0-9]*" maxlength="5" min="0" name="eventZIP" style="height: 100%; width: 55%; border: none; font-size: 18pt; font-weight: 200; color: #717171; padding-left: 12px;" onchange="findCityState();"/>
+								<div id="zipLocation">
+								</div>
+							</div>
+							<h3 style="margin-top:14px;">Event Date</h3>
+							<input type="date" placeholder="Event Date" name="eventDate" class="formtext twoThirdsWidth" required/>
+							<h3 style="margin-top:14px;">Event Start Time</h3>
+							<input type="time" value="09:00" name="eventTime" class="formtext twoThirdsWidth" required/>
+							<h3 style="margin-top:14px;">Event Duration</h3>
+							<p>How many hours is your event?</p>
+							<input type="number" placeholder="Hours" name="eventDur" class="formtext" style="width:100px;" required/>
 							<div class="width100" style="position: relative; float: left;">
 								<div class="buttonContainer">
 									<button type="submit" class="buttonize pink centerBox" style="width: 228px">Continue</button>
@@ -81,10 +86,18 @@
 			var selectedType;
 			var city;
 			var state;
-			function findCityState(){
+						function findCityState(){
 				if($('#zipCode').val().length==5){
 					createLocationfromZIP($('#zipCode').val(), function(location){
 						$('#zipLocation').html('<p style="text-align:right; line-height:43px; margin-right: 14px;">'+location.city+', '+location.state+'</p>');
+						geofromAddress($('#zipCode').val(), $('input[name=eventStreet]').val(), function(latLong){
+							$('input[name=zipcity]').val(location.city);
+							$('input[name=zipstate]').val(location.state);
+							$('input[name=latitude]').val(location.latitude);
+							$('input[name=longitude]').val(location.longitude);
+							city = location.city;
+							state = location.state;
+						});
 					});
 				}
 			}
