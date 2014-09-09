@@ -354,3 +354,106 @@
 	margin-left: 39px;
 	text-align: right;
 }
+
+/*SLIDER STUFF*/
+.ui-slider {
+	position: relative;
+	text-align: left;
+}
+.ui-slider .ui-slider-handle {
+	position: absolute;
+	z-index: 2;
+	width: 14px;
+	height:14px;
+	cursor: default;
+}
+.ui-slider .ui-slider-range {
+	position: absolute;
+	z-index: 1;
+	font-size: .7em;
+	display: block;
+	border: 0;
+	background-position: 0 0;
+}
+
+/* For IE8 - See #6727 */
+
+.sliderWrapper{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 14px;
+	width: 70%;
+}
+
+#slider{
+	position: relative;
+	float: left;
+	width: 80%;
+	background-color: #A7A9AB;
+	margin-top: 10px;
+	margin-right: 14px;
+}
+
+.ui-slider.ui-state-disabled .ui-slider-handle,
+.ui-slider.ui-state-disabled .ui-slider-range {
+	filter: inherit;
+}
+
+.ui-slider-horizontal {
+	height: 5px;
+}
+.ui-slider-horizontal .ui-slider-handle {
+	top: -.3em;
+	margin-left: -.6em;
+}
+.ui-slider-horizontal .ui-slider-range {
+	top: 0;
+	height: 100%;
+}
+.ui-slider-horizontal .ui-slider-range-min {
+	left: 0;
+}
+.ui-slider-horizontal .ui-slider-range-max {
+	right: 0;
+}
+
+.ui-slider-handle{
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+}
+
+#slider .ui-state-default{
+	background-color: #68C6B8;
+}
+
+#slider .ui-state-hover{
+	background-color: #4A9488;
+}
+
+.ui-slider-vertical {
+	width: .8em;
+	height: 5px;
+}
+.ui-slider-vertical .ui-slider-handle {
+	left: -.3em;
+	margin-left: 0;
+	margin-bottom: -.6em;
+}
+.ui-slider-vertical .ui-slider-range {
+	left: 0;
+	width: 100%;
+}
+
+.ui-slider-range{
+	background-color: #68C6B8; 
+}
+
+.ui-slider-vertical .ui-slider-range-min {
+	bottom: 0;
+}
+.ui-slider-vertical .ui-slider-range-max {
+	top: 0;
+}

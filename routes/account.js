@@ -47,10 +47,6 @@ exports.eventView = function(req, res, userData, notifs, events, organizations){
 			
 			events.find({org : orgInternal}).toArray(function(err, events){
 				if(err){return console.error(err);}
-				console.log('events');
-				console.log(events);
-				console.log(orgInternal);
-				console.log(users[0].active.id);
 				var eventOption = [];
 				for(event in events){
 					var eventObject = {};
@@ -62,8 +58,8 @@ exports.eventView = function(req, res, userData, notifs, events, organizations){
 					eventObject['id'] = events[event].id;
 					eventObject['dates'] = {};
 					eventObject['openings'] = 0;
+					eventObject['volunteered']=0;
 					for(date in events[event].dates){
-						//THIS IS TEMPORARY AND JUST ADDS TEN FOR EVERY DATE! IT SHOULD BE ABLE TO TELL FROM EVENT HOW MANY OPENINGS THERE ARE PER DATE, PER SLOT
 						
 						var dateArray = events[event].dates[date].date.toDateString().split(" ");
 						//if the month has already been added
@@ -73,16 +69,15 @@ exports.eventView = function(req, res, userData, notifs, events, organizations){
 							//if the month hasn't been added yet
 							eventObject.dates[dateArray[1]] = {days : [dateArray[2]]};
 						}
-						eventObject.openings += 10;
+						for(slot in events[event].dates[date].slots){
+							eventObject.openings += parseInt(events[event].dates[date].slots[slot].maxVolunteers);
+							eventObject.volunteered += events[event].dates[date].slots[slot].volunteers.length;
+						}
 					}
 					eventOption.push(eventObject);
 				}
 				
 				var options = {auth : true, events : eventOption};
-				
-				console.log('EVENTVIEW');
-				console.log(options);
-				
 				exports.renderProfilePages('event_view', req, res, options, userData, organizations, notifs);
 			});
 		});

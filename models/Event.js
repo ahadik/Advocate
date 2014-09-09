@@ -3,6 +3,12 @@ var EventDate = require('../models/EventDate');
 
 exports.Event = function(req, id){
 	var formBody = req.body;
+	var datesObject = JSON.parse(formBody.dateData);
+	
+	console.log("here");
+	console.log(datesObject);
+	console.log(JSON.stringify(datesObject));
+	
 	this.title = formBody.eventTitle;
 	this.tagline = formBody.eventTagLine;
 	this.doWhat = formBody.eventDescription;
@@ -14,23 +20,22 @@ exports.Event = function(req, id){
 	this.zip = formBody.eventZIP;
 	this.latitude = formBody.latitude;
 	this.longitude = formBody.longitude;
-	this.dates = generateDates(formBody.selectedDates, formBody);
+	this.dates = generateDates(datesObject, formBody.numVolun);
 	this.cover = formBody.avatar_url;
 	this.org = id;
 }
 
-function generateDates(dateString, formBody){
-	var dates = dateString.split("+");
+function generateDates(datesObject, numVolun){
 	var dateArray = [];
-	for(date in dates){
+	for(date in datesObject){
 		//Tue Sep 09 2014 00:00:00 GMT-0400 (EDT)
-		var dateObj = new Date(dates[date]);
-		var dateString = dateObj.toDateString().split(" ").join(',');
-		//makes strings kind of like 'Tue,Sep,09,2014,start' which are then used to get the start and end times from formBody
-		var startTime = formBody[dateString+',start'];
-		var endTime = formBody[dateString+',end'];
-		var timePair = {start : startTime, end : endTime, volunteers : []};
-		var eventDate = new EventDate.EventDate([timePair], dateObj);
+		var dateObj = new Date(date);
+		var timePairs = [];
+		for(pair in datesObject[date]){
+			var timePair = {start : datesObject[date][pair][0], end : datesObject[date][pair][1], volunteers : [], maxVolunteers : numVolun};
+			timePairs.push(timePair);
+		}
+		var eventDate = new EventDate.EventDate(timePairs, dateObj);
 		dateArray.push(eventDate);
 	}
 	return dateArray;

@@ -37,10 +37,10 @@
 							</div>
 							<div class="eventBlockProgress">
 								<div class="eventBlockDetails">
-									<div class="eventBlockNumbers"><h2>10 of <%=events[event].openings%></h2></div>
+									<div class="eventBlockNumbers"><h2><%=events[event].volunteered%> of <%=events[event].openings%></h2></div>
 									<div class="eventBlockNumberDesc"><p> spots filled</p></div>
 								</div>
-								<div class="eventBlockInner" style="width: <%=10/events[event].openings*100%>%;">
+								<div class="eventBlockInner" style="width: <%=events[event].volunteered/events[event].openings*100%>%;">
 								</div>
 							</div>
 						</div>

@@ -5,6 +5,7 @@
 		<% include includes/boilerplate %>
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 		<script src="/javascripts/jquery-ui.multidatespicker.js"></script>
+		<!--<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">-->
 	</head>
 	<body>
 		<div class="overlay" onclick="toggleDialogue()">
@@ -38,7 +39,7 @@
 					</div>
 					<div class="modalRight padding" style="float:left; background-color: white;">
 						<div class="statsWrapper">
-							<h1>0 of 30</h1>
+							<h1 id="numVolunteers">0 of </h1>
 							<p>volunteer spots filled</p>
 							<div style="position:relative; width:100%; height:5px; background-color:#FEE1B4;"></div>
 						</div>
@@ -112,6 +113,14 @@
 							<div class="twoThirdsWidth slidingSection" style="margin-left: auto; margin-right: auto;" id="eventCreate">
 								<input type="text" placeholder="event title" name="eventTitle" class="formtext width100" required/>
 								<input type="text" placeholder="a catchy tagline (e.g. protecting wildlife and fighting goo)" name="eventTagLine" class="formtext width100" required/>
+								<div class="divFormWrapper">
+									<p style="margin-left:14px; margin-top:14px;">how many volunteers can I manage at once?</p>
+									<div class="sliderWrapper">
+										<input type="hidden" value="50" name="numVolun"/>
+										<div id="slider"></div>
+										<p style="position:relative; float:left;" id="amount">50</p>
+									</div>
+								</div>
 								<textarea placeholder="what we're doing" name="eventDescription" class="height100px twoThirdsWidth formarea" required></textarea>
 								<textarea placeholder="what we're bringing" name="eventToBring" class="height100px twoThirdsWidth formarea" required></textarea>
 								<div class="divFormWrapper">
@@ -218,13 +227,28 @@
 		
 			var hourBlockDown = false;
 		
+			$(function() {
+				$( "#slider" ).slider({
+					range: "min",
+					value: 50,
+					min: 1,
+					max: 100,
+					slide: function(event, ui){
+						if(ui.value == 100){
+							$("#amount").html("no limit");
+						}else{
+							$('#amount').html(ui.value);
+						}
+					}
+				});
+			});
+		
 			$( "#datepicker" ).multiDatesPicker({  
 	            inline: true,  
 	            showOtherMonths: true,  
 	            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 	            onSelect: function (date) {
 			        fillTimes();
-			        setInput();
 			        addExpand(100, function(){});
 			        $('select').change(function(){
 			        	var start = parseInt($($($($(this).parent()).parent().children())[0]).children()[1].value);
@@ -385,7 +409,7 @@
 					'<div class="selectorWrapper">'+
 						'<div class="timeSelectWrap selectstart">'+
 							'<p>no earlier than</p>'+
-							'<select class="timeSelect startinput" name="'+dateString+',start"></select>'+
+							'<select class="timeSelect startinput" name="'+dateString+'"></select>'+
 						'</div>'+
 						'<div class="timeSelectWrap selectend">'+
 							'<p>no later than</p>'+
@@ -547,6 +571,15 @@
 				$('#modalSubtitleContent').html($('input[name=eventTagLine]').val());
 				$('#modalLocationContent').html($('input[name=eventStreet]').val()+' '+$('input[name=zipcity]').val()+', '+$('input[name=zipstate]').val());
 				$('#modalDateContent').html(makeDateTitle());
+				
+				if($('#amount').html() == "no limit"){
+					$('input[name="numVolun"]').val('unlimited');
+				}else{
+					var numPeople = parseInt($('#amount').html());
+					$('#numVolunteers').append($('.blockRow').toArray().length*numPeople);
+					$('input[name="numVolun"]').val(numPeople);
+				}
+				
 				var types = getCheckedTypes();
 				//we clear the internal HTML so that we can append to a clean slate
 				$('#eventTypeWrapper').html('');
@@ -562,24 +595,15 @@
 				}else{
 					numDays = 0;
 				}
+				
 				$('#daysLeft').html(numDays);
 				
 				var dateData = calcTimes();
-				
-				for(var date in dateData){
-					var slotNum = 0;
-					for(slot in dateData[date]){
-					
-						if($('input[name="'+date+'?'+slotNum+'"]').length){
-							$('input[name="'+date+'?'+slotNum+'"]').val(dateData[date][slot][0]+','+dateData[date][slot][1]);
-						}else{
-							$('#fullFormWrap').append('<input type="hidden" name="'+date+'?'+slotNum+'" value="'+dateData[date][slot][0]+','+dateData[date][slot][1]+'"/>');
-						}
-						slotNum++;
-					}
-					
+				if($('#fullFormWrap input[name="dateData"]').length){
+					$('#fullFormWrap input[name="dateData"]').val(JSON.stringify(dateData));
+				}else{
+					$('#fullFormWrap').append('<input type="hidden" name="dateData" value=\''+JSON.stringify(dateData)+'\'/>');
 				}
-
 				toggleDialogue();
 				return false;
 			}

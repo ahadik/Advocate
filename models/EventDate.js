@@ -8,7 +8,7 @@ exports.EventDate = function(timePairs, date){
 function makeSlots(timePairs, date){
 	var slotArray = [];
 	for(pair in timePairs){
-		var slot = new Slot.Slot(timePairs[pair].start, timePairs[pair].end, timePairs[pair].volunteers);
+		var slot = new Slot.Slot(timePairs[pair].start, timePairs[pair].end, timePairs[pair].volunteers, timePairs[pair].maxVolunteers);
 		slotArray.push(slot);
 	}
 	return slotArray;
