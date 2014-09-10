@@ -269,7 +269,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		res.render('event_temp', {auth : false});
 	});
 	
-	var server = https.createServer(options, app).listen(app.get('port'), function(){
+	var server = http.createServer(app).listen(app.get('port'), function(){
 	  console.log('Express server listening on port ' + app.get('port'));
 	});
 	
