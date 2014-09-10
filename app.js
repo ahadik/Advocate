@@ -26,11 +26,12 @@ var sessionStore = new MemoryStore();
 var ObjectID = require('mongodb').ObjectID;
 var dbase = require('./lib/db');
 
+/*
 var options = {
   key:  fs.readFileSync(process.env.SSLKEY),
   cert: fs.readFileSync(process.env.SSLKEYCERT)
 };
-  
+  */
 twitter.twitter(passport, TwitterStrategy);
 
 var accountIDs = {};
