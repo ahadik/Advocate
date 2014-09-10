@@ -273,6 +273,16 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		res.render('event_temp', {auth : false});
 	});
 	
+	/*-----------------------DON'T GO BELOW THIS--------------------*/
+	
+	app.use(function(req, res, next){
+		if(req.isAuthenticated()){
+			account.renderProfilePages('404', req, res, {auth : true}, userData, organizations, notifs);
+		}else{
+			res.render('404', {auth : false});
+		}
+	});
+	
 	var server = http.createServer(app).listen(app.get('port'), function(){
 	  console.log('Express server listening on port ' + app.get('port'));
 	});

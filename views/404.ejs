@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<title>Advocate</title>
+		<link rel="stylesheet" href="/stylesheets/masterstyle.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
+		<% include includes/boilerplate %>
+	</head>
+	<body>
+		<div id="wrapper">
+			<% include includes/header %>
+			
+			<div id="messageWrapper" style="position:relative; margin-left:auto; margin-right:auto; background-color: white; background-image: url('/resources/icecream.png'); background-repeat: no-repeat; width:977px; height: 448px; margin-top:135px; margin-bottom: 100px;">
+				<h1 style="color: #808284; font-size: 100pt; text-align: center; padding-top:100px; font-weight: 100;">404</h1>
+				<h2 style="color: #808284; text-align: center; font-weight:100;">Uh oh. Looks like that page got away from us.</h2>
+				<p style="text-align: center;">Head on back to the <a href="/">marketplace?</a></p>
+			</div>
+			
+			<% include includes/footer %>
+		</div>
+		<script src="/javascripts/js_generic.js"></script>
+		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
+	</body>
+</html>
