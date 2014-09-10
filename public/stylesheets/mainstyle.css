@@ -1,0 +1,285 @@
+@import url('masterstyle.css');
+
+#splashImage{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 600px;
+	background-image: url('../resources/splash.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	margin-top: 40px;
+	display: table;
+}
+
+#splashVideoWrapper{
+	position: relative;
+	width: 853px;
+	height: 480px;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#tagLine{
+	position: relative;
+	float: left;
+	height: 148px;
+	width: 100%;
+	background-color: #68C6B8;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#tagLine h1{
+	margin-top: 28px;
+	font-size: 36pt;
+	color: white;
+}
+
+#tagLine p{
+	font-size: 18pt;
+	color: white;
+}
+
+#bodyWrapper{
+	position: relative;
+	float: left;
+	width: 100%;
+	padding-top: 52px;
+	padding-bottom: 52px;
+	background-color: #E6E7E8;
+}
+
+#contentWrapper{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+#howItWorks{
+	position: relative;
+	float: left;
+	overflow: hidden;
+	background-color: white;
+	margin-bottom: 28px;
+}
+
+#whatYouGet{
+	position: relative;
+	float: left;
+	overflow: hidden;
+}
+
+.boxContent{
+	position: relative;
+	float: left;
+	border:5px solid #FEC56A;
+	width: 936px;
+	overflow: hidden;
+}
+
+.boxHeader{
+	position: relative;
+	float: left;
+	background-color: #FEC56A;
+	width: 100%;
+	height: 35px;
+}
+
+.boxHeader p{
+	text-align: center;
+	color: white;
+	font-size: 24px;
+	line-height: 35px;
+}
+
+.worksThird{
+	position: relative;
+	float: left;
+	width: 33%;
+	height: 100px;
+}
+
+.numCircle{
+	position: relative;
+	float: left;
+	width: 47px;
+	height: 47px;
+}
+
+.worksHeader{
+	position: relative;
+	float: left;
+}
+
+.worksHeader h2{
+	font-size: 18pt;
+	color: #68C6B8;
+	font-weight: 100;
+}
+
+.worksHeader p{
+	font-size: 14pt;
+	color: #68C6B8;
+	font-weight: 100;
+}
+
+.numCircle{
+	margin-right: 14px;
+}
+
+#worksMain{
+	position: relative;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	width: 700px;
+	margin-top: 24px;
+}
+
+#whatMain{
+	position: absolute;
+	width: 300%;
+	left: 0;
+	padding-top: 28px;
+	padding-bottom: 28px;
+	background-color: white;
+	height: 1294px;
+}
+
+#whatWrapper{
+	position: relative;
+	float: left;
+	width: 936px;
+	height: 1350px;
+}
+
+#worksContentWrapper{
+	position: relative;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 14px;
+}
+
+#calendar{
+	position: relative;
+	float: left;
+	height: 100px;
+	width: 100px;
+	margin-right: 14px;
+}
+
+.arrow{
+	position: relative;
+	float: left;
+	margin-top: 28px;
+}
+
+.arrowImg{
+	 width: 145px;
+}
+
+#hand{
+	position: relative;
+	float: left;
+	height: 100px;
+	width: 100px;
+	margin-left: 28px;
+	margin-right: 28px;
+}
+
+#graph{
+	position: relative;
+	float: left;
+	height: 100px;
+	width: 100px;
+	margin-left: 14px;
+}
+
+.worksImg{
+	height: 100px;
+}
+
+#boxNav{
+	position: relative;
+	float: left;
+	height: 35px;
+	width: 100%;
+	background-color: #E6E7E8;
+	z-index: 1;
+}
+
+.boxNavItem{
+	position: relative;
+	float: left;
+	width: 33%;
+	text-align: center;
+	line-height: 28px;
+}
+
+.boxNavItem p{
+	font-size: 14pt;
+	color: #808284;
+	cursor: pointer;
+}
+
+#navIndicator{
+	position: absolute;
+	bottom: 0;
+	left: 90;
+	width: 146px;
+	height: 3px;
+	background-color: #68C6B8;
+}
+
+.whatFrame{
+	position: relative;
+	float: left;
+	width: 936px;
+	height: 100%;
+}
+
+.frameSection{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.frameHalf{
+	position: relative;
+	float: left;
+	width: 412px;
+	padding: 28px;
+}
+
+.frameHalf h3{
+	text-align: center;
+	font-weight: 100;
+	font-size: x-large;
+}
+
+.imageWrapper{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 24px;
+	width: intrinsic;
+}
+
+.describeList{
+	padding: 28px;
+	margin-top: 28px;
+	margin-left: 28px;
+	list-style-image: url('/resources/bullet_pt.png');
+	font-size: large;
+}
+
+.describeList li{
+	margin-top: 14px;
+}

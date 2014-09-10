@@ -96,7 +96,10 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	  app.use(express.errorHandler());
 	}
 	
-	app.get('/', index.index);
+	app.get('/', function(req, res){
+		index.index(req, res, userData, organizations, notifs);
+	});
+	
 	app.get('/style', function(req, res){
 		if(req.isAuthenticated()){
 			console.log(req.user);

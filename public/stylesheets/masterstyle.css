@@ -66,6 +66,18 @@ a:visited{
 	color: white;
 }
 
+.bold{
+	font-weight: 600;
+}
+
+.thin{
+	font-weight: 100;
+}
+
+.regular{
+	font-weight: 300;
+}
+
 button{
 	color: white;
 	font-size: 18pt;
@@ -349,9 +361,12 @@ button{
 /*NAVIGATION STYLING*/
 
 #nav{
-	position: relative;
+	position: fixed;
+	top:0;
+	left: 0;
 	width: 100%;
 	height: 40px;
+	z-index: 10;
 }
 
 #logo{

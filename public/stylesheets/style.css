@@ -465,6 +465,7 @@ p.caption{
 	margin-right: auto;
 	width: 90%;
 	margin-top: 25px;
+	z-index: 10;
 }
 
 .submitButton{
