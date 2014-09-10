@@ -1,7 +1,7 @@
 {
-  "name": "splash",
-  "version": "0.0.1",
-  "description": "Preliminary Advocate Splash page",
+  "name": "Advocate",
+  "version": "1.0.0",
+  "description": "Advocate community service platform",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/ahadik/Advocate/issues"
   },
-  "homepage": "https://github.com/ahadik/Advocate",
+  "homepage": "https://www.getadvocate.co",
   "dependencies": {
 	  "mongodb": "1.4.x",
     "install": "^0.1.7",

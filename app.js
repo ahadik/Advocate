@@ -1,5 +1,7 @@
 var express = require('express');
 var http = require('http');
+var https = require('https');
+var fs = require('fs');
 var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -15,7 +17,6 @@ var orgs = require('./routes/orgs');
 var register = require('./routes/register');
 var twitter = require('./routes/twitter');
 var geo = require('./lib/geo.js');
-var app = express();
 var socketio = require('socket.io');
 var flash    = require('connect-flash');
 var mongodb = require('mongodb')
@@ -24,6 +25,11 @@ var MemoryStore = express.session.MemoryStore;
 var sessionStore = new MemoryStore();
 var ObjectID = require('mongodb').ObjectID;
 var dbase = require('./lib/db');
+
+var options = {
+  key:  fs.readFileSync(process.env.SSLKEY),
+  cert: fs.readFileSync(process.env.SSLKEYCERT)
+};
   
 twitter.twitter(passport, TwitterStrategy);
 
@@ -52,7 +58,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		}
 	});
 	
-	
+	var app = express();
 	
 	// all environments
 	app.set('port', process.env.PORT || 3000);
@@ -263,7 +269,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		res.render('event_temp', {auth : false});
 	});
 	
-	var server = http.createServer(app).listen(app.get('port'), function(){
+	var server = https.createServer(options, app).listen(app.get('port'), function(){
 	  console.log('Express server listening on port ' + app.get('port'));
 	});
 	
