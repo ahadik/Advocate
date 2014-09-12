@@ -36,7 +36,7 @@ exports.newOrg = function(req, res, accountIDs, notifIDs, orgs, userData, notifs
 				if(err){
 					return console.warn(err.message);
 				}else{
-					res.redirect('/style');
+					res.redirect('/');
 				}
 			}
 		);
