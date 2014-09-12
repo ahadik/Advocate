@@ -124,7 +124,7 @@ exports.switchAccounts = function(req, res, userData, orgData){
 							{$set : {active : activeObject}},
 							function(err, docs){
 								if(err){return console.log(err);}
-								res.redirect('/style');
+								res.redirect(req.get('referer'));
 							}
 						);
 					}
