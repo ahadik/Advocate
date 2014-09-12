@@ -43,7 +43,9 @@ exports.updateAccount = function(data, notifIDs, users, userData, notifs, callba
 				}else{
 					console.error("User not authenticated by local or Twitter strategy");
 				}
-				var firstNotif = new Notif.Notif('Welcome to Advocate!', 'This is where you\'ll find updates.', {name : 'Advocate', type : 'advocate', profile : '/resources/logo_square_small.png'}, notifIDs);
+				
+				var firstNotif = new Notif.Notif('Welcome to Advocate!', 'This is where you\'ll find updates.', {name : 'Advocate', type : 'advocate', profile : '/resources/logo_square_small.png', id:data.id}, notifIDs);
+				
 				notifs.insert(firstNotif,function(err, docs){
 					if(err){
 						return console.error(err);
@@ -89,7 +91,8 @@ exports.updateAccount = function(data, notifIDs, users, userData, notifs, callba
 						interests : [],
 						accounts : {},
 						active : {name : data.name, type : data.source, id : userID, profile : profile},
-						notifs : [firstNotif.notifID]
+						notifs : [firstNotif.notifID],
+						done : false
 					},function(err, docs){
 						if(err){
 							return console.error(err);

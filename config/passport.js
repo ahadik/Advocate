@@ -15,7 +15,7 @@ var geo = require('../lib/geo');
 var configAuth = require('./auth');
 var dBase = require('../lib/db');
 
-function updateTwitter(profile, userData, done){
+function updateTwitter(profile, notifIDs, usersDB, userData, notifs, done){
 	
 	//lets extract some info from the profile
 	var nameSplit = profile.displayName.split(" ");
@@ -39,7 +39,7 @@ function updateTwitter(profile, userData, done){
 	
 	geo.createLocationfromCityState(city, state, function(location){
 		
-		var data = {source : profile.provider, username : username, firstname : firstName, lastname : lastName, profile : profilePic, city : city, state : state, latitude : location.latitude, longitude : location.longitude, name : firstName+' '+lastName};
+		var data = {source : profile.provider, username : username, firstname : firstName, lastname : lastName, profile : profilePic, city : city, state : state, latitude : location.latitude, longitude : location.longitude, name : firstName+' '+lastName, id : profile._json.id_str};
 		userData.find({userID: profile._json.id_str}).toArray(function(err, users) {
 			//this user has logged in before
 			if(users.length){
@@ -55,7 +55,8 @@ function updateTwitter(profile, userData, done){
 						state : state,
 						latitude : location.latitude,
 						longitude : location.longitude,
-						source : profile.provider
+						source : profile.provider,
+						done 	: true
 					} },
 					{
 						upsert : true
@@ -143,21 +144,21 @@ module.exports = function(passport, orgs, notifIDs, usersDB, userData, notifs){
 
 				// if the user is found then log them in
 	            if (user) {
-	                updateTwitter(profile, userData, done) // user found, return that user
+	                updateTwitter(profile, notifIDs, usersDB, userData, notifs, done) // user found, return that user
 	            } else {
 	                // if there is no user, create them
-	                var newUser                 = new User();
-					console.log("I MADE IT HERE");
+	                var newUser = new User();
 					// set all of the user data that we need
 	                newUser.twitter.id          = profile.id;
 	                newUser.twitter.token       = token;
 	                newUser.twitter.username    = profile.username;
 	                newUser.twitter.displayName = profile.displayName;
+	                //newUser.twitter.done = false;
 
 					// save our user into the database
 	                newUser.save(function(err) {
 	                    if (err){throw err;}
-	                    updateTwitter(profile, userData, done)
+	                    updateTwitter(profile, notifIDs, usersDB, userData, notifs, done)
 	                    
 	                });
 	            }
@@ -203,12 +204,12 @@ module.exports = function(passport, orgs, notifIDs, usersDB, userData, notifs){
                 newUser.local.username    = username;
                 newUser.local.password = newUser.generateHash(password);
                 newUser.local.id = dBase.makeid(orgs);
+                //newUser.local.done = false;
 
 				// save the user
                 newUser.save(function(err) {
                     if (err){throw err;}
-                    console.log(req.body);
-                    var data = {source : 'local', username : req.body.username, firstname : req.body.firstName, lastname : req.body.lastName, emailAddress : req.body.emailAddress, affiliate : req.body.affiliate};
+                    var data = {source : 'local', username : req.body.username, firstname : req.body.firstName, lastname : req.body.lastName, emailAddress : req.body.emailAddress, affiliate : req.body.affiliate, done : false, id : newUser.local.id};
                                  
                     accountCreate.updateAccount(data, notifIDs, usersDB, userData, notifs, function(createdUser){
 	                    return done(null, createdUser);

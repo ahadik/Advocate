@@ -6,6 +6,7 @@ exports.Notif = function(title, body, account, notifs){
 	this.title = title;
 	this.body = body;
 	this.summary = createSummary(body);
+	this.owner = account.id;
 	//Account is an object with the following attributes: .name, .type, .profile
 	this.viewed = false;
 	this.timestamp = new Date;

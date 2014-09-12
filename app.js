@@ -26,12 +26,7 @@ var sessionStore = new MemoryStore();
 var ObjectID = require('mongodb').ObjectID;
 var dbase = require('./lib/db');
 
-/*
-var options = {
-  key:  fs.readFileSync(process.env.SSLKEY),
-  cert: fs.readFileSync(process.env.SSLKEYCERT)
-};
-  */
+
 twitter.twitter(passport, TwitterStrategy);
 
 var accountIDs = {};
@@ -140,7 +135,8 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 						state : location.state,
 						latitude : location.latitude,
 						longitude : location.longitude,
-						interests : req.body.interest
+						interests : req.body.interest,
+						done : true
 					} },
 					{
 						upsert : true
@@ -162,7 +158,8 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 			userData.update(
 				{username : accountUsername},
 				{$set: {
-					interests : req.body.interest
+					interests : req.body.interest,
+					done : true
 				}},
 				{
 					upsert : true
@@ -255,11 +252,15 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	});
 
 	app.get('/auth/twitter', passport.authenticate('twitter'));
+	
+	app.get('/twitter_done', function(req, res){
+		
+	});
 
 	// handle the callback after twitter has authenticated the user
 	app.get('/auth/twitter/callback',
 		passport.authenticate('twitter', {
-			successRedirect : '/profileComplete',
+			successRedirect : '/',
 			failureRedirect : '/login'
 		})
 	);

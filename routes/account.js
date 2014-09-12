@@ -142,12 +142,6 @@ function renderFullAccounts(page, req, res, options, userData, notifs){
 	var userID = req.user.userID;
 	userData.find({userID : userID}).toArray(function(err, users){
 		
-		console.log('users dude');
-		console.log(req.user);
-		console.log(userID);
-		console.log(users);
-		console.log(users[0]);
-		
 		//if there's no users, then something went wrong up above, so we return null resulting in a redirect to /login
 		if( err || !users){
 			console.log("No users found");
@@ -163,14 +157,10 @@ function renderFullAccounts(page, req, res, options, userData, notifs){
 			var account = users[0];
 			//for every notification ID in the users notifs, retrieve it from the Notifs collection and send it
 			
-			for(notif in account.notifs){
-				notifs.find({notifID : account.notifs[notif]}).toArray(function(err, notif){
-					if(notif.size!=1){
-						return console.error("There has either been a notif id collision, or an id was placed in a user account that does not match an notif");
-					}
-					data.user.notifs.push(notif[0]);
-				});
-			}
+			notifs.find({owner : account.userID}).toArray(function(err, notifs){
+				data.user.notifs = notifs;
+			});
+			
 			for(var option in options){
 				data[option] = options[option];
 			}
@@ -182,14 +172,11 @@ function renderFullAccounts(page, req, res, options, userData, notifs){
 function getandFillNotifs(account, data, notifs, callback){
 	//for every notification ID in the users notifs, retrieve it from the Notifs collection and send it
 	var notifs = db.collection('notifs');
-	for(notif in account.notifs){
-		notifs.find({notifID : account.notifs[notif]}).toArray(function(err, notif){
-			if(notif.size!=1){
-				return console.error("There has either been a notif id collision, or an id was placed in a user account that does not match an notif");
-			}
-			data.user.notifs.push(notif[0]);
-		});
-	}
+	
+	notifs.find({owner : account.userID}).toArray(function(err, notifs){
+		data.user.notifs = notifs;
+	});
+	
 	callback();
 }
 
@@ -210,35 +197,39 @@ exports.renderProfilePages = function(page, req, res, options, userData, organiz
 				//if we've made it this far, all is good and we can log the account details and return the account object from the database
 			} else{
 				var account = users[0];
-				var data = {user : {username : account.username, userID : account.userID, name : account.firstname+' '+account.lastname, profile : account.profile, accounts : [], active : account.active, notifs : []}};
-				//extract a list of internal org IDs from the user object
-				var orgIDs = [];
-				for(var orgUniqueKey in account.accounts){
-					orgIDs.push(account.accounts[orgUniqueKey]);
-				}
-				//Get all organizations by their internal ID
-				organizations.find({orgID : {$in : orgIDs}}).toArray(function(err, orgArray){
-					/*THERE'S A GOOD CHANCE SOMETHING MIGHT FUCK UP HERE*/
-					var index = 0;
-					for (orgEntry in orgArray){
-						var orgID = Object.keys(account.accounts)[index];
-						data.user.accounts.push({name : orgArray[orgEntry].orgname, profile : orgArray[orgEntry].profile, id : orgID});
-						index++;
+				
+				if(account.done){
+					var data = {user : {username : account.username, userID : account.userID, name : account.firstname+' '+account.lastname, profile : account.profile, accounts : [], active : account.active, notifs : []}};
+					//extract a list of internal org IDs from the user object
+					var orgIDs = [];
+					for(var orgUniqueKey in account.accounts){
+						orgIDs.push(account.accounts[orgUniqueKey]);
 					}
-
-					notifs.find({notifID : {$in : account.notifs}}).toArray(function(err, notifArray){
-						for(notifEntry in notifArray){
-							data.user.notifs.push(notifArray[notifEntry]);
+					//Get all organizations by their internal ID
+					organizations.find({orgID : {$in : orgIDs}}).toArray(function(err, orgArray){
+						/*THERE'S A GOOD CHANCE SOMETHING MIGHT FUCK UP HERE*/
+						var index = 0;
+						for (orgEntry in orgArray){
+							var orgID = Object.keys(account.accounts)[index];
+							data.user.accounts.push({name : orgArray[orgEntry].orgname, profile : orgArray[orgEntry].profile, id : orgID});
+							index++;
 						}
-						for(var option in options){
-							data[option] = options[option];
-						}
-						console.log('data');
-						console.log(data);
-						
-						res.render(page, data);
+	
+						notifs.find({notifID : {$in : account.notifs}}).toArray(function(err, notifArray){
+							for(notifEntry in notifArray){
+								data.user.notifs.push(notifArray[notifEntry]);
+							}
+							for(var option in options){
+								data[option] = options[option];
+							}
+							
+							res.render(page, data);
+						});
 					});
-				});
+				}else{
+					res.redirect('/profileComplete');
+				}
+				
 			}
 		});
 	}else{
