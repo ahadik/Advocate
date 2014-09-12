@@ -1,89 +1,55 @@
 <html>
 	<head>
 		<title>Advocate</title>
-		<link rel="stylesheet" href="/stylesheets/style.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
-		<link rel="stylesheet" href="/stylesheets/register.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
-		<!--<link rel="stylesheet" href="/public/stylesheets/styleMobile.css" title="Advocate Styling" type="text/css" media='only screen and (-webkit-min-device-pixel-ratio: 2)' charset="utf-8">-->
+		<link rel="stylesheet" href="/stylesheets/masterstyle.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
 		<% include includes/boilerplate %>
 	</head>
 	<body>
 		<div id="wrapper">
-			<div id="header">
-				<div id="nav" class="pink">
-					<div class="navCenter">
-						<div class="logo">
-							<div class="logoWrap">
-								<img src="resources/logo-web.png" />
-							</div>
-						</div>
-						<div id="menu">
-							<ul>
-								<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
-								<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
-								<li class="buttonize"><a href="/register">SIGN UP</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="formContainer" class="gridWrapper">
-				<h1 class="headTitle centerAlign">LOG IN</h1>
-				<div class="colorBar">
-					<div class="pink colorBlock"></div>
-					<div class="dark colorBlock"></div>
-					<div class="blue colorBlock"></div>
-					<div class="yellow colorBlock"></div>
-				</div>
-				<div class="fullWidth padding">
-					<form role="form" action="/login" method="post" id="registerForm">
-						<div id="formWrapper">
-							<div class="formSection">
-								<p class="centerAlign">Don't have an account? <a href="/register">Sign Up</a></p>
-								<div id="twitterAuth" onclick="location.href='/auth/twitter';">
-									<div class="buttonTable">
-										<div class="buttonContent">
-											<div class="buttonLogo" id="twitter"></div>
-											<h3 class="buttonText">log in with twitter</h3>
-										</div>
+			<% include includes/header %>
+			
+			<div id="content">
+				<h1 class="headTitle" style="text-align: center;">Sign In</h1>	
+				<form role="form" action="/login" method="post" id="loginForm">
+					<div id="formWrapper">
+						<div class="formSection">
+							<p class="centerAlign" style="text-align: center;">Don't have an account? <a href="/register">Create one!</a></p>
+							<div id="twitterAuth">
+								<a href="/auth/twitter" style="position: absolute; width: 100%; height: 100%; z-index:1;">
+								</a>
+								<div class="buttonTable">
+									<div class="buttonContent">
+										<div class="buttonLogo" id="twitter"></div>
+										<h3 class="buttonText">with twitter</h3>
 									</div>
 								</div>
-								<p class="caption">we'll never post anything without your permission!</p>
-								<div class="optionDivider">
-									<div class="dividerWrapper">
-										<div class="dividerLine">
-										</div>
-										<h1 class="dividerText">OR</h1>
-										<div class="dividerLine">
-										</div>
+								
+							</div>
+							<p class="caption" style="text-align: center; margin-top:14px;">we'll never post anything without your permission!</p>
+							<div class="optionDivider">
+								<div class="dividerWrapper">
+									<div class="dividerLine">
+									</div>
+									<h1 class="dividerText">OR</h1>
+									<div class="dividerLine">
 									</div>
 								</div>
-								<div class="modalForm width100">
-									<p class="centerAlign">Sign in with your Advocate username.</p>
-									<input type="text" id="username" name="username" placeholder="username" class="formtext width100 validateInterest" required><br>
-									<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
-								</div>
+							</div>
+							<div class="modalForm width100">
+								<input type="text" id="username" name="username" placeholder="username" onblur="checkUsername();" class="formtext width100 validateInterest" required><br>
+								<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
 							</div>
 						</div>
-						<div id="buttonContainer">
-							<button type="submit" class="buttonize pink centerBox">SUBMIT</button>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div id="footer" class="pink">
-				<div class="innerContainer navCenter">
-					<div class="logo">
-						<p class="footerText">2014 ADVOCATE. ALL RIGHTS RESERVED</p>
 					</div>
-					<div id="menu">
-						<ul>
-							<li><a href="#about" onclick="$.scrollTo('#about',500);">ABOUT US</a></li>
-							<li><a href="#features" onclick="$.scrollTo('#features',500);">FEATURES</a></li>
-							<li><a href="#contact" onclick="$.scrollTo('#contact',500);">GET IN TOUCH</a></li>
-						</ul>
+					<div class="buttonContainer">
+						<button type="submit" class="centerBox buttonize pink">SUBMIT</button>
 					</div>
-				</div>
+				</form>
 			</div>
+			
+			<% include includes/footer %>
 		</div>
+		<script src="/javascripts/js_generic.js"></script>
+		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
 	</body>
 </html>

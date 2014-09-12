@@ -112,7 +112,13 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		res.redirect('/');
 	});
 	app.get('/submits', registrations.form);
-	app.get('/register', register.form);
+	app.get('/register', function(req, res){
+		if(req.isAuthenticated()){
+			res.redirect('/');
+		}else{
+			res.render('register', {auth: false});
+		}
+	});
 	app.get('/auth', register.twitter);
 
 	app.post('/register', passport.authenticate('local-signup', {
@@ -177,7 +183,11 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	});
 
 	app.get('/login', function(req, res){
-		res.render('login', {user : req.user});
+		if(req.isAuthenticated()){
+			res.redirect('/');
+		}else{
+			res.render('login', {auth: false});
+		}
 	});
 
 

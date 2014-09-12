@@ -7,12 +7,6 @@ var mongodb = require('mongodb')
 var Notif = require('../models/Notif');
 var dBase = require('../lib/db');
 
-exports.form = function(req, res){
-//	formServer.report(function(data){
-		res.render('register', {user : req.user});
-//	});
-};
-
 exports.twitter = function(req, res){
 	res.render('twitter', {user : req.user});
 }
