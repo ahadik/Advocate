@@ -8,8 +8,8 @@
 		<!--<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">-->
 	</head>
 	<body>
-		<div class="overlay" onclick="toggleDialogue()">
-			<div class="popup" onclick="preventHide()">
+		<div class="overlay" id="previewOver" onclick="toggleDialogue('#previewOver')">
+			<div class="popup previewWindow" onclick="preventHide()">
 				<div id="modalTop">
 					<div id="modalTitle">
 						<h1 class="headTitle centerAlign" id="modalTitleContent"></h1>
@@ -310,7 +310,7 @@
 			$('.ui-datepicker-calendar thead tr').attr('bgcolor', '#E6E7E8');
 			$('#newEventForm').css('height','1100');
 			
-			var times = [{std : {hr : '', tm : 'midnight'}, mlt : 0},{std : {hr : 1, tm : 'am'}, mlt : 1},{std : {hr : 2, tm : 'am'}, mlt : 2},{std : {hr : 3, tm : 'am'}, mlt : 3},{std : {hr : 4, tm : 'am'}, mlt : 4},{std : {hr : 5, tm : 'am'}, mlt : 5},{std : {hr : 6, tm : 'am'}, mlt : 6},{std : {hr : 7, tm : 'am'}, mlt : 7},{std : {hr : 8, tm : 'am'}, mlt : 8},{std : {hr : 9, tm : 'am'}, mlt : 9},{std : {hr : 10, tm : 'am'}, mlt : 10},{std : {hr : 11, tm : 'am'}, mlt : 11},{std : {hr : '', tm : 'noon'}, mlt : 12},{std : {hr : 1, tm : 'pm'}, mlt : 13},{std : {hr : 2, tm : 'pm'}, mlt : 14},{std : {hr : 3, tm : 'pm'}, mlt : 15},{std : {hr : 4, tm : 'pm'}, mlt : 16},{std : {hr : 5, tm : 'pm'}, mlt : 17},{std : {hr : 6, tm : 'pm'}, mlt : 8},{std : {hr : 7, tm : 'pm'}, mlt : 19},{std : {hr : 8, tm : 'pm'}, mlt : 20},{std : {hr : 9, tm : 'pm'}, mlt : 21},{std : {hr : 10, tm : 'pm'}, mlt : 22},{std : {hr : 11, tm : 'pm'}, mlt : 23}];
+			var times = [{std : {hr : '', tm : 'midnight'}, mlt : 0},{std : {hr : 1, tm : 'am'}, mlt : 1},{std : {hr : 2, tm : 'am'}, mlt : 2},{std : {hr : 3, tm : 'am'}, mlt : 3},{std : {hr : 4, tm : 'am'}, mlt : 4},{std : {hr : 5, tm : 'am'}, mlt : 5},{std : {hr : 6, tm : 'am'}, mlt : 6},{std : {hr : 7, tm : 'am'}, mlt : 7},{std : {hr : 8, tm : 'am'}, mlt : 8},{std : {hr : 9, tm : 'am'}, mlt : 9},{std : {hr : 10, tm : 'am'}, mlt : 10},{std : {hr : 11, tm : 'am'}, mlt : 11},{std : {hr : '', tm : 'noon'}, mlt : 12},{std : {hr : 1, tm : 'pm'}, mlt : 13},{std : {hr : 2, tm : 'pm'}, mlt : 14},{std : {hr : 3, tm : 'pm'}, mlt : 15},{std : {hr : 4, tm : 'pm'}, mlt : 16},{std : {hr : 5, tm : 'pm'}, mlt : 17},{std : {hr : 6, tm : 'pm'}, mlt : 18},{std : {hr : 7, tm : 'pm'}, mlt : 19},{std : {hr : 8, tm : 'pm'}, mlt : 20},{std : {hr : 9, tm : 'pm'}, mlt : 21},{std : {hr : 10, tm : 'pm'}, mlt : 22},{std : {hr : 11, tm : 'pm'}, mlt : 23}];
 			
 			function setInput(){
 				var dates = $('#datepicker').multiDatesPicker('getDates', 'object');
@@ -604,7 +604,7 @@
 				}else{
 					$('#fullFormWrap').append('<input type="hidden" name="dateData" value=\''+JSON.stringify(dateData)+'\'/>');
 				}
-				toggleDialogue();
+				toggleDialogue('#previewOver');
 				return false;
 			}
 			

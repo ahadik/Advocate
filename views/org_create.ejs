@@ -5,8 +5,8 @@
 		<% include includes/boilerplate %>
 	</head>
 	<body>
-		<div class="overlay" onclick="toggleDialogue()">
-			<div class="popup" onclick="preventHide()">
+		<div class="overlay" id="orgOver" onclick="toggleDialogue('#orgOver')">
+			<div class="popup previewWindow" onclick="preventHide()">
 				<div id="modalTop">
 					<div class="medProfPhoto" id="modalPhotoContent" style="position: relative; float: left;"></div>
 					<div id="modalTitle">
@@ -265,7 +265,7 @@
 					
 				});
 				
-				toggleDialogue();
+				toggleDialogue('#orgOver');
 				return false;
 			}
 		</script>

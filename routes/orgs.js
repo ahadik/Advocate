@@ -48,12 +48,10 @@ exports.newEvent = function(req, res, events, userData){
 	userData.find({userID : req.user.userID}).toArray(function(err, users){
 		if(err){return console.error(err);}
 		
-		console.log(req.body);
-		
 		var newEvent = new Event.Event(req, users[0].accounts[users[0].active.id]);
 		events.insert(newEvent, function(err, docs){
 			if(err){return console.error(err);}
-			res.redirect('/style');
+			res.redirect('/eventView');
 		});
 		
 	});
