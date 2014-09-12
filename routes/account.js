@@ -8,7 +8,7 @@ exports.accountView = function(req, res, userData, notifs){
 }
 
 exports.accountComplete = function(req, res, systemData, userData, notifs){
-	systemData.find({_id : ObjectID("53f13064b5a39cc69f00011b")}).toArray(function(err, data) {
+	systemData.find({_id : ObjectID(process.env.INTEREST_ID)}).toArray(function(err, data) {
 		var interests = data[0]["interests"];  
 		var options = {};
 		options["interests"] = interests;
