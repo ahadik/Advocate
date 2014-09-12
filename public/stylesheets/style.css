@@ -827,7 +827,7 @@ p.caption{
 }
 
 #twitter{
-	background-image: url('../../resources/twitter_icon_small.png');
+	background-image: url('/resources/twitter_icon_small.png');
 }
 
 #formContainer{

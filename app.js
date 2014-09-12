@@ -194,7 +194,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 				if(parsedQuery.query.redirect){
 					return res.redirect('/'+parsedQuery.query.redirect);
 				}else{
-					return res.redirect('/style');
+					return res.redirect('/');
 				}
 
 			});

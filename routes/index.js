@@ -1,10 +1,7 @@
-/*
- * GET home page.
- */
-
+var account = require('../routes/account.js');
 exports.index = function(req, res, userData, organizations, notifs){
 	if(req.isAuthenticated()){
-		exports.renderProfilePages('main', req, res, {auth : true}, userData, organizations, notifs);
+		account.renderProfilePages('main', req, res, {auth : true}, userData, organizations, notifs);
 	}else{
 		res.render('main', {auth: false});
 	}

@@ -29,6 +29,9 @@ function preventHide(){
 }
 
 function toggleDialogue(){
+
+	console.log("toggleDialogue");
+
 	if(!toggleIndicator){
 		$( ".overlay" ).fadeIn( "slow");
 		toggleIndicator=1;

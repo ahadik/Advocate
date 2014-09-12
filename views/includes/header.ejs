@@ -11,22 +11,22 @@
 				<%if(!auth){%>
 					<a class="navText" style="margin-right: 24px;" onclick="loginModal();">Log In</a>
 					<a class="smallButtonize" style="font-size: 14pt;" onclick="registerModal();">Sign Up!</a>
-					<div class="overlay" id="registerOver" onclick="toggleDialogue()">
+					<div class="overlay" id="registerOver" onclick="toggleDialogue('#registerOver')">
 						<div class="popup" id="register" onclick="preventHide()">
-							<h1 class="headTitle centerAlign">Sign Up</h1>	
+							<h1 class="headTitle" style="text-align: center;">Sign Up</h1>	
 							<form role="form" action="/register" method="post" id="registerForm">
 								<div id="formWrapper">
 									<div class="formSection">
-										<p class="centerAlign">Have an account? <a href="/login">Log in</a></p>
+										<p class="centerAlign" style="text-align: center;">Have an account? <a href="/login">Log in</a></p>
 										<div id="twitterAuth" onclick="twitterLogin();">
 											<div class="buttonTable">
 												<div class="buttonContent">
 													<div class="buttonLogo" id="twitter"></div>
-													<h3 class="buttonText">log in with twitter</h3>
+													<h3 class="buttonText">with twitter</h3>
 												</div>
 											</div>
 										</div>
-										<p class="caption">we'll never post anything without your permission!</p>
+										<p class="caption" style="text-align: center; margin-top:14px;">we'll never post anything without your permission!</p>
 										<div class="optionDivider">
 											<div class="dividerWrapper">
 												<div class="dividerLine">
@@ -37,8 +37,8 @@
 											</div>
 										</div>
 										<div class="modalForm width100">
-											<input type="text" id="firstName" name="firstName" placeholder="first name" class="formtext width48 validateInterest" required>
-											<input type="text" id="lastName" name="lastName" placeholder="last name" class="formtext width48 floatRight validateInterest" required><br>
+											<input type="text" id="firstName" name="firstName" placeholder="first name" class="formtext validateInterest" style="width: 226px; margin-right:12px;" required>
+											<input type="text" id="lastName" name="lastName" placeholder="last name" class="formtext floatRight validateInterest" style="width: 226px;" required><br>
 											<input type="text" id="affiliate" name="affiliate" placeholder="affiliated schools or organizations" class="formtext width100 validateInterest" required><br>
 											<input type="text" id="username" name="username" placeholder="username" onblur="checkUsername();" class="formtext width100 validateInterest" required><br>
 											<input type="email" id="emailAddress" name="emailAddress" placeholder="email" class="formtext width100 validateInterest" required><br>
@@ -46,38 +46,28 @@
 										</div>
 									</div>
 								</div>
-								<div id="buttonContainer">
+								<div class="buttonContainer">
 									<button type="submit" class="centerBox buttonize pink">SUBMIT</button>
 								</div>
 							</form>
 						</div>
 					</div>
-					<div class="overlay" id="loginOver" onclick="toggleDialogue()">
+					<div class="overlay" id="loginOver" onclick="toggleDialogue('#loginOver')">
 						<div class="popup" id="login" onclick="preventHide()">
-							<h1 class="headTitle centerAlign">SIGN UP</h1>
-							<div class="colorBar">
-								<div class="pink colorBlock">
-								</div>
-								<div class="dark colorBlock">
-								</div>
-								<div class="blue colorBlock">
-								</div>
-								<div class="yellow colorBlock">
-								</div>
-							</div>		
-							<form role="form" action="/register" method="post" id="registerForm">
+							<h1 class="headTitle" style="text-align: center;">Sign Up</h1>	
+							<form role="form" action="/login" method="post" id="loginForm">
 								<div id="formWrapper">
 									<div class="formSection">
-										<p class="centerAlign">Have an account? <a href="/login">Log in</a></p>
+										<p class="centerAlign" style="text-align: center;">Have an account? <a href="/login">Log in</a></p>
 										<div id="twitterAuth" onclick="twitterLogin();">
 											<div class="buttonTable">
 												<div class="buttonContent">
 													<div class="buttonLogo" id="twitter"></div>
-													<h3 class="buttonText">log in with twitter</h3>
+													<h3 class="buttonText">with twitter</h3>
 												</div>
 											</div>
 										</div>
-										<p class="caption">we'll never post anything without your permission!</p>
+										<p class="caption" style="text-align: center; margin-top:14px;">we'll never post anything without your permission!</p>
 										<div class="optionDivider">
 											<div class="dividerWrapper">
 												<div class="dividerLine">
@@ -88,16 +78,12 @@
 											</div>
 										</div>
 										<div class="modalForm width100">
-											<input type="text" id="firstName" name="firstName" placeholder="first name" class="formtext width48 validateInterest" required>
-											<input type="text" id="lastName" name="lastName" placeholder="last name" class="formtext width48 floatRight validateInterest" required><br>
-											<input type="text" id="affiliate" name="affiliate" placeholder="affiliated schools or organizations" class="formtext width100 validateInterest" required><br>
 											<input type="text" id="username" name="username" placeholder="username" onblur="checkUsername();" class="formtext width100 validateInterest" required><br>
-											<input type="email" id="emailAddress" name="emailAddress" placeholder="email" class="formtext width100 validateInterest" required><br>
 											<input type="password" id="password" name="password" placeholder="password" class="formtext width100 validateInterest" required>
 										</div>
 									</div>
 								</div>
-								<div id="buttonContainer">
+								<div class="buttonContainer">
 									<button type="submit" class="centerBox buttonize pink">SUBMIT</button>
 								</div>
 							</form>

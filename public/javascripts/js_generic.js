@@ -10,13 +10,16 @@ function preventHide(){
 }
 
 function toggleDialogue(modal){
+
+	console.log("toggleDialogue");
+
 	if(!toggleIndicator){
-		$( ".overlay"+modal ).fadeIn( "slow");
+		$( modal ).fadeIn( "slow");
 		toggleIndicator=1;
 	}else if(toggleIndicator==2){
 		toggleIndicator=1;
 	}else{
-		$( ".overlay"+modal ).fadeOut( "slow");
+		$( modal ).fadeOut( "slow");
 		$('#register').fadeOut("slow");
 		toggleIndicator=0;
 	}
@@ -28,6 +31,6 @@ function registerModal(){
 }
 
 function loginModal(){
-	toggleDialogue();
+	toggleDialogue("#loginOver");
 	$('#login').fadeIn("slow");
 }
