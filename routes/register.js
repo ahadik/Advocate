@@ -91,7 +91,6 @@ exports.updateAccount = function(data, notifIDs, users, userData, notifs, callba
 						interests : [],
 						accounts : {},
 						active : {name : data.name, type : data.source, id : userID, profile : profile},
-						notifs : [firstNotif.notifID],
 						done : false
 					},function(err, docs){
 						if(err){

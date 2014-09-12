@@ -214,15 +214,12 @@ exports.renderProfilePages = function(page, req, res, options, userData, organiz
 							data.user.accounts.push({name : orgArray[orgEntry].orgname, profile : orgArray[orgEntry].profile, id : orgID});
 							index++;
 						}
-	
-						notifs.find({notifID : {$in : account.notifs}}).toArray(function(err, notifArray){
-							for(notifEntry in notifArray){
-								data.user.notifs.push(notifArray[notifEntry]);
-							}
+						
+						notifs.find({owner : data.user.userID}).toArray(function(err, notifs){
+							data.user.notifs = notifs;
 							for(var option in options){
 								data[option] = options[option];
 							}
-							
 							res.render(page, data);
 						});
 					});

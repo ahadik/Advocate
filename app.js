@@ -171,7 +171,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 				console.log("Profile updated: ", accountUsername);
 			});
 			userData.find({username : accountUsername}).toArray(function(err, users){
-				account.accountView(req, res, userData, notifs);
+				res.redirect('/');
 			});
 		}
 	});
