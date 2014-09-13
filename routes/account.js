@@ -26,7 +26,7 @@ exports.createOrg = function(req, res, userData, organizations, notifs){
 
 exports.createEvent = function(req, res, systemData, userData, organizations, notifs){
 	if(req.isAuthenticated()){
-		systemData.find({_id : ObjectID("53f13064b5a39cc69f00011b")}).toArray(function(err, data) {
+		systemData.find({_id : ObjectID(process.env.INTEREST_ID)}).toArray(function(err, data) {
 			console.log("USER HERE");
 			console.log(req.user);
 			exports.renderProfilePages('event_create', req, res, {auth : true, interests : data[0]["interests"]}, userData, organizations, notifs);
