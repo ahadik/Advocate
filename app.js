@@ -129,6 +129,9 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 
 	app.post('/complete', function(req, res){
 		if(err){console.log(err);}
+		
+		console.log(req.user);
+		
 		var accountUsername = req.user.username;
 
 		//If the zipcode field has a value, then the city, state, lat and long need to be recomputed and updated in the database
