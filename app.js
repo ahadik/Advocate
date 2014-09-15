@@ -62,7 +62,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	app.use(express.static(__dirname + '/public'));
 	app.set('view engine', 'ejs');
 
-	app.use(express.logger('dev'));
+	app.use(express.logger());
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('chip chocolate chip'));
