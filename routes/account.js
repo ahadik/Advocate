@@ -139,6 +139,10 @@ exports.switchAccounts = function(req, res, userData, orgData){
 
 //for rendering pages that need all sensitive info
 function renderFullAccounts(page, req, res, options, userData, notifs){
+	
+	console.log(req);
+	console.log(req.user);
+	
 	var userID = req.user.userID;
 	userData.find({userID : userID}).toArray(function(err, users){
 		
