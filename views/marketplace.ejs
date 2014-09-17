@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>Advocate</title>
+		<link rel="stylesheet" href="/stylesheets/eventview.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
+		<% include includes/boilerplate %>
+	</head>
+	<body>
+		<div id="wrapper">
+			<% include includes/header %>
+			
+			<div id="content" class="gridWrapper">
+				<div id="eventWrapper" class="fullWidth padding">
+					<%var index = 1;%>
+					<%for(event in events){%>
+						<div class="eventBlock thirdWidth <%if(index % 3 !== 0){%>eventBlockMargin<%}%>">
+							<div class="eventBlockCover" style="background-image: url(<%=events[event].cover%>);">
+							</div>
+							<div class="eventBlockInfo">
+								<h3><%=events[event].title%></h3>
+								<p><%=events[event].city%>, <%=events[event].state%></p>
+								<p>
+									<%for(var key in events[event].dates){%>
+										<%=key %>
+										<%for(date in events[event].dates[key].days){%>
+											<%=events[event].dates[key].days[date]%> 
+										<%}%>
+									<%}%>
+								</p>
+								<br>
+								<div class="eventBlockDescription">
+									<p><%=events[event].description%></p>
+								</div>
+							</div>
+							<div class="eventBlockProgress">
+								<div class="eventBlockDetails">
+									<div class="eventBlockNumbers"><h2><%=events[event].volunteered%> of <%=events[event].openings%></h2></div>
+									<div class="eventBlockNumberDesc"><p> spots filled</p></div>
+								</div>
+								<div class="eventBlockInner" style="width: <%=events[event].volunteered/events[event].openings*100%>%;">
+								</div>
+							</div>
+						</div>
+					<%index++;%>
+					<%}%>
+				</div>
+			</div>
+			<% include includes/footer %>
+		</div>
+		<script src="/javascripts/js_generic.js"></script>
+		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
+	</body>
+</html>

@@ -92,7 +92,11 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	}
 
 	app.get('/', function(req, res){
-		index.index(req, res, userData, organizations, notifs);
+		if(req.isAuthenticated()){
+			account.marketview(req, res, userData, events, organizations, notifs);	
+		}else{
+			index.index(req, res, userData, organizations, notifs);
+		}
 	});
 
 	app.get('/style', function(req, res){
@@ -131,9 +135,6 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		if(err){console.log(err);}
 		
 		var accountUsername = req.user.username;
-
-		console.log(req.body);
-
 		//If the zipcode field has a value, then the city, state, lat and long need to be recomputed and updated in the database
 		if(req.body.zipCode != 'ZIP Code'){
 			userData.update(

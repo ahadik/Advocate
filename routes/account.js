@@ -7,6 +7,46 @@ exports.accountView = function(req, res, userData, organizations, notifs){
 	renderFullAccounts('account', req, res, {}, userData, organizations, notifs);
 }
 
+exports.marketview = function(req, res, userData, events, organizations, notifs){
+	
+	events.find({}).toArray(function(err, events){
+		if(err){return console.error(err);}
+		var eventOption = [];
+		for(event in events){
+			var eventObject = {};
+			eventObject['title'] = events[event].title;
+			eventObject['description'] = events[event].doWhat;
+			eventObject['city'] = events[event].city;
+			eventObject['state'] = events[event].state;
+			eventObject['cover'] = events[event].cover;
+			eventObject['id'] = events[event].id;
+			eventObject['dates'] = {};
+			eventObject['openings'] = 0;
+			eventObject['volunteered']=0;
+			for(date in events[event].dates){
+				
+				var dateArray = events[event].dates[date].date.toDateString().split(" ");
+				//if the month has already been added
+				if(eventObject.dates[dateArray[1]]){
+					eventObject.dates[dateArray[1]].days.push(dateArray[2]);
+				}else{
+					//if the month hasn't been added yet
+					eventObject.dates[dateArray[1]] = {days : [dateArray[2]]};
+				}
+				for(slot in events[event].dates[date].slots){
+					eventObject.openings += parseInt(events[event].dates[date].slots[slot].maxVolunteers);
+					eventObject.volunteered += events[event].dates[date].slots[slot].volunteers.length;
+				}
+			}
+			eventOption.push(eventObject);
+		}
+		
+		var options = {auth : true, events : eventOption};
+		exports.renderProfilePages('marketplace', req, res, options, userData, organizations, notifs);
+	});
+	
+}
+
 exports.accountComplete = function(req, res, systemData, userData, organizations, notifs){
 	systemData.find({_id : ObjectID(process.env.INTEREST_ID)}).toArray(function(err, data) {
 		var interests = data[0]["interests"];  
