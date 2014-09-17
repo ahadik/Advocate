@@ -130,37 +130,35 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	app.post('/complete', function(req, res){
 		if(err){console.log(err);}
 		
-		console.log(req.user);
-		
 		var accountUsername = req.user.username;
 
+		console.log(req.body);
+
 		//If the zipcode field has a value, then the city, state, lat and long need to be recomputed and updated in the database
-		if(req.body.zipCode != ''){
-			geo.createLocationfromZip(req.body.zipCode, function(location){
-				userData.update(
-					{username : accountUsername},
-					{$set: {
-						city : location.city,
-						state : location.state,
-						latitude : location.latitude,
-						longitude : location.longitude,
-						interests : req.body.interest,
-						done : true
-					} },
-					{
-						upsert : true
-					}
-				,function(err, docs){
-					if(err){
-						console.log("There was an error.");
-						return console.error(err);
-					}
-					console.log("Profile updated: ", accountUsername);
-				});
-				userData.find({username : accountUsername}).toArray(function(err, users){
-					console.log("Account creation complete. Rendering account page");
-					res.redirect('/');
-				});
+		if(req.body.zipCode != 'ZIP Code'){
+			userData.update(
+				{username : accountUsername},
+				{$set: {
+					city : req.body.city,
+					state : req.body.state,
+					latitude : req.body.latitude,
+					longitude : req.body.longitude,
+					interests : req.body.interest,
+					done : true
+				} },
+				{
+					upsert : true
+				}
+			,function(err, docs){
+				if(err){
+					console.log("There was an error.");
+					return console.error(err);
+				}
+				console.log("Profile updated: ", accountUsername);
+			});
+			userData.find({username : accountUsername}).toArray(function(err, users){
+				console.log("Account creation complete. Rendering account page");
+				res.redirect('/');
 			});
 		//otherwise, only the interests section needs to be updated
 		}else{
@@ -235,7 +233,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	});
 
 	app.get('/profileComplete', function(req, res){
-		account.accountComplete(req, res, systemData, userData, notifs);
+		account.accountComplete(req, res, systemData, userData, organizations, notifs);
 	});
 
 	app.get('/eventView', function(req, res){

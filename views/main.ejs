@@ -10,7 +10,8 @@
 			
 			<div id="splashImage">
 				<div id="splashVideoWrapper">
-					<img src="/resources/video_over.png" width="853" onclick='var video = "<iframe width=\"853\" height=\"480\" src=\"//www.youtube.com/embed/9zUVQIZjRAM?rel=0\" frameborder=\"0\" allowfullscreen></iframe>"; $("#splashVideoWrapper").html(video);' style="cursor: pointer;"/>
+				<iframe id="youTubeVideo" width="853" height="480" src="//www.youtube.com/embed/9zUVQIZjRAM?rel=0" frameborder="0" allowfullscreen></iframe>
+				<img id="youTubeOver" src="/resources/video_over.png" width="853"  onclick='swapVideo();' style="cursor: pointer;"/>
 				</div>
 			</div>
 			<div id="bodyWrapper">

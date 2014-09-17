@@ -3,16 +3,16 @@ var mongodb = require('mongodb')
   , ObjectID = require('mongodb').ObjectID;
 var dBase = require('../lib/db');
 
-exports.accountView = function(req, res, userData, notifs){
-	renderFullAccounts('account', req, res, {}, userData, notifs);
+exports.accountView = function(req, res, userData, organizations, notifs){
+	renderFullAccounts('account', req, res, {}, userData, organizations, notifs);
 }
 
-exports.accountComplete = function(req, res, systemData, userData, notifs){
+exports.accountComplete = function(req, res, systemData, userData, organizations, notifs){
 	systemData.find({_id : ObjectID(process.env.INTEREST_ID)}).toArray(function(err, data) {
 		var interests = data[0]["interests"];  
-		var options = {};
+		var options = {auth : true};
 		options["interests"] = interests;
-		renderFullAccounts('profile_complete', req, res, options, userData, notifs);
+		renderFullAccounts('register_complete', req, res, options, userData, organizations, notifs);
 	});
 }
 
@@ -138,11 +138,8 @@ exports.switchAccounts = function(req, res, userData, orgData){
 }
 
 //for rendering pages that need all sensitive info
-function renderFullAccounts(page, req, res, options, userData, notifs){
-	
-	console.log(req);
-	console.log(req.user);
-	
+function renderFullAccounts(page, req, res, options, userData, organizations, notifs){
+
 	var userID = req.user.userID;
 	userData.find({userID : userID}).toArray(function(err, users){
 		
@@ -157,18 +154,35 @@ function renderFullAccounts(page, req, res, options, userData, notifs){
 			return done(null, null);
 			//if we've made it this far, all is good and we can log the account details and return the account object from the database
 		} else{
-			var data = {user : users[0]};
+			//var data = {user : users[0]};
 			var account = users[0];
-			//for every notification ID in the users notifs, retrieve it from the Notifs collection and send it
+			var data = {user : account};
+			data.user.active.name = "";
+			console.log(data);
 			
-			notifs.find({owner : account.userID}).toArray(function(err, notifs){
-				data.user.notifs = notifs;
-			});
-			
-			for(var option in options){
-				data[option] = options[option];
+			//extract a list of internal org IDs from the user object
+			var orgIDs = [];
+			for(var orgUniqueKey in account.accounts){
+				orgIDs.push(account.accounts[orgUniqueKey]);
 			}
-			res.render(page, data);
+			//Get all organizations by their internal ID
+			organizations.find({orgID : {$in : orgIDs}}).toArray(function(err, orgArray){
+				/*THERE'S A GOOD CHANCE SOMETHING MIGHT FUCK UP HERE*/
+				var index = 0;
+				for (orgEntry in orgArray){
+					var orgID = Object.keys(account.accounts)[index];
+					data.user.accounts.push({name : orgArray[orgEntry].orgname, profile : orgArray[orgEntry].profile, id : orgID});
+					index++;
+				}
+				
+				notifs.find({owner : data.user.userID}).toArray(function(err, notifs){
+					data.user.notifs = notifs;
+					for(var option in options){
+						data[option] = options[option];
+					}
+					res.render(page, data);
+				});
+			});	
 		}
 	});
 }

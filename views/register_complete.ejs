@@ -1,0 +1,117 @@
+<html>
+	<head>
+		<title>Advocate</title>
+		<link rel="stylesheet" href="/stylesheets/profilestyle.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
+		<% include includes/boilerplate %>
+	</head>
+	<body>
+		<div id="wrapper">
+			<% include includes/header %>
+			
+			<div id="content">
+				<h1 class="headTitle" style="text-align: center;">Your profile</h1>	
+				<form role="form" action="/complete	" method="post" id="registerForm">
+				<input type="hidden" id="avatar_url" name="avatar_url" value="<%=user.profile%>" />
+					<div id="formWrapper">
+						<div class="formSection">
+							<div class="modalForm width100">
+							
+								<div class="divFormWrapper" style="position:relative; height:112px;">
+									<div id="profilePhoto" style="background-image: url(<%=user.active.profile%>);"></div>
+									<div id="profileData">
+										<h3><%=user.firstname%> <%=user.lastname%></h3>
+										<p>Email: <%=user.email%></p>
+										<p>Username: <%=user.username%></p>
+										<div id="profileText">
+											<p id="status">Select a new profile picture</p>
+											<div id="fileWrapper">
+												<input type="file" id="files"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<input type="hidden" value="" name="city">
+								<input type="hidden" value="" name="state">
+								<input type="hidden" value="" name="latitude">
+								<input type="hidden" value="" name="longitude">
+								<%if(!user.state){%>
+									<input type="text" id="zipCode" placeholder="ZIP Code" value="" pattern="[0-9]*" maxlength="5" name="zipCode" class="formtext" onchange="findCityState();" style="position:relative; float:left; width: 40%;" <%if(!user.state) {%>required<%}%>>
+									<div id="geoLocation">
+									</div>
+								<%}else{%>
+									<input type="hidden" id="zipCode" placeholder="ZIP Code" value="" pattern="[0-9]*" maxlength="5" name="zipCode" class="formtext" onchange="findCityState();" style="position:relative; float:left; width: 40%;" <%if(!user.state) {%>required<%}%>>
+									<div id="geoLocation">
+										<p id="twitterLoc"><%=user.city%>, <%=user.state%> (<a onclick="$('#zipCode').attr('type', 'text'); $('#twitterLoc').hide();" style="cursor:pointer;">edit</a>)</p>
+									</div>
+								<%}%>
+								
+								
+							
+								<div class="divFormWrapper" style="position:relative; float:left; width:467px;">
+									<div style="position:relative; width: intrinsic; margin-left:auto; margin-right:auto;">
+									<p>interests (choose all that apply)</p><br>
+									<% for(var i=0; i<interests.length; i++) { %>
+										<p><input type="checkbox" name="interest" value="<%=interests[i]%>" style="margin-right:1em;"><%=interests[i]%></p><br>
+								    <% } %>
+								    </div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div class="buttonContainer">
+						<button type="submit" class="centerBox buttonize pink">SUBMIT</button>
+					</div>
+				</form>
+				<script type="text/javascript" src="/javascripts/s3upload.js"></script>
+
+				<script type="text/javascript">
+					function s3_upload(){
+					    var status_elem = document.getElementById("status");
+					    var url_elem = document.getElementById("avatar_url");
+					    var preview_elem = document.getElementById("profilePhoto");
+					    var s3upload = new S3Upload({
+					        file_dom_selector: 'files',
+					        s3_sign_put_url: '/sign_s3',
+					        onProgress: function(percent, message) {
+					            status_elem.innerHTML = 'Upload progress: ' + percent + '% ' + message;
+					        },
+					        onFinishS3Put: function(public_url) {
+					            status_elem.innerHTML = 'Upload completed.';
+					            url_elem.value = public_url;
+					            console.log(public_url);
+					            $('#profilePhoto').css("background-image","url('"+public_url+"')");
+					            completionNotification(public_url);
+					        },
+					        onError: function(status) {
+					        	
+					            status_elem.innerHTML = 'Upload error: ' + status;
+					        }
+					    });
+					}
+					
+					(function() {
+					    var input_element = document.getElementById("files");
+					    input_element.onchange = s3_upload;
+					})();
+				</script>
+			
+			<% include includes/footer %>
+		</div>
+		<script src="/javascripts/js_generic.js"></script>
+		<script>
+			function findCityState(){
+				if($('#zipCode').val().length==5){
+					createLocationfromZIP($('#zipCode').val(), function(location){
+						$('#geoLocation').html('<p>'+location.city+', '+location.state+'</p>');
+						$('input[name="city"]').val(location.city);
+						$('input[name="state"]').val(location.state);
+						$('input[name="latitude"]').val(location.latitude);
+						$('input[name="longitude"]').val(location.longitude);
+					});
+				}
+			}
+		</script>
+		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
+	</body>
+</html>
