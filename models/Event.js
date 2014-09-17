@@ -23,6 +23,7 @@ exports.Event = function(req, id){
 	this.dates = generateDates(datesObject, formBody.numVolun);
 	this.cover = formBody.avatar_url;
 	this.org = id;
+	this.id = makeid();
 }
 
 function generateDates(datesObject, numVolun){
@@ -49,4 +50,18 @@ function getActiveID(req, userData){
 		
 		return users[0].account[users[0].active.id];
 	});
+}
+
+
+//Generate an unique random id. Random permutations are created until one is made that does not collide with an existing ID in orgs
+function makeid(){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	//generate the 10 character text variable while the text variable is already included in the orgs hash. this prevents duplicates by chance
+
+    for( var i=0; i < 15; i++ ){
+	    text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return text;
 }

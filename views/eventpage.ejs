@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<title>Advocate</title>
+		<link rel="stylesheet" href="/stylesheets/eventpage.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
+		<% include includes/boilerplate %>
+	</head>
+	<body>
+		<div class="overlay" onclick="toggleDialogue()">
+			<div class="popup" onclick="preventHide()">
+				<h1 class="headTitle centerAlign">A MODAL WINDOW</h1>	
+				<p>Some content is here</p>
+			</div>
+		</div>
+		<div id="wrapper">
+			<% include includes/header %>
+			
+			
+			<div id="content" class="gridWrapper">
+				<div id="eventTop">
+					<div id="modalTitle">
+						<h1 class="headTitle centerAlign" id="eventTitleContent"><%=event.title%></h1>
+						<h3 class="centerAlign" id="modalSubtitleContent"><%=event.street%> <%=event.city%>, <%=event.state%></h3>
+						<p class="headSubtitle centerAlign" id="eventDateContent">
+							<%for(var key in event.dates){%>
+								<%=key %>
+								<%for(date in event.dates[key].days){%>
+									<%=event.dates[key].days[date]%> 
+								<%}%>
+							<%}%>
+						</p>
+					</div>
+				</div>
+				<div id="eventContent">
+					<div class="eventLeft padding" style="float:left; background-color: white;">
+						<div id="eventCoverContent" style="background-image:url(<%=event.cover%>)"></div>
+						<div id="eventTypeWrapper">
+							<%for(type in event.types){%>
+								<div class="eventType"><p style="text-align:center;"><%=event.types[type]%></p></div>
+							<%}%>
+						</div>
+						<h1 class="headSubtitle centerAlign" id="modalLocationContent"></h1>
+						<div class="eventHeaderWrapper">
+							<h1>What will I be doing?</h1>
+						</div>
+						<div class="eventTextWrapper">
+							<p id="eventEventDescriptionContent"><%=event.description%></p>
+						</div>
+						<div class="eventHeaderWrapper">
+							<h1>What should I bring?</h1>
+						</div>
+						<div class="eventTextWrapper">
+							<p id="eventEventBringContent"><%=event.bringing%></p>
+						</div>
+						<div id="eventMap"></div>
+					</div>
+					<div class="eventRight padding" style="float:left; background-color: white;">
+						<div class="statsWrapper">
+							<h1 id="numVolunteers"><%=event.volunteered%> of <%=event.openings%></h1>
+							<p>volunteer spots filled</p>
+							<div style="position:relative; width:100%; height:5px; background-color:#FEE1B4;"></div>
+						</div>
+						<div class="statsWrapper">
+							<h1 id="daysLeft"></h1>
+							<p>days left</p>
+						</div>
+						<div class="statsWrapper">
+							<h1>0</h1>
+							<p>bookmarks</p>
+						</div>
+						<div class="statsWrapper">
+							<h1>0</h1>
+							<p>friends going</p>
+						</div>
+						<br>
+						<div class="buttonContainer">
+							<button type="button" class="buttonize pink centerBox" style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic;">VOLUNTEER</button>
+							<div id="subButtons">
+								<div id="bookmark">
+									<p><a>bookmark</a></p>
+								</div>
+								<div id="share">
+									<p><a>share</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="eventRight padding" style="float:left; margin-top:14px; background-color: white;">
+						<h1>Hosted by:</h1>
+						<div class="medProfPhoto" id="eventPhotoContent" style="position: relative; margin-left: auto; margin-right: auto; background-image: url('<%=user.active.profile%>');"></div>
+						<h3 id="eventOrgNameContent" style="text-align:center;"><%=user.active.name%></h3>
+					</div>
+				</div>
+			</div>
+			<% include includes/footer %>
+		</div>
+		<script src="/javascripts/js_generic.js"></script>
+		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
+	</body>
+</html>

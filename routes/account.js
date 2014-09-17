@@ -23,6 +23,7 @@ exports.marketview = function(req, res, userData, events, organizations, notifs)
 			eventObject['dates'] = {};
 			eventObject['openings'] = 0;
 			eventObject['volunteered']=0;
+			
 			for(date in events[event].dates){
 				
 				var dateArray = events[event].dates[date].date.toDateString().split(" ");
@@ -43,8 +44,47 @@ exports.marketview = function(req, res, userData, events, organizations, notifs)
 		
 		var options = {auth : true, events : eventOption};
 		exports.renderProfilePages('marketplace', req, res, options, userData, organizations, notifs);
+	});	
+}
+
+exports.renderEvent = function(req, res, userData, organizations, notifs, events){
+	var urlelements = req.url.split('/');
+	var id = urlelements[urlelements.length-1];
+	events.find({id : id}).toArray(function(err, events){
+		
+		var event =events[0];
+		
+		var eventObject = {};
+		eventObject['title'] = event.title;
+		eventObject['description'] = event.doWhat;
+		eventObject['bringing'] = event.bringWhat;
+		eventObject['street'] = event.street;
+		eventObject['city'] = event.city;
+		eventObject['state'] = event.state;
+		eventObject['cover'] = event.cover;
+		eventObject['id'] = event.id;
+		eventObject['dates'] = {};
+		eventObject['openings'] = 0;
+		eventObject['volunteered']=0;
+		
+		for(date in event.dates){
+			
+			var dateArray = event.dates[date].date.toDateString().split(" ");
+			//if the month has already been added
+			if(eventObject.dates[dateArray[1]]){
+				eventObject.dates[dateArray[1]].days.push(dateArray[2]);
+			}else{
+				//if the month hasn't been added yet
+				eventObject.dates[dateArray[1]] = {days : [dateArray[2]]};
+			}
+			for(slot in event.dates[date].slots){
+				eventObject.openings += parseInt(event.dates[date].slots[slot].maxVolunteers);
+				eventObject.volunteered += event.dates[date].slots[slot].volunteers.length;
+			}
+		}
+		var options = {auth : true, event : eventObject};
+		exports.renderProfilePages('eventpage', req, res, options, userData, organizations, notifs);
 	});
-	
 }
 
 exports.accountComplete = function(req, res, systemData, userData, organizations, notifs){
@@ -67,8 +107,6 @@ exports.createOrg = function(req, res, userData, organizations, notifs){
 exports.createEvent = function(req, res, systemData, userData, organizations, notifs){
 	if(req.isAuthenticated()){
 		systemData.find({_id : ObjectID(process.env.INTEREST_ID)}).toArray(function(err, data) {
-			console.log("USER HERE");
-			console.log(req.user);
 			exports.renderProfilePages('event_create', req, res, {auth : true, interests : data[0]["interests"]}, userData, organizations, notifs);
 		});
 	}else{
@@ -241,6 +279,7 @@ function getandFillNotifs(account, data, notifs, callback){
 //for rendering any page on the site for an authenticated user
 exports.renderProfilePages = function(page, req, res, options, userData, organizations, notifs){
 	if(req.isAuthenticated()){
+	
 		var userID = req.user.userID;
 		userData.find({userID: userID}).toArray(function(err, users) {
 			//if there's no users, then something went wrong up above, so we return null resulting in a redirect to /login
@@ -278,6 +317,7 @@ exports.renderProfilePages = function(page, req, res, options, userData, organiz
 							for(var option in options){
 								data[option] = options[option];
 							}
+							
 							res.render(page, data);
 						});
 					});

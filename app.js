@@ -98,6 +98,14 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 			index.index(req, res, userData, organizations, notifs);
 		}
 	});
+	
+	app.get("/event/*", function(req,res){
+		if(req.isAuthenticated()){
+			account.renderEvent(req, res, userData, organizations, notifs, events);
+		}else{
+			res.redirect('/');
+		}
+	});
 
 	app.get('/style', function(req, res){
 		if(req.isAuthenticated()){

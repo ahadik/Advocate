@@ -1,0 +1,83 @@
+@import url('masterstyle.css');
+
+#eventContent{
+	position: relative;
+	width: 974px;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+#eventTop{
+	position: relative;
+	float: left;
+	margin-bottom: 28px;
+	width: 100%;
+	text-align: center;
+}
+
+#eventBottom{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+#eventTitle{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.eventLeft{
+	position: relative;
+	float: left;
+	width: 691px;
+	margin-right: 14px;
+}
+
+#eventMission{
+	position: relative;
+	float: left;
+	margin-bottom: 94px;
+	width: 100%;
+}
+
+#eventStory{
+	position: relative;
+	float: left;
+	margin-bottom: 94px;
+	width: 100%;
+}
+
+.eventRight{
+	position: relative;
+	float: left;
+	width: 200px;
+}
+
+#eventCoverContent{
+	position: relative;
+	float: left;
+	width: 690px;
+	height: 460px;
+	background-position: center center;
+	background-size: cover;
+}
+
+.eventHeaderWrapper{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 66px;
+}
+
+.eventHeaderWrapper h1{
+	line-height: 66px;
+}
+
+.eventTextWrapper{
+	position: relative;
+	float: left;
+	width: 100%;
+}
