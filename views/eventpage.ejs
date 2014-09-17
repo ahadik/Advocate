@@ -13,8 +13,6 @@
 		</div>
 		<div id="wrapper">
 			<% include includes/header %>
-			
-			
 			<div id="content" class="gridWrapper">
 				<div id="eventTop">
 					<div id="modalTitle">
@@ -38,7 +36,7 @@
 								<div class="eventType"><p style="text-align:center;"><%=event.types[type]%></p></div>
 							<%}%>
 						</div>
-						<h1 class="headSubtitle centerAlign" id="modalLocationContent"></h1>
+						<h1 class="headSubtitle centerAlign" id="modalLocationContent"><%=event.tag%></h1>
 						<div class="eventHeaderWrapper">
 							<h1>What will I be doing?</h1>
 						</div>

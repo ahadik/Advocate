@@ -59,6 +59,7 @@
 .eventBlockDescription{
 	position: relative;
 	height: 60px;
+	overflow: hidden;
 }
 
 .eventBlockProgress{

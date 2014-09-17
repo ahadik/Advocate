@@ -13,7 +13,7 @@
 					<%var index = 1;%>
 					<%for(event in events){%>
 						<div class="eventBlock thirdWidth <%if(index % 3 !== 0){%>eventBlockMargin<%}%>">
-							<a style="overflow:hidden;" href="/event/<%=events[event].id%>"><span style="position: absolute; width: 306px; height:429px;"></span></a>
+							<a style="position: absolute; width: 306px; height:429px; z-index: 10;" href="/event/<%=events[event].id%>"><span style="position: absolute; width: 306px; height:429px;"></span></a>
 							<div class="eventBlockCover" style="background-image: url(<%=events[event].cover%>);">
 							</div>
 							<div class="eventBlockInfo">

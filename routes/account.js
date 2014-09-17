@@ -57,6 +57,7 @@ exports.renderEvent = function(req, res, userData, organizations, notifs, events
 		var eventObject = {};
 		eventObject['title'] = event.title;
 		eventObject['description'] = event.doWhat;
+		eventObject['tag'] = event.eventTag;
 		eventObject['bringing'] = event.bringWhat;
 		eventObject['street'] = event.street;
 		eventObject['city'] = event.city;
