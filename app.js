@@ -106,6 +106,14 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 			res.redirect('/');
 		}
 	});
+	
+	app.get("/volunteer", function(req,res){
+		if(req.isAuthenticated()){
+			account.volunteerEvent(req, res, userData, events, organizations, notifs);
+		}else{
+			res.redirect('/');
+		}
+	});
 
 	app.get('/style', function(req, res){
 		if(req.isAuthenticated()){

@@ -7,6 +7,40 @@ exports.accountView = function(req, res, userData, organizations, notifs){
 	renderFullAccounts('account', req, res, {}, userData, organizations, notifs);
 }
 
+exports.volunteerEvent = function(req, res, userData, events, organizations, notifs){
+	if(req.isAuthenticated()){
+		var urlQuery = require('url').parse(req.url, true);
+		var userID = urlQuery.query.user;
+		var eventID = urlQuery.query.event;
+		
+		console.log(userID);
+		console.log(eventID);
+		
+		
+		events.find({id : eventID}).toArray(function(err, eventsArray){
+			var event = eventsArray[0];
+			
+			
+			console.log(event);
+			
+			var volunteers = event.dates[0]['slots'][0]['volunteers'];
+			events.update(
+				{id : eventID},
+				{$push: { 'dates.0.slots.0.volunteers' : userID }},
+				function(err, results){
+					if(err){
+						console.log(err);
+					}else{
+						res.redirect('/event/'+eventID);
+					}
+				}
+			)
+		});	
+	}else{
+		res.redirect('/');
+	}
+}
+
 exports.marketview = function(req, res, userData, events, organizations, notifs){
 	
 	events.find({}).toArray(function(err, events){
@@ -65,6 +99,7 @@ exports.renderEvent = function(req, res, userData, organizations, notifs, events
 		eventObject['cover'] = event.cover;
 		eventObject['id'] = event.id;
 		eventObject['dates'] = {};
+		eventObject['slots'] = event.dates;
 		eventObject['openings'] = 0;
 		eventObject['volunteered']=0;
 		
@@ -168,7 +203,6 @@ exports.eventView = function(req, res, userData, notifs, events, organizations){
 exports.switchAccounts = function(req, res, userData, orgData){
 	if(req.isAuthenticated()){
 		var urlQuery = require('url').parse(req.url, true);
-		console.log(urlQuery);
 		if(urlQuery.query.account){
 			var userID = req.user.userID;
 			userData.find({userID : userID}).toArray(function(err, users){

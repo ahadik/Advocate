@@ -209,7 +209,7 @@ module.exports = function(passport, orgs, notifIDs, usersDB, userData, notifs){
 				// save the user
                 newUser.save(function(err) {
                     if (err){throw err;}
-                    var data = {source : 'local', username : req.body.username, firstname : req.body.firstName, lastname : req.body.lastName, emailAddress : req.body.emailAddress, affiliate : req.body.affiliate, done : false, id : newUser.local.id};
+                    var data = {source : 'local', username : req.body.username, firstname : req.body.firstName, lastname : req.body.lastName, name : req.body.firstName+' '+req.body.lastName, emailAddress : req.body.emailAddress, affiliate : req.body.affiliate, done : false, id : newUser.local.id};
                                  
                     accountCreate.updateAccount(data, notifIDs, usersDB, userData, notifs, function(createdUser){
 	                    return done(null, createdUser);
