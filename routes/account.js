@@ -2,6 +2,7 @@ var mongodb = require('mongodb')
   , MongoClient = mongodb.MongoClient
   , ObjectID = require('mongodb').ObjectID;
 var dBase = require('../lib/db');
+var time = require('../lib/time');
 
 exports.accountView = function(req, res, userData, organizations, notifs){
 	renderFullAccounts('account', req, res, {}, userData, organizations, notifs);
@@ -12,21 +13,19 @@ exports.volunteerEvent = function(req, res, userData, events, organizations, not
 		var urlQuery = require('url').parse(req.url, true);
 		var userID = urlQuery.query.user;
 		var eventID = urlQuery.query.event;
-		
-		console.log(userID);
-		console.log(eventID);
-		
+		var date = urlQuery.query.date;
+		var slot = urlQuery.query.slot;
 		
 		events.find({id : eventID}).toArray(function(err, eventsArray){
 			var event = eventsArray[0];
 			
-			
-			console.log(event);
-			
-			var volunteers = event.dates[0]['slots'][0]['volunteers'];
+
+			var volunteers = event.dates[date]['slots'][slot]['volunteers'];
+			var dateSelector = {};
+			dateSelector['dates.'+date+'.slots.'+slot+'.volunteers'] = userID;
 			events.update(
 				{id : eventID},
-				{$push: { 'dates.0.slots.0.volunteers' : userID }},
+				{$push: dateSelector},
 				function(err, results){
 					if(err){
 						console.log(err);
@@ -46,48 +45,52 @@ exports.marketview = function(req, res, userData, events, organizations, notifs)
 	events.find({}).toArray(function(err, events){
 		if(err){return console.error(err);}
 		var eventOption = [];
-		for(event in events){
-			var eventObject = {};
-			eventObject['title'] = events[event].title;
-			eventObject['description'] = events[event].doWhat;
-			eventObject['city'] = events[event].city;
-			eventObject['state'] = events[event].state;
-			eventObject['cover'] = events[event].cover;
-			eventObject['id'] = events[event].id;
-			eventObject['dates'] = {};
-			eventObject['openings'] = 0;
-			eventObject['volunteered']=0;
-			
-			for(date in events[event].dates){
-				
-				var dateArray = events[event].dates[date].date.toDateString().split(" ");
-				//if the month has already been added
-				if(eventObject.dates[dateArray[1]]){
-					eventObject.dates[dateArray[1]].days.push(dateArray[2]);
-				}else{
-					//if the month hasn't been added yet
-					eventObject.dates[dateArray[1]] = {days : [dateArray[2]]};
-				}
-				for(slot in events[event].dates[date].slots){
-					eventObject.openings += parseInt(events[event].dates[date].slots[slot].maxVolunteers);
-					eventObject.volunteered += events[event].dates[date].slots[slot].volunteers.length;
-				}
-			}
-			eventOption.push(eventObject);
-		}
 		
-		var options = {auth : true, events : eventOption};
-		exports.renderProfilePages('marketplace', req, res, options, userData, organizations, notifs);
-	});	
+		for(event in events){		
+			var dateDiff = time.dateDiffInDays(events[event].dates[0].date);
+			if(dateDiff>=0){
+				var eventObject = {};
+				eventObject['title'] = events[event].title;
+				eventObject['description'] = events[event].doWhat;
+				eventObject['city'] = events[event].city;
+				eventObject['state'] = events[event].state;
+				eventObject['cover'] = events[event].cover;
+				eventObject['id'] = events[event].id;
+				eventObject['dates'] = {};
+				eventObject['openings'] = 0;
+				eventObject['volunteered']=0;
+				
+				for(date in events[event].dates){
+				
+					
+					
+					var dateArray = events[event].dates[date].date.toDateString().split(" ");
+					//if the month has already been added
+					if(eventObject.dates[dateArray[1]]){
+						eventObject.dates[dateArray[1]].days.push(dateArray[2]);
+					}else{
+						//if the month hasn't been added yet
+						eventObject.dates[dateArray[1]] = {days : [dateArray[2]]};
+					}
+					for(slot in events[event].dates[date].slots){
+						eventObject.openings += parseInt(events[event].dates[date].slots[slot].maxVolunteers);
+						eventObject.volunteered += events[event].dates[date].slots[slot].volunteers.length;
+					}
+				}
+				eventOption.push(eventObject);
+			}
+			var options = {auth : true, events : eventOption};
+			exports.renderProfilePages('marketplace', req, res, options, userData, organizations, notifs);
+		}
+	});
 }
 
 exports.renderEvent = function(req, res, userData, organizations, notifs, events){
 	var urlelements = req.url.split('/');
 	var id = urlelements[urlelements.length-1];
 	events.find({id : id}).toArray(function(err, events){
-		
 		var event =events[0];
-		
+		var dateDiff = time.dateDiffInDays(event.dates[0].date);
 		var eventObject = {};
 		eventObject['title'] = event.title;
 		eventObject['description'] = event.doWhat;
@@ -102,7 +105,7 @@ exports.renderEvent = function(req, res, userData, organizations, notifs, events
 		eventObject['slots'] = event.dates;
 		eventObject['openings'] = 0;
 		eventObject['volunteered']=0;
-		
+		eventObject['daysLeft']=dateDiff;
 		for(date in event.dates){
 			
 			var dateArray = event.dates[date].date.toDateString().split(" ");

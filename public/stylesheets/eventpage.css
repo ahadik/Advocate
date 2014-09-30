@@ -84,7 +84,7 @@
 
 .dateSelect{
 	position: relative;
-	height: 28px;
-	width: 150px;
+	height: auto;
+
 	margin-bottom: 14px;
 }

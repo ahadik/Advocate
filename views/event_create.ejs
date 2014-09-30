@@ -220,6 +220,7 @@
 			<% include includes/footer %>
 		</div>
 		<script src="/javascripts/js_generic.js"></script>
+		<script src="/javascripts/time.js"></script>
 		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
 		<script>
 		
@@ -520,52 +521,6 @@
 				}
 			}
 			
-			var _MS_PER_DAY = 1000 * 60 * 60 * 24;
-
-			function dateDiffInDays() {
-			  var currentDate = new Date;
-			  var dates = $('#datepicker').multiDatesPicker('getDates', 'object');
-			  var firstDate = dates[0];
-			  
-			  var utc1 = Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
-			  var utc2 = Date.UTC(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate());
-			  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
-			}
-			
-			function calcTimes(){
-				var dateData = {};
-				var dayChoices = $('#timeSection .timeSelectDate').toArray();
-				for(dayChoice in dayChoices){
-					var date = $('h3', dayChoices[dayChoice]).html();
-					
-					var start = parseInt($('.selectorWrapper .selectstart select', dayChoices[dayChoice]).val());
-					var end = parseInt($('.selectorWrapper .selectend select', dayChoices[dayChoice]).val());
-					
-					var rows = $('.blockRow', dayChoices[dayChoice]).toArray();
-					for(row in rows){
-						var blocks = $('.blockHalf', rows[row]).toArray();
-						var selectedStart = 0.0;
-						var selectedEnd = 0.0;
-						var started = false;
-						for(block in blocks){
-							if($(blocks[block]).hasClass("hourBlockHighlight")){
-								started=true;
-								selectedEnd+=0.5;
-							}else if(!started){
-								selectedStart+=0.5;
-								selectedEnd+=0.5;
-							}
-						}
-						if(dateData.hasOwnProperty(date)){
-							dateData[date].push([selectedStart+start, selectedEnd+start]);
-						}else{
-							dateData[date] = [[selectedStart+start, selectedEnd+start]];
-						}
-					}
-				}
-				return dateData;
-			}
-			
 			function showPreview(){
 				$('#modalTitleContent').html($('input[name=eventTitle]').val());
 				$('#modalSubtitleContent').html($('input[name=eventTagLine]').val());
@@ -590,8 +545,12 @@
 				$('#modalEventDescriptionContent').html($('textarea[name=eventDescription]').val());
 				$('#modalEventBringContent').html($('textarea[name=eventToBring]').val());
 				var numDays;
+				
+				var dates = $('#datepicker').multiDatesPicker('getDates', 'object');
+				var firstDate = dates[0];
+				
 				if($('#datepicker').multiDatesPicker('getDates', 'object').length){
-					numDays = dateDiffInDays();
+					numDays = dateDiffInDays(firstDate);
 				}else{
 					numDays = 0;
 				}

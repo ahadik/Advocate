@@ -15,43 +15,46 @@
 					<h3>Dates</h3>
 					<%var dateNum = 0;%>
 					<%for(date in event.slots){%>
-						<div class="dateSelect" style="background-color: #E6E7E8;">
-							<p onclick="$('#date<%=dateNum%>').show(); $('#date<%=dateNum%>').prepend('<p>'+$(this).html()+'</p>'); $(this).parent().css({backgroundColor : '#6D97CF'}); $(this).css({color : 'white'}); selectedSlots[<%=dateNum%>] = [];" style="text-align:center; cursor: pointer;"><%=event.slots[date].date.toDateString()%></p>
+						<div class="dateSelect">
+							<p onclick="$('#date<%=dateNum%>').show(); $('#date<%=dateNum%>').prepend('<p>'+$(this).html()+'</p>'); $(this).css({color : 'white'}); selectedSlots[<%=dateNum%>] = [];" style="text-align:left; cursor: pointer;"><%=event.slots[date].date.toDateString()%></p>
+							<%for(slot in event.slots[date].slots){%>
+									<%var start, end;%>
+									<%if((event.slots[date].slots[slot].start%1)==0.5){start = Math.floor(event.slots[date].slots[slot].start%12)+':30';}else{start = Math.floor(event.slots[date].slots[slot].start%12)+':00';}%>
+									<%if((event.slots[date].slots[slot].end%1)==0.5){end = Math.floor(event.slots[date].slots[slot].end%12)+':30';}else{end = Math.floor(event.slots[date].slots[slot].end%12)+':00';}%>
+									<%if(start=='0:30'){start = '12:30';}if(end=='0:30'){end = '12:30';}%>
+									
+								<%if(event.slots[date].slots[slot].volunteers.indexOf(user.userID)>-1){%>
+									<p style="margin-left:42px; margin-top:8px; color:#CCCCCC"><%if(event.slots[date].slots[slot].start > 12){%>
+										<%=start%> PM to
+									<%}else{%>
+										<%=start%> AM to
+									<%}%>
+									
+									<%if(event.slots[date].slots[slot].end > 12){%>
+										<%=end%> PM
+									<%}else{%>
+										<%=end%> AM
+									<%}%>
+									 - VOLUNTEERED!
+									</p>
+								<%}else{%>
+									<p style="margin-left:42px; margin-top:8px;"><a href="/volunteer?user=<%=user.userID%>&event=<%=event.id%>&date=<%=date%>&slot=<%=slot%>"><%if(event.slots[date].slots[slot].start > 12){%>
+										<%=start%> PM to
+									<%}else{%>
+										<%=start%> AM to
+									<%}%>
+									
+									<%if(event.slots[date].slots[slot].end > 12){%>
+										<%=end%> PM
+									<%}else{%>
+										<%=end%> AM
+									<%}%>
+									</a></p>
+								<%}%>
+							<%}%>
 						</div>
 						<%dateNum++;%>
 					<%}%>
-				</div>
-				<div class="divFormWrapper" style="padding: 14px;">
-					<h3>Slots</h3>
-					<%var dateNum = 0;%>
-					<%for(date in event.slots){%>
-						<%var slotNum = 0;%>
-						<div id="date<%=dateNum%>" style="display:none; margin-bottom: 14px;">
-						<%for(slot in event.slots[date].slots){%>
-							<%var start, end;%>
-							<%if((event.slots[date].slots[slot].start%1)==0.5){start = Math.floor(event.slots[date].slots[slot].start%12)+':30';}else{start = Math.floor(event.slots[date].slots[slot].start%12)+':00';}%>
-							<%if((event.slots[date].slots[slot].end%1)==0.5){end = Math.floor(event.slots[date].slots[slot].end%12)+':30';}else{end = Math.floor(event.slots[date].slots[slot].end%12)+':00';}%>
-							<%if(start=='0:30'){start = '12:30';}if(end=='0:30'){end = '12:30';}%>
-							<p onclick="selectedSlots['<%=dateNum%>'].push('<%=slotNum%>'); $(this).css('color', '#4A9488');" style="cursor: pointer;">Slot #<%=slotNum+1%>: <%if(event.slots[date].slots[slot].start > 12){%>
-								<%=start%> PM to
-							<%}else{%>
-								<%=start%> AM to
-							<%}%>
-							
-							<%if(event.slots[date].slots[slot].end > 12){%>
-								<%=end%> PM
-							<%}else{%>
-								<%=end%> AM
-							<%}%>
-							</p>
-							<%slotNum++;%>
-						<%}%>
-						</div>
-						<%dateNum++;%>
-					<%}%>
-				</div>
-				<div class="buttonContainer">
-					<button type="submit" class="centerBox buttonize pink">SUBMIT</button>
 				</div>
 			</div>
 		</div>
@@ -102,7 +105,7 @@
 							<div style="position:relative; width:100%; height:5px; background-color:#FEE1B4;"></div>
 						</div>
 						<div class="statsWrapper">
-							<h1 id="daysLeft"></h1>
+							<h1 id="daysLeft"><%=event.daysLeft%></h1>
 							<p>days left</p>
 						</div>
 						<div class="statsWrapper">
@@ -115,11 +118,7 @@
 						</div>
 						<br>
 						<div class="buttonContainer">
-							<%if(event.slots[0].slots[0].volunteers.indexOf(user.userID)>-1){%>
-								<button type="button" class="buttonize pink centerBox" style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic; background-color: #E6E7E8;">VOLUNTEER</button>
-							<%}else{%>
-								<button type="button" class="buttonize pink centerBox" onclick="location.href='/volunteer?user=<%=user.userID%>&event=<%=event.id%>'" style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic;">VOLUNTEER</button>
-							<%}%>
+							<button type="button" class="buttonize pink centerBox" onclick="toggleDialogue('#volunteerOver')" style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic;">VOLUNTEER</button>
 							<div id="subButtons">
 								<div id="bookmark">
 									<p><a>bookmark</a></p>
