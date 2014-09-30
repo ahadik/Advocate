@@ -30,7 +30,7 @@
 										<%=start%> AM to
 									<%}%>
 									
-									<%if(event.slots[date].slots[slot].end > 12){%>
+									<%if(event.slots[date].slots[slot].end >= 12){%>
 										<%=end%> PM
 									<%}else{%>
 										<%=end%> AM
