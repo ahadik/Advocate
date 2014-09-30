@@ -21,7 +21,7 @@
 									<%var start, end;%>
 									<%if((event.slots[date].slots[slot].start%1)==0.5){start = Math.floor(event.slots[date].slots[slot].start%12)+':30';}else{start = Math.floor(event.slots[date].slots[slot].start%12)+':00';}%>
 									<%if((event.slots[date].slots[slot].end%1)==0.5){end = Math.floor(event.slots[date].slots[slot].end%12)+':30';}else{end = Math.floor(event.slots[date].slots[slot].end%12)+':00';}%>
-									<%if(start=='0:30'){start = '12:30';}if(end=='0:30'){end = '12:30';}%>
+									<%if(start=='0:30'){start = '12:30';}if(end=='0:30'){end = '12:30';}if(end=='0:00'){end = '12:00';}if(start=='0:00'){start = '12:00';}%>
 									
 								<%if(event.slots[date].slots[slot].volunteers.indexOf(user.userID)>-1){%>
 									<p style="margin-left:42px; margin-top:8px; color:#CCCCCC"><%if(event.slots[date].slots[slot].start > 12){%>
