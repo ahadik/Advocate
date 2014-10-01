@@ -1,0 +1,93 @@
+
+<html>
+	<head>
+		<title>Advocate</title>
+		<link rel="stylesheet" href="/stylesheets/eventpage.css" title="Advocate Styling" type="text/css" media="screen" charset="utf-8">
+		<% include includes/boilerplate %>
+	</head>
+	<body>
+		<div class="overlay" id="volunteerOver" onclick="toggleDialogue('#volunteerOver');">
+			<div class="popup" onclick="preventHide()" style="padding: 14px;">
+				<script>
+					var selectedSlots = {};
+				</script>
+				<h1 class="headTitle" style="text-align:center;">Volunteer</h1>	
+				<div class="divFormWrapper" style="padding:14px;">
+					<h3>Dates</h3>
+						<div class="dateSelect">
+							<p onclick="$('#date0').show(); $('#date0').prepend('<p>'+$(this).html()+'</p>'); $(this).css({color : 'white'}); selectedSlots[0] = [];" style="text-align:left; cursor: pointer;">Sun Oct 05 2014</p>
+							<p style="margin-left:42px; margin-top:8px;"><a href="/volunteer?user=602261126&event=4rx7BqARmF85K6e&date=0&slot=0">9:00 AM to 3:00 PM</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="wrapper">
+				<% include includes/header %>
+				<div id="content" class="gridWrapper">
+					<div id="eventTop">
+						<div id="modalTitle">
+							<h1 class="headTitle centerAlign" id="eventTitleContent">Providence Color Run</h1>
+							<h3 class="centerAlign" id="modalSubtitleContent">1 Providence Pl Providence, RI</h3>
+							<p class="headSubtitle centerAlign" id="eventDateContent"> Oct 05</p>
+						</div>
+					</div>
+					<div id="eventContent">
+						<div class="eventLeft padding" style="float:left; background-color: white;">
+							<div id="eventCoverContent" style="background-image:url(https://advocate-production-events.s3.amazonaws.com/bWWTaANWEZ.jpeg)"></div>
+							<div id="eventTypeWrapper">
+								
+							</div>
+							<h1 class="headSubtitle centerAlign" id="modalLocationContent">Volunteer for the Happiest 5K on the Planet</h1>
+							<div class="eventHeaderWrapper">
+								<h1>What will I be doing?</h1>
+							</div>
+							<div class="eventTextWrapper">
+								<p id="eventEventDescriptionContent">It&#39;s a dirty job, but somebody&#39;s got to do it. Our cleanup crews make The Color Run possible. Cleanup crews will help sweep the course and festival areas to ensure all areas are free from debris, litter, and color caused by the race. They will be considered heroes.</p>
+							</div>
+							<div class="eventHeaderWrapper">
+								<h1>What should I bring?</h1>
+							</div>
+							<div class="eventTextWrapper">
+								<p id="eventEventBringContent">Just yourself!</p>
+							</div>
+							<div id="eventMap"></div>
+						</div>
+						<div class="eventRight padding" style="float:left; background-color: white;">
+							<div class="statsWrapper">
+								<h1 id="daysLeft">4</h1>
+								<p>days left</p>
+							</div>
+							<div class="statsWrapper">
+								<h1>0</h1>
+								<p>bookmarks</p>
+							</div>
+							<div class="statsWrapper">
+								<h1>0</h1>
+								<p>friends going</p>
+							</div>
+							<br>
+							<div class="buttonContainer">
+								<button type="button" class="buttonize pink centerBox" onclick="location.href='http://www.eventbrite.com/e/volunteer-providence-registration-12144441351?aff=ProvidenceParks'" style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic;">VOLUNTEER</button>
+								<div id="subButtons">
+									<div id="bookmark">
+										<p><a>bookmark</a></p>
+									</div>
+									<div id="share">
+										<p><a>share</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="eventRight padding" style="float:left; margin-top:14px; background-color: white;">
+							<h1>Hosted by:</h1>
+							<div class="medProfPhoto" id="eventPhotoContent" style="position: relative; margin-left: auto; margin-right: auto; background-image: url('https://advocate-production-orgdata.s3.amazonaws.com/LfebRuOjum.png');"></div>
+							<h3 id="eventOrgNameContent" style="text-align:center;">Advocate</h3>
+						</div>
+					</div>
+				</div>
+				<% include includes/footer %>
+			</div>
+		<script src="/javascripts/js_generic.js"></script>
+		<%if(auth){%><script src="/javascripts/js_header.js"></script><%}%>
+	</body>
+</html>
