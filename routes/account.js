@@ -89,10 +89,12 @@ exports.renderEvent = function(req, res, userData, organizations, notifs, events
 	var urlelements = req.url.split('/');
 	var id = urlelements[urlelements.length-1];
 	eventsDB.find({id : id}).toArray(function(err, events){
-		organizations.find({orgID : events.org}).toArray(function(err, orgs){
+		var event =events[0];
+		organizations.find({orgID : event.org}).toArray(function(err, orgs){
+			console.log(orgs);
+		
 			//we need to throw an exception here if there's more than one event or organization found
 			var org = orgs[0];
-			var event =events[0];
 			var dateDiff = time.dateDiffInDays(event.dates[0].date);
 			var eventObject = {};
 			eventObject['title'] = event.title;
