@@ -89,40 +89,46 @@ exports.renderEvent = function(req, res, userData, organizations, notifs, events
 	var urlelements = req.url.split('/');
 	var id = urlelements[urlelements.length-1];
 	events.find({id : id}).toArray(function(err, events){
-		var event =events[0];
-		var dateDiff = time.dateDiffInDays(event.dates[0].date);
-		var eventObject = {};
-		eventObject['title'] = event.title;
-		eventObject['description'] = event.doWhat;
-		eventObject['tag'] = event.tagline;
-		eventObject['bringing'] = event.bringWhat;
-		eventObject['street'] = event.street;
-		eventObject['city'] = event.city;
-		eventObject['state'] = event.state;
-		eventObject['cover'] = event.cover;
-		eventObject['id'] = event.id;
-		eventObject['dates'] = {};
-		eventObject['slots'] = event.dates;
-		eventObject['openings'] = 0;
-		eventObject['volunteered']=0;
-		eventObject['daysLeft']=dateDiff;
-		for(date in event.dates){
-			
-			var dateArray = event.dates[date].date.toDateString().split(" ");
-			//if the month has already been added
-			if(eventObject.dates[dateArray[1]]){
-				eventObject.dates[dateArray[1]].days.push(dateArray[2]);
-			}else{
-				//if the month hasn't been added yet
-				eventObject.dates[dateArray[1]] = {days : [dateArray[2]]};
+		organizations.find({orgID : events.org}).toArray(function(err, orgs){
+			//we need to throw an exception here if there's more than one event or organization found
+			var org = orgs[0];
+			var event =events[0];
+			var dateDiff = time.dateDiffInDays(event.dates[0].date);
+			var eventObject = {};
+			eventObject['title'] = event.title;
+			eventObject['description'] = event.doWhat;
+			eventObject['tag'] = event.tagline;
+			eventObject['bringing'] = event.bringWhat;
+			eventObject['street'] = event.street;
+			eventObject['city'] = event.city;
+			eventObject['state'] = event.state;
+			eventObject['cover'] = event.cover;
+			eventObject['id'] = event.id;
+			eventObject['dates'] = {};
+			eventObject['slots'] = event.dates;
+			eventObject['openings'] = 0;
+			eventObject['volunteered']=0;
+			eventObject['daysLeft']=dateDiff;
+			eventObject['hostingName'] = org.orgname;
+			eventObject['hostingPic'] = org.profile;
+			for(date in event.dates){
+				
+				var dateArray = event.dates[date].date.toDateString().split(" ");
+				//if the month has already been added
+				if(eventObject.dates[dateArray[1]]){
+					eventObject.dates[dateArray[1]].days.push(dateArray[2]);
+				}else{
+					//if the month hasn't been added yet
+					eventObject.dates[dateArray[1]] = {days : [dateArray[2]]};
+				}
+				for(slot in event.dates[date].slots){
+					eventObject.openings += parseInt(event.dates[date].slots[slot].maxVolunteers);
+					eventObject.volunteered += event.dates[date].slots[slot].volunteers.length;
+				}
 			}
-			for(slot in event.dates[date].slots){
-				eventObject.openings += parseInt(event.dates[date].slots[slot].maxVolunteers);
-				eventObject.volunteered += event.dates[date].slots[slot].volunteers.length;
-			}
-		}
-		var options = {auth : true, event : eventObject};
-		exports.renderProfilePages('eventpage', req, res, options, userData, organizations, notifs);
+			var options = {auth : true, event : eventObject};
+			exports.renderProfilePages('eventpage', req, res, options, userData, organizations, notifs);
+		});
 	});
 }
 
