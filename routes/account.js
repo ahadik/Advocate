@@ -85,10 +85,10 @@ exports.marketview = function(req, res, userData, events, organizations, notifs)
 	});
 }
 
-exports.renderEvent = function(req, res, userData, organizations, notifs, events){
+exports.renderEvent = function(req, res, userData, organizations, notifs, eventsDB){
 	var urlelements = req.url.split('/');
 	var id = urlelements[urlelements.length-1];
-	events.find({id : id}).toArray(function(err, events){
+	eventsDB.find({id : id}).toArray(function(err, events){
 		organizations.find({orgID : events.org}).toArray(function(err, orgs){
 			//we need to throw an exception here if there's more than one event or organization found
 			var org = orgs[0];
