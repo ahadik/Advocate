@@ -113,7 +113,8 @@
 							<div class="twoThirdsWidth slidingSection" style="margin-left: auto; margin-right: auto;" id="eventCreate">
 								<input type="text" placeholder="event title" name="eventTitle" class="formtext width100" required/>
 								<input type="text" placeholder="a catchy tagline (e.g. protecting wildlife and fighting goo)" name="eventTagLine" class="formtext width100" required/>
-								<div class="divFormWrapper">
+								<input type="checkbox" name="volunteerManage" style="margin:1em; margin-bottom:0;" onclick="$('#volunteerNumber').toggle();" value="1" checked>Use Advocate to manage volunteers
+								<div id="volunteerNumber" class="divFormWrapper">
 									<p style="margin-left:14px; margin-top:14px;">how many volunteers can I manage at once?</p>
 									<div class="sliderWrapper">
 										<input type="hidden" value="50" name="numVolun"/>

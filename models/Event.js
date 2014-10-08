@@ -5,10 +5,8 @@ exports.Event = function(req, id){
 	var formBody = req.body;
 	var datesObject = JSON.parse(formBody.dateData);
 	
-	console.log("here");
-	console.log(datesObject);
-	console.log(JSON.stringify(datesObject));
-	
+	console.log(formBody);
+
 	this.title = formBody.eventTitle;
 	this.tagline = formBody.eventTagLine;
 	this.doWhat = formBody.eventDescription;

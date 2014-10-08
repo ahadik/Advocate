@@ -9,7 +9,7 @@
 		<div class="navWrapper">
 			<div id="navRight">
 				<%if(!auth){%>
-					<a class="navText" style="margin-right: 24px;" onclick="loginModal();">Log In</a>
+					<a class="navText" style="margin-right: 24px; cursor: pointer;" onclick="loginModal();">Log In</a>
 					<a class="smallButtonize" style="font-size: 14pt;" onclick="registerModal();">Sign Up!</a>
 					<div class="overlay" id="registerOver" onclick="toggleDialogue('#registerOver')">
 						<div class="popup" id="register" onclick="preventHide()">
