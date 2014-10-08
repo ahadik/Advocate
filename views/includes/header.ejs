@@ -4,7 +4,15 @@
 			<a href="/"><img src="/resources/logo-web.png" /></a>
 		</div>
 		<div id="navLeft" class="navText">
-			<a href="/">Volunteer</a> | <a href="/newOrganization">Organize</a>
+			<%if(!auth){%>
+				<a href="/register">Volunteer</a> | <a href="/register?redirect=newOrganization">Organize</a>
+			<%}else{%>
+				<%if(user.active.type == 'org'){%>
+				<a href="/">Volunteer</a> | <a href="/newEvent">Organize</a>
+				<%}else{%>
+				<a href="/">Volunteer</a> | <a href="/newOrganization">Organize</a>
+				<%}%>
+			<%}%>
 		</div>
 		<div class="navWrapper">
 			<div id="navRight">
@@ -115,20 +123,20 @@
 										<%if(user.accounts[account].id != user.active.id){%><li class="orgsDropdownEntry"><img src="<%=user.accounts[account].profile%>" width="25px" height="25px" style="margin-right:8px;"/><a href="/switch?account=<%=user.accounts[account].id%>"><%=user.accounts[account].name%></a></li><%}%>
 									<%}%>
 								</ul>
-								<%if(user.active.type == 'organization'){%>
+								<%if(user.active.type == 'org'){%>
 									<div class="dropDownDivide"></div>
 									<ul>
 										<li><a href="/create" class="dropdownText">Create an event</a></li>
-										<li><a href="/track" class="dropdownText">Track your volunteers</a></li>
+										<li><a href="" class="dropdownText">Track your volunteers</a></li>
 									</ul>
 									<div class="dropDownDivide"></div>
 								<%}else if(user.active.type == 'administration'){%>
 									<div class="dropDownDivide"></div>
 									<ul>
-										<li><a href="/track" class="dropdownText">Track your members</a></li>
+										<li><a href="" class="dropdownText">Track your members</a></li>
+										<div class="dropDownDivide"></div>
 									</ul>
 								<%}%>
-								<div class="dropDownDivide"></div>
 							<%}%>
 							<ul>
 								<li><a href="/help" class="dropdownText">Help</a></li>

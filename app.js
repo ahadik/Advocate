@@ -99,20 +99,13 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		}
 	});
 	
-	app.get("/event/colorrun", function(req, res){
-		if(req.isAuthenticated()){
-			account.renderProfilePages('colorrun', req, res, {auth : true}, userData, organizations, notifs);
-			//account.renderEvent(req, res, userData, organizations, notifs, events);
-		}else{
-			res.redirect('/');
-		}
-	});
 	
 	app.get("/event/*", function(req,res){
 		if(req.isAuthenticated()){
 			account.renderEvent(req, res, userData, organizations, notifs, events);
 		}else{
-			res.redirect('/');
+			res.redirect('/login?redirect='+require('url').parse(req.url, true).pathname.substring(1));
+			//res.redirect('/');
 		}
 	});
 	
