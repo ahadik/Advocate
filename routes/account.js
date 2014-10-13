@@ -41,7 +41,6 @@ exports.volunteerEvent = function(req, res, userData, events, organizations, not
 }
 
 exports.marketview = function(req, res, userData, events, organizations, notifs){
-	
 	events.find({}).toArray(function(err, events){
 		if(err){return console.error(err);}
 		var eventOption = [];
@@ -61,9 +60,6 @@ exports.marketview = function(req, res, userData, events, organizations, notifs)
 				eventObject['volunteered']=0;
 				
 				for(date in events[event].dates){
-				
-					
-					
 					var dateArray = events[event].dates[date].date.toDateString().split(" ");
 					//if the month has already been added
 					if(eventObject.dates[dateArray[1]]){
@@ -79,8 +75,16 @@ exports.marketview = function(req, res, userData, events, organizations, notifs)
 				}
 				eventOption.push(eventObject);
 			}
-			var options = {auth : true, events : eventOption};
+		}
+		var options = {auth : true, events : eventOption};
+		if(req.isAuthenticated()){
 			exports.renderProfilePages('marketplace', req, res, options, userData, organizations, notifs);
+		}else{
+			var data = {auth: false, events : eventOption};
+			
+			console.log(data);
+			
+			res.render('marketplace', data);
 		}
 	});
 }
@@ -90,6 +94,7 @@ exports.renderEvent = function(req, res, userData, organizations, notifs, events
 	var id = urlelements[urlelements.length-1];
 	eventsDB.find({id : id}).toArray(function(err, events){
 		var event =events[0];
+		console.log(event);
 		organizations.find({orgID : event.org}).toArray(function(err, orgs){
 			console.log(orgs);
 		
@@ -128,8 +133,15 @@ exports.renderEvent = function(req, res, userData, organizations, notifs, events
 					eventObject.volunteered += event.dates[date].slots[slot].volunteers.length;
 				}
 			}
-			var options = {auth : true, event : eventObject};
-			exports.renderProfilePages('eventpage', req, res, options, userData, organizations, notifs);
+			var options = {event : eventObject};
+			if(req.isAuthenticated()){
+				options["auth"] = true;
+				exports.renderProfilePages('eventpage', req, res, options, userData, organizations, notifs);
+			}else{
+				options["auth"] = false;
+				res.render('eventpage', options); 
+			}
+			
 		});
 	});
 }
@@ -363,7 +375,7 @@ exports.renderProfilePages = function(page, req, res, options, userData, organiz
 							for(var option in options){
 								data[option] = options[option];
 							}
-							
+							console.log(data);
 							res.render(page, data);
 						});
 					});

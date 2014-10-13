@@ -7,13 +7,12 @@
 	<body>
 		<div id="wrapper">
 			<% include includes/header %>
-			
 			<div id="content" class="gridWrapper">
 				<div id="eventWrapper" class="fullWidth padding">
 					<%var index = 1;%>
 					<%for(event in events){%>
 						<div class="eventBlock thirdWidth <%if(index % 3 !== 0){%>eventBlockMargin<%}%>">
-							<a style="position: absolute; width: 306px; height:429px; z-index: 10;" href="/event/<%=events[event].id%>"><span style="position: absolute; width: 306px; height:429px;"></span></a>
+							<a style="position: absolute; width: 306px; height:429px; z-index: 2;" href="/event/<%=events[event].id%>"><span style="position: absolute; width: 306px; height:429px;"></span></a>
 							<div class="eventBlockCover" style="background-image: url(<%=events[event].cover%>);">
 							</div>
 							<div class="eventBlockInfo">

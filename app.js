@@ -99,14 +99,18 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		}
 	});
 	
+	app.get('/marketplace', function(req,res){
+		account.marketview(req, res, userData, events, organizations, notifs);
+	});
+	
 	
 	app.get("/event/*", function(req,res){
-		if(req.isAuthenticated()){
+		//if(req.isAuthenticated()){
 			account.renderEvent(req, res, userData, organizations, notifs, events);
-		}else{
-			res.redirect('/login?redirect='+require('url').parse(req.url, true).pathname.substring(1));
+		//}else{
+			//res.redirect('/login?redirect='+require('url').parse(req.url, true).pathname.substring(1));
 			//res.redirect('/');
-		}
+		//}
 	});
 	
 	app.get("/volunteer", function(req,res){
@@ -255,7 +259,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		account.accountComplete(req, res, systemData, userData, organizations, notifs);
 	});
 
-	app.get('/eventView', function(req, res){
+	app.get('/organize', function(req, res){
 		account.eventView(req, res, userData, notifs, events, organizations);
 	});
 
@@ -290,7 +294,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	// handle the callback after twitter has authenticated the user
 	app.get('/auth/twitter/callback',
 		passport.authenticate('twitter', {
-			successRedirect : '/',
+			successRedirect : '/marketplace',
 			failureRedirect : '/login'
 		})
 	);

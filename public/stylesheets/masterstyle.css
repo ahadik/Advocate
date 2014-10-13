@@ -511,7 +511,8 @@ h1.dividerText{
 	-moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
 	padding: 14px;
-	z-index: 10;
+	text-align: left;
+	z-index: 20;
 	display: none;
 }
 
@@ -540,9 +541,14 @@ h1.dividerText{
 	font-weight: 400;
 }
 
-.orgsDropdownEntry{
+.DropdownEntry{
 	color: black;
 	font-size: 14pt;
+}
+
+.DropdownEntry a{
+	color: #2A3A4F;
+	font-size: 12pt;
 }
 
 .notifLeft{
@@ -891,4 +897,14 @@ h1.dividerText{
 	height: 23px;
 	background-color: #E6E7E8;
 	margin-right: 14px;
+}
+
+#volunteerHeaderWrapper{
+	position: relative;
+	float: left;
+}
+
+#orgDdWrapper{
+	position: relative;
+	float: left;
 }

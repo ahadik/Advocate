@@ -5,6 +5,7 @@
 		<% include includes/boilerplate %>
 	</head>
 	<body>
+		<%if(auth){%>
 		<div class="overlay" id="volunteerOver" onclick="toggleDialogue('#volunteerOver');">
 			<div class="popup" onclick="preventHide()" style="padding: 14px;">
 				<script>
@@ -22,7 +23,7 @@
 									<%if((event.slots[date].slots[slot].start%1)==0.5){start = Math.floor(event.slots[date].slots[slot].start%12)+':30';}else{start = Math.floor(event.slots[date].slots[slot].start%12)+':00';}%>
 									<%if((event.slots[date].slots[slot].end%1)==0.5){end = Math.floor(event.slots[date].slots[slot].end%12)+':30';}else{end = Math.floor(event.slots[date].slots[slot].end%12)+':00';}%>
 									<%if(start=='0:30'){start = '12:30';}if(end=='0:30'){end = '12:30';}if(end=='0:00'){end = '12:00';}if(start=='0:00'){start = '12:00';}%>
-									
+								
 								<%if(event.slots[date].slots[slot].volunteers.indexOf(user.userID)>-1){%>
 									<p style="margin-left:42px; margin-top:8px; color:#CCCCCC"><%if(event.slots[date].slots[slot].start > 12){%>
 										<%=start%> PM to
@@ -58,6 +59,7 @@
 				</div>
 			</div>
 		</div>
+		<%}%>
 		<div id="wrapper">
 			<% include includes/header %>
 			<div id="content" class="gridWrapper">
@@ -118,7 +120,7 @@
 						</div>
 						<br>
 						<div class="buttonContainer">
-							<button type="button" class="buttonize pink centerBox" onclick="toggleDialogue('#volunteerOver')" style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic;">VOLUNTEER</button>
+							<button type="button" class="buttonize pink centerBox" <%if(auth){%>onclick="toggleDialogue('#volunteerOver')"<%}else{%>onclick="window.location='/login?redirect=/event/<%=event.id%>'"<%}%> style="position:relative; margin-left:auto; margin-right:auto; width: intrinsic;">VOLUNTEER</button>
 							<div id="subButtons">
 								<div id="bookmark">
 									<p><a>bookmark</a></p>
