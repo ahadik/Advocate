@@ -5,7 +5,7 @@
 		</div>
 		<div id="navLeft" class="navText">
 			<%if(!auth){%>
-				<a href="/marketplace">Volunteer</a> | <a href="/register?redirect=newOrganization">Organize</a>
+				<a href="/marketplace">Volunteer</a> | <a href="/newEvent">Organize</a>
 			<%}else{%>
 				<%if(user.active.type == 'org'){%>
 					<a href="/marketplace">Volunteer</a> | <a href="/organize">Organize</a>
