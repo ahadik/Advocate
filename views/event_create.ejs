@@ -70,8 +70,14 @@
 					</div>
 					<div class="modalRight padding" style="float:left; margin-top:14px; background-color: white;">
 						<h1>Hosted by:</h1>
-						<div class="medProfPhoto" id="modalPhotoContent" style="position: relative; margin-left: auto; margin-right: auto; background-image: url('<%=user.active.profile%>');"></div>
-						<h3 id="modalOrgNameContent" style="text-align:center;"><%=user.active.name%></h3>
+						<%if(auth){%>
+							<div class="medProfPhoto" id="modalPhotoContent" style="position: relative; margin-left: auto; margin-right: auto; background-image: url('<%=user.active.profile%>');"></div>
+							<h3 id="modalOrgNameContent" style="text-align:center;"><%=user.active.name%></h3>
+						<%}else{%>
+							<div class="medProfPhoto" id="modalPhotoContent" style="position: relative; margin-left: auto; margin-right: auto; background-image: url('https://advocate-production-orgdata.s3.amazonaws.com/LfebRuOjum.png');"></div>
+							<h3 id="modalOrgNameContent" style="text-align:center;">Advocate</h3>
+						<%}%>
+						
 					</div>
 				</div>
 				<div id="modalBottom">

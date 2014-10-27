@@ -44,17 +44,25 @@ exports.newOrg = function(req, res, accountIDs, notifIDs, orgs, userData, notifs
 }
 
 exports.newEvent = function(req, res, events, userData){
-
-	userData.find({userID : req.user.userID}).toArray(function(err, users){
-		if(err){return console.error(err);}
-		
-		var newEvent = new Event.Event(req, users[0].accounts[users[0].active.id]);
+	
+	if(req.isAuthenticated()){
+		userData.find({userID : req.user.userID}).toArray(function(err, users){
+			if(err){return console.error(err);}
+			
+			var newEvent = new Event.Event(req, users[0].accounts[users[0].active.id]);
+			events.insert(newEvent, function(err, docs){
+				if(err){return console.error(err);}
+				res.redirect('/eventView');
+			});
+			
+		});
+	}else{
+		var newEvent = new Event.Event(req, 'g)A7KNg!FeW0yE1');
 		events.insert(newEvent, function(err, docs){
 			if(err){return console.error(err);}
-			res.redirect('/eventView');
+			res.redirect('/marketplace');
 		});
-		
-	});
+	}
 }
 
 exports.tempEvent = function(req, res, eventSubmit){

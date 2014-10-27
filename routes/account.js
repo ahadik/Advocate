@@ -169,7 +169,9 @@ exports.createEvent = function(req, res, systemData, userData, organizations, no
 			exports.renderProfilePages('event_create', req, res, {auth : true, interests : data[0]["interests"]}, userData, organizations, notifs);
 		});
 	}else{
-		res.redirect('/login?redirect='+require('url').parse(req.url, true).pathname.substring(1));
+		systemData.find({_id : ObjectID(process.env.INTEREST_ID)}).toArray(function(err, data) {
+			res.render('event_create', {auth : false, interests : data[0]["interests"]});
+		});
 	}
 }
 

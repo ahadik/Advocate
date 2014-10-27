@@ -300,6 +300,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	);
 
 	//TEMP EVENT CREATE FORM
+	/*
 	app.post('/create', function(req, res){
 		orgs.tempEvent(req, res, eventSubmit);
 	});
@@ -307,7 +308,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	app.get('/create', function(req, res){
 		res.render('event_temp', {auth : false});
 	});
-
+*/
 	/*-----------------------DON'T GO BELOW THIS--------------------*/
 
 	app.use(function(req, res, next){
