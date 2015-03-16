@@ -1,0 +1,409 @@
+@import url(http://fonts.googleapis.com/css?family=Asap:200, 400,700,400italic,700italic);
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+textarea:focus, input:focus{
+    outline: 0;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	font-family: 'Asap', sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*TYPOGRAPHY*/
+
+/*Section Headers*/
+h2{
+	font-size: 30px;
+	font-weight: 500;
+}
+
+h2 span.header_sub{
+	font-size: 18px;
+	color: #737373;
+	margin-left: 20px;
+}
+
+h3{
+	font-size: 20px;
+	font-weight: 200;
+}
+
+/*Page Title Headers*/
+h1.headline{
+	line-height: 70px;
+	font-family: 'Asap', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	color:white;
+}
+
+/*SEMANTIC ELEMENT STYLING*/
+header{
+	position: fixed;
+	left:0;
+	right:0;
+	height: 70px;
+	background-color: #eb5768;
+	padding-left: 34px;
+	padding-right: 34px;
+	z-index: 10;
+}
+
+header section{
+	position: relative;
+	float: left;
+	width: 33%;
+}
+
+header section:nth-child(1){
+	text-align: left;
+}
+
+header section:nth-child(2){
+	text-align: center;
+}
+
+main{
+	position: absolute;
+	width: 100%;
+	min-height: 100%;
+	background-color: #efecea;
+	padding-top: 210px;
+	padding-bottom: 20px;
+}
+
+#confirmation{
+	position: absolute;
+	width: 100%;
+	background-color: #efecea;
+	padding-top: 0;
+}
+
+footer{
+	height: 20px;
+	background-color: #eb5768;
+}
+
+/*CLASS STYLING*/
+
+.signup_section{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1110px;
+	margin-bottom: 20px;
+	overflow: auto;
+
+}
+
+.horz_break{
+	position: relative;
+	width: 100%;
+	border-top: 1px solid #d1d3d4;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+.half_col{
+	position: relative;
+	float: left;
+	width: 45%;
+}
+
+.left_col{
+	margin-right: 5%;
+}
+
+.right_col{
+	margin-left: 5%;
+}
+
+.form_row{
+	position: relative;
+	float: left;
+	width: 100%;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.row_text{
+	position: relative;
+	float: left;
+	width: 130px;
+	text-align: left;
+}
+
+.row_input{
+	position: relative;
+	float: right;
+	width: 350px;
+	height: 55px;
+}
+
+.row_input input{
+	font-family: 'Asap', sans-serif;
+	width: 350px;
+	height: 100%;
+	border-radius: 6px;
+	border: none;
+	font-size: 22px;
+	padding: 15px;
+}
+
+.bad_input{
+	border: 2px solid #f08a8b !important;
+}
+
+/*OBEJCT STYLING*/
+
+/*conditional box*/
+#conditional_info{
+	position: relative;
+	float: left;
+	width: 100%;
+	margin-top: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #2d957e;
+	border-radius: 6px;
+	display: none;
+}
+
+.conditional_wrapper{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.conditional_header{
+	color: white;
+	font-weight: 100;
+	margin-bottom: 20px;
+}
+
+.condit_big{
+	font-size: 30px;
+	margin-right: 20px;
+}
+
+.condit_small{
+	font-size: 20px;
+}
+
+.condit_text{
+	color: white;
+}
+
+
+/*group*/
+#group_selection{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+#group_search{
+	position: relative;
+	float: left;
+	width: 100%;
+	background-color: white;
+	border-radius: 6px;
+	z-index: 1000;
+}
+
+#group_search input{
+	position: relative;
+	float: left;
+	width: 95%;
+	height: 54px;
+	border: none;
+	border-radius: 6px;
+	font-size: 22px;
+	font-family: 'Asap', sans-serif;
+}
+
+#search_icon{
+	position: relative;
+	float: right;
+	background-image: url('../resources/search.png');
+	width: 5%;
+	height: 54px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#group_auto{
+	position: absolute;
+	border: 1px solid #d1d3d4;
+	width: 400px;
+	background-color: white;
+	z-index: 1000;	
+}
+
+.search_result{
+	margin-bottom: 10px;
+	padding: 5px;
+	padding-top: 18px;
+	height: 54px;
+}
+
+.search_result:hover{
+	background-color: #eaeaea;
+}
+
+p.auto_name{
+	font-size: 22px;
+}
+
+p.auto_num{
+	color: #737373;
+	font-size: 15px;
+	margin-left: 6px;
+}
+
+/*TOOLS*/
+.tool{
+	position: relative;
+	float: left;
+	width: 49.5%;
+	height: 62px;
+	border-radius: 6px;
+	margin-bottom: 1%;
+}
+
+
+.selected{
+	background-color: #d3e0db;
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-ms-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}
+
+.unselected{
+	background-color: white;
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-ms-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}
+
+.checked{
+	position: relative;
+	float: left;
+	height: 62px;
+	width: 15%;
+	background-image: url('../resources/check.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.noshow{
+	opacity: 0;
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-ms-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}
+
+.show{
+	opacity: 1;
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-ms-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}
+
+.tool p{
+	position: relative;
+	float: left;
+	font-size: 20px;
+	line-height: 62px;
+	margin-left: 5%;
+	width: 80%;;
+}
+
+#tool_wrapper div:nth-child(odd){
+	margin-right: 1%;
+}
+
+/*SUBMIT BUTTON*/
+#submit{
+	position: relative;
+	float: left;
+	height: 64px;
+	width: 162px;
+	border-radius: 6px;
+	background-color: #2d957e;
+	color: white;
+	border-style: none;
+	font-size: 20px;
+	font-family: 'Asap',sans-serif;
+}
+
+#confirmation_check{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	height: 200px;
+	margin-top: 200px;
+	background-image: url('../resources/big_check.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-bottom: 40px;
+}
+
+.confirmation_text{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.confirmation_link{
+	text-align: center;
+	margin-bottom: 20px;
+}

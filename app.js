@@ -13,6 +13,8 @@ var accountCreate = require('./routes/register');
 var upload = require('./routes/upload');
 var account = require('./routes/account');
 var index = require('./routes/index');
+//import event file for EarthDay beta
+var event = require('./routes/event')
 var orgs = require('./routes/orgs');
 var register = require('./routes/register');
 var twitter = require('./routes/twitter');
@@ -25,6 +27,7 @@ var MemoryStore = express.session.MemoryStore;
 var sessionStore = new MemoryStore();
 var ObjectID = require('mongodb').ObjectID;
 var dbase = require('./lib/db');
+var signup = require('./lib/signup');
 
 
 twitter.twitter(passport, TwitterStrategy);
@@ -90,6 +93,47 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	if ('development' == app.get('env')) {
 	  app.use(express.errorHandler());
 	}
+	
+	//ServeRI EarthDay Code
+	
+	app.get('/earthday', function(req, res){
+		event.signup(req,res);
+	});
+	
+	app.get('/makegroups', function(req,res){
+		var groups = [{
+			name: "Group 1",
+			members: 1
+		},
+		{
+			name: "Group 2",
+			members: 12
+		},
+		{
+			name: "Group 3",
+			members: 16
+		},
+		{
+			name: "Group 4",
+			members: 9
+		}];
+		
+		for (var i=0; i<groups.length; i++){
+			signup.addGroup(groups[i]);
+		}
+		
+		res.redirect('/earthday');
+		
+	});
+	
+	app.get('/groups.js', function(req,res){
+		res.setHeader('Content-Type', 'application/json');
+		signup.Group.find({}, function(err, groups){
+			res.end(JSON.stringify(groups));
+		});
+	});
+	
+	//END SERVERI CODE
 
 	app.get('/', function(req, res){
 		if(req.isAuthenticated()){

@@ -1,0 +1,164 @@
+<html>
+	<head>
+		<title>Advocate Event Signup</title>
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		 <link rel="stylesheet" href="stylesheets/event.css" title="Event Style" type="text/css" media="screen" charset="utf-8">
+		 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		 <script src="javascripts/event.js" charset="utf-8"></script>
+		 <script src="groups.js"></script>
+	</head>
+	<body>
+		<header>
+			<section>
+				<h1 class="headline">advocate</h1>
+			</section>
+			<section>
+				<h1 class="headline">SIGN UP</h1>
+			</section>
+		</header>
+		<main id="form_body">
+			<form>
+				<section id="contact_info" class="signup_section">
+					<h2>1. Contact Information</h2>
+					<div class="horz_break"></div>
+					<section class="half_col left_col">
+						<div class="form_row">
+							<div class="row_text">
+								<h3>First Name</h3>
+							</div>
+							<div class="row_input">
+								<input type="text" name="firstname">
+							</div>
+						</div>
+						<div class="form_row">
+							<div class="row_text">
+								<h3>Last Name</h3>
+							</div>
+							<div class="row_input">
+								<input type="text" name="lastname">
+							</div>
+						</div>
+						<div class="form_row">
+							<div class="row_text">
+								<h3>Age</h3>
+							</div>
+							<div class="row_input">
+								<input type="text" pattern="[0-9]*" name="age">
+							</div>
+						</div>
+					</section>
+					<section class="half_col right_col">
+						<div class="form_row">
+							<div class="row_text">
+								<h3>Address</h3>
+							</div>
+							<div class="row_input">
+								<input type="text" name="address">
+							</div>
+						</div>
+						<div class="form_row">
+							<div class="row_text">
+								<h3>Zip Code</h3>
+							</div>
+							<div class="row_input">
+								<input type="text" name="zip">
+							</div>
+						</div>
+						<div class="form_row">
+							<div class="row_text">
+								<h3>Phone #</h3>
+							</div>
+							<div class="row_input">
+								<input type="text" name="phone">
+							</div>
+						</div>
+						<div class="form_row">
+							<div class="row_text">
+								<h3>E-Mail</h3>
+							</div>
+							<div class="row_input">
+								<input type="email" name="email">
+							</div>
+						</div>
+					</section>
+					<section id="conditional_info">
+						<div class="conditional_wrapper">
+							<div class="conditional_header">
+								<span class="condit_big">Under 18?</span><span class="condit_small">Please provide information of a parent or guardian.</span>
+							</div>
+							<section class="half_col left_col">
+								<div class="form_row">
+									<div class="row_text condit_text">
+										<h3>Name</h3>
+									</div>
+									<div class="row_input">
+										<input type="text" name="guard_name">
+									</div>
+								</div>
+							</section>
+							<section class="half_col right_col">
+								<div class="form_row">
+									<div class="row_text condit_text">
+										<h3>E-Mail</h3>
+									</div>
+									<div class="row_input">
+										<input type="email" name="guard_email">
+									</div>
+								</div>
+							</section>
+						</div>
+					</section>
+				</section>
+				<div id="group_auto">
+				</div>
+				<section id="groups" class="signup_section">
+					<h2>2. Groups<span class="header_sub">Join a group or continue solo.</span></h2>
+					<div class="horz_break"></div>
+					<section id="group_selection">
+						<div id="group_search">
+							<input type="search" placeholder="Group Name">
+							<div id="search_icon">
+							</div>
+						</div>
+					</section>
+				</section>
+				<section id="tools" class="signup_section">
+					<h2>3. Tools<span class="header_sub">Do you have any of the following tools? Check all that apply.</span></h2>
+					<div class="horz_break"></div>
+					<div id="tool_wrapper">
+						<div class="tool unselected">
+							<p>Gloves</p>
+							<div class="checked noshow"></div>
+						</div>
+						<div class="tool unselected">
+							<p>Rakes</p>
+							<div class="checked noshow"></div>
+						</div>
+						<div class="tool unselected">
+							<p>Garbage Bags</p>
+							<div class="checked noshow"></div>
+						</div>
+						<div class="tool unselected">
+							<p>Hedge Trimmers</p>
+							<div class="checked noshow"></div>
+						</div>
+					</div>
+				</section>
+				<section class="signup_section">
+					<button type="submit" onclick="verify_send(); return false;" id="submit">FINISH</button>
+				</section>
+			</form>
+		</main>
+		<main id="confirmation">
+			<div id="confirmation_check">
+			</div>
+			<h2 class="confirmation_text">THANKS!</h2>
+			<p class="confirmation_text"></p>
+			<p class="confirmation_link"><a href="">Send again</a></p>
+		</main>
+		<footer>
+		</footer>
+	</body>
+</html>
