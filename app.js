@@ -102,19 +102,35 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	
 	app.get('/makegroups', function(req,res){
 		var groups = [{
-			name: "Group 1",
+			name: "The Musketeers",
 			members: 1
 		},
 		{
-			name: "Group 2",
+			name: "Providence Baptist Church",
 			members: 12
 		},
 		{
-			name: "Group 3",
+			name: "Pawtucket Baptist Church",
 			members: 16
 		},
 		{
-			name: "Group 4",
+			name: "Barrington Boy Scout Troop",
+			members: 9
+		},
+		{
+			name: "Troop 328",
+			members: 16
+		},
+		{
+			name: "Troop 21 Warren",
+			members: 18
+		},
+		{
+			name: "Brown University Alpha Beta Pi Fraternity",
+			members: 7
+		},
+		{
+			name: "RISD Service Club",
 			members: 9
 		}];
 		
