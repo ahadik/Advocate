@@ -181,6 +181,13 @@ footer{
 	height: 55px;
 }
 
+.radio_input{
+	position: relative;
+	float: right;
+	width: 350px;
+	margin-top: 10px;
+}
+
 .row_input input{
 	font-family: 'Asap', sans-serif;
 	width: 350px;
@@ -195,10 +202,28 @@ footer{
 	border: 2px solid #f08a8b !important;
 }
 
+.radio_opt{
+	position: relative;
+	float: left;
+	height: 100px;
+}
+
+input[name="age"]{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.sub_text{
+	margin-top: 10px;
+	font-size: 15px;
+	font-style: italic;
+	color: #6D6E71;
+}
+
 /*OBEJCT STYLING*/
 
 /*conditional box*/
-#conditional_info{
+.conditional_info{
 	position: relative;
 	float: left;
 	width: 100%;
@@ -234,12 +259,70 @@ footer{
 	color: white;
 }
 
+.form_info{
+	width: 100%;
+	overflow: hidden;
+	margin-top: 50px;
+}
+
+.form_check{
+	float: left;
+	width: 39px;
+}
+
+.checked_box{
+	background-image: url('../resources/check.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.form_data{
+	float: left;
+	width: 80%;
+	margin-left: 10px;
+	font-size: 18px;
+	margin-top: 10px;
+}
+
+.check_box{
+	width: 39px;
+	height: 39px;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.form_extended_info{
+	margin-top: 20px;
+	overflow: hidden;
+	height: 0;
+	-webkit-transition: height 1s; /* For Safari 3.1 to 6.0 */
+    transition: height 1s;
+}
+
+.media_extended{
+	height: 75px;
+}
+
+.liability_extended{
+	height: 175px;
+}
+
+.form_more{
+	position: relative;
+	float: right;
+	width 15%;
+}
+
+.form_data p{
+	line-height: 140%;
+}
 
 /*group*/
 #group_selection{
 	position: relative;
 	float: left;
 	width: 100%;
+	height: 315px;
 }
 
 #group_search{
@@ -369,6 +452,24 @@ p.auto_num{
 
 #tool_wrapper div:nth-child(odd){
 	margin-right: 1%;
+}
+
+/*ACCOMMODATION*/
+#accommodation_input{
+	position: relative;
+	float: right;
+	width: 90%;
+	height: 100px;
+}
+
+#accommodation_input textarea{
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	border: none;
+	resize:vertical;
+	font-size: 15px;
+	font-family: 'Asap', sans-serif;
 }
 
 /*SUBMIT BUTTON*/

@@ -48,6 +48,9 @@ function search_and_show(term){
 		'<p class="auto_num">'+match_groups[i].group.members+' members</p>'+
 		'</div>');
 		$('#group_auto').children().last().data('name', match_groups[i].group.name);
+		if (i == 2){
+			break;
+		}
 	}
 	
 }
@@ -62,18 +65,12 @@ function verify_send(){
 $(document).ready(function(){	
 	$('#group_auto').hide().css({top: $('#groups').position().top+140+'px', left: $('#groups').css('margin-left')});
 	$('#confirmation').hide();
-	$("input[name='age']").blur(function(){
-		var age = $("input[name='age']").val();
-		
-		if (isNumber(age)){
-			$("input[name='age']").removeClass('bad_input');
-			if(age < 18){
-				$('#conditional_info').show();
-			}else{
-				$('#conditional_info').hide();
-			}
+	$("input[name='age']").change(function(){
+		var age = $("input[name='age']:checked").val();
+		if(age == 0){
+			$('#guardian_info').show();
 		}else{
-			$("input[name='age']").addClass('bad_input');
+			$('#guardian_info').hide();
 		}
 	});
 	var allowed = 1;
@@ -111,4 +108,36 @@ $(document).ready(function(){
 		allowed = 1;
 	});
 	
+	$('.check_box').click(function(event){
+		$(this).toggleClass('checked_box');
+		if($('.check_box_inner', this).is(':checked')){
+			$('.check_box_inner', this).prop('checked', false);
+		}else{
+			$('.check_box_inner', this).prop('checked', true);
+		}
+	});
+	
+	$('.form_more').click(function(){
+		var form_content = $('.form_extended_info', $(this).parent());
+		var extend = false;
+		if($(this).parent().attr('id') == 'media'){
+			extend = form_content.toggleClass('media_extended').hasClass('media_extended');
+		}else if($(this).parent().attr('id') == 'liability') {
+			extend = form_content.toggleClass('liability_extended').hasClass('liability_extended');
+		}
+		
+		if(extend){
+			$('p', this).html('less');
+		}else{
+			$('p', this).html('more');
+		}
+	});
+	$('#accommodation_check').click(function(){
+		
+		if( $('input[name="accommodations"]').is(':checked')){
+			$('#accommodation_info').show();
+		}else{
+			$('#accommodation_info').hide();
+		}
+	});
 });

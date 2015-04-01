@@ -42,10 +42,18 @@
 						</div>
 						<div class="form_row">
 							<div class="row_text">
-								<h3>Age</h3>
+								<h3>Phone #</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" pattern="[0-9]*" name="age">
+								<input type="text" name="phone">
+							</div>
+						</div>
+						<div class="form_row">
+							<div class="row_text">
+								<h3>Emergency Contact #</h3>
+							</div>
+							<div class="row_input">
+								<input type="text" name="emergency_phone">
 							</div>
 						</div>
 					</section>
@@ -66,14 +74,7 @@
 								<input type="text" name="zip">
 							</div>
 						</div>
-						<div class="form_row">
-							<div class="row_text">
-								<h3>Phone #</h3>
-							</div>
-							<div class="row_input">
-								<input type="text" name="phone">
-							</div>
-						</div>
+						
 						<div class="form_row">
 							<div class="row_text">
 								<h3>E-Mail</h3>
@@ -82,8 +83,21 @@
 								<input type="email" name="email">
 							</div>
 						</div>
+						<div class="form_row">
+							<div class="row_text">
+								<h3>Age</h3>
+							</div>
+							<div class="radio_input">
+								<input type="radio" name="age" value="0">&lt; 18
+								<input type="radio" name="age" value="1">18-21
+								<input type="radio" name="age" value="2">21-35
+								<input type="radio" name="age" value="3">35+
+								<p class="sub_text">for census/demographic use only!</p>
+							</div>
+						</div>
+						
 					</section>
-					<section id="conditional_info">
+					<section class="conditional_info" id="guardian_info">
 						<div class="conditional_wrapper">
 							<div class="conditional_header">
 								<span class="condit_big">Under 18?</span><span class="condit_small">Please provide information of a parent or guardian.</span>
@@ -145,6 +159,63 @@
 							<div class="checked noshow"></div>
 						</div>
 					</div>
+				</section>
+				<section id="forms" class="signup_section">
+					<h2>4. Media and Liability Release</h2>
+					<div class="horz_break"></div>
+					<section class="form_info" id="media">
+						<div class="form_check">
+							<div class="check_box"><input class="check_box_inner" type="checkbox" style="display: none" name="media" value="media"></div>
+						</div>
+						<div class="form_data">
+							<p>I give Serve Rhode Island permission to use photos taken of me at the event for publicity purposes.</p>
+							<div class="form_extended_info">
+								<p>I also give unrestricted permission to Serve Rhode Island and/or any person authorized by it to use my name and/or pictures/photographs, recordings, interviews, videotapes, motion pictures or similar visual or auditory recording of me created in connection with the project.</p>
+							</div>
+						</div>
+						<div class="form_more">
+							<p>more</p>
+						</div>
+					</section>
+					<section class="form_info" id="liability">
+						<div class="form_check">
+							<div class="check_box"><input class="check_box_inner" type="checkbox" style="display: none" name="liability" value="liability"></div>
+						</div>
+						<div class="form_data">
+							<p>I hereby release Serve Rhode Island from all liability, losses, or damages as a result of my participation in this event.</p>
+							<div class="form_extended_info">
+								<p>In consideration of the opportunity afforded to me to assist on a voluntary basis, and in light of the aims and purposes of the community service provided by Serve Rhode Island in organizing this project, I hereby  waive any right or cause of action arising as a result of my participation in said project from which any liability may  or could accrue against Serve Rhode Island (and any cooperating agencies listed above) or its officers and directors collectively or individually. Without limiting the generality of the foregoing, I agree that this waiver shall include any rights or causes of action resulting from personal injury to me, or damage to my property sustained in connection with my activities for this project. I am participating as an individual and not as an employee.</p>
+							</div>
+						</div>
+						<div class="form_more">
+							<p>more</p>
+						</div>
+					</section>
+				</section>
+				<section class="signup_section">
+					<h2>5. Personal Accommodations</h2>
+					<div class="horz_break"></div>
+					<section class="form_info" id="media">
+						<div class="form_check">
+							<div class="check_box" id="accommodation_check"><input class="check_box_inner" type="checkbox" style="display: none" name="accommodations" value="accommodations"></div>
+						</div>
+						<div class="form_data">
+							<p>I require accommodations to participate.</p>
+							<br>
+							<p>Serve Rhode Island is committed to including all Rhode Islanders in service to our communities. By actively recruiting persons with a broad range of abilities to help improve service and programs, we raise awareness about the value of diversity in our communities.</p>
+						</div>
+						<section class="conditional_info" id="accommodation_info">
+							<div class="conditional_wrapper">
+								<div class="conditional_header">
+									<span class="condit_big">What do you need help with?</span>
+								</div>
+								<div style="position: relative; float: left; width: 5%; color:white;"><p>Details</p></div>
+								<div id="accommodation_input">
+									<textarea name="accommodatation_details"></textarea>
+								</div>
+							</div>
+						</section>
+					</section>
 				</section>
 				<section class="signup_section">
 					<button type="submit" onclick="verify_send(); return false;" id="submit">FINISH</button>
