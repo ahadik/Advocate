@@ -10,7 +10,7 @@
 		 <script src="groups.js"></script>
 	</head>
 	<body>
-		<header>
+		<header id="banner">
 			<section>
 				<h1 class="headline">advocate</h1>
 			</section>
@@ -19,6 +19,12 @@
 			</section>
 		</header>
 		<main id="form_body">
+			<header id="form_title">
+				<h1>Serve Rhode Island Earth Day Park Cleanup</h1>
+				<h3>April 20th</h3>
+				<h3>1000 Elmwood Ave</h3>
+				<h3>Providence, RI 02905</h3>
+			</header>
 			<form>
 				<section id="contact_info" class="signup_section">
 					<h2>1. Contact Information</h2>
@@ -45,7 +51,7 @@
 								<h3>Phone #</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="phone">
+								<input type="text" name="phone" placeholder="xxx-xxx-xxxx">
 							</div>
 						</div>
 						<div class="form_row">
@@ -53,7 +59,7 @@
 								<h3>Emergency Contact #</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="emergency_phone">
+								<input type="text" name="emergency_phone"  placeholder="xxx-xxx-xxxx">
 							</div>
 						</div>
 					</section>
@@ -63,7 +69,7 @@
 								<h3>Address</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="address">
+								<input type="text" name="address" placeholder="123 Main St.">
 							</div>
 						</div>
 						<div class="form_row">
@@ -71,7 +77,7 @@
 								<h3>Zip Code</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="zip">
+								<input type="text" name="zip" placeholder="01234">
 							</div>
 						</div>
 						
@@ -89,9 +95,9 @@
 							</div>
 							<div class="radio_input">
 								<input type="radio" name="age" value="0">&lt; 18
-								<input type="radio" name="age" value="1">18-21
-								<input type="radio" name="age" value="2">21-35
-								<input type="radio" name="age" value="3">35+
+								<input type="radio" name="age" value="1">18-24
+								<input type="radio" name="age" value="2">25-54
+								<input type="radio" name="age" value="3">55+
 								<p class="sub_text">for census/demographic use only!</p>
 							</div>
 						</div>
@@ -145,18 +151,17 @@
 						<div class="tool unselected">
 							<p>Gloves</p>
 							<div class="checked noshow"></div>
+							<input type="checkbox" style="display: none;" name="tools" value="gloves">
 						</div>
 						<div class="tool unselected">
-							<p>Rakes</p>
+							<p>Rake</p>
 							<div class="checked noshow"></div>
+							<input type="checkbox" style="display: none;" name="tools" value="rake">
 						</div>
 						<div class="tool unselected">
-							<p>Garbage Bags</p>
+							<p>Shovel</p>
 							<div class="checked noshow"></div>
-						</div>
-						<div class="tool unselected">
-							<p>Hedge Trimmers</p>
-							<div class="checked noshow"></div>
+							<input type="checkbox" style="display: none;" name="tools" value="shovel">
 						</div>
 					</div>
 				</section>
@@ -213,12 +218,14 @@
 								<div id="accommodation_input">
 									<textarea name="accommodatation_details"></textarea>
 								</div>
+								<p class="accomm_contact">For more info, please contact Marisa Petreccia at 401-331-2298.</p>
 							</div>
 						</section>
 					</section>
 				</section>
 				<section class="signup_section">
 					<button type="submit" onclick="verify_send(); return false;" id="submit">FINISH</button>
+					<p>For any questions regarding how we're using this information please email ___@serveri.com!</p>
 				</section>
 			</form>
 		</main>

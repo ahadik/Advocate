@@ -18,6 +18,40 @@ function word_subset(wordA, wordB){
 	return 1;
 }
 
+function phone_validate(ref, val){
+	$(ref).removeClass('bad_input');
+	var phone_num = val;
+	phone_num = phone_num.replace(/\D/g,'');
+	if((phone_num.length == 11) && (phone_num[0] == '1')){
+		phone_num = phone_num.slice(1);
+	}
+	if(phone_num.length != 10){
+		$(ref).addClass('bad_input');
+		return val;
+	}
+	return phone_num.slice(0,3)+'-'+phone_num.slice(3,6)+'-'+phone_num.slice(6,10);
+}
+
+function validate(){
+	var result = false;
+	var inputs = $(':input');
+	for(var i=0; i<inputs.length; i++){
+		$(this).removeClass('bad_input');
+		//console.log($(inputs[i]).attr('type'));
+		var input = $(inputs[i]);
+		if((input.attr('type') == 'text') || (input.attr('type') == 'email') || (input.attr('type') == 'search')){
+			if (input.val().length == 0){
+				input.addClass('bad_input');
+			}
+		}
+		
+		if(input.attr('name') == 'phone'){
+			
+		}
+		
+	}
+}
+
 function search_and_show(term){
 	
 	var match_groups = [];
@@ -62,7 +96,20 @@ function verify_send(){
 	$('#confirmation').fadeIn();
 }
 
+function toggleCheckbox(box){
+	if(box.is(':checked')){
+		box.prop('checked', false);
+	}else{
+		box.prop('checked', true);
+	}
+}
+
 $(document).ready(function(){	
+	
+	$('input[name="phone"],input[name="emergency_phone"]').blur(function(){
+		$(this).val(phone_validate(this, $(this).val().toString()));
+	});
+	
 	$('#group_auto').hide().css({top: $('#groups').position().top+140+'px', left: $('#groups').css('margin-left')});
 	$('#confirmation').hide();
 	$("input[name='age']").change(function(){
@@ -87,6 +134,8 @@ $(document).ready(function(){
 	$('.tool').click(function(){
 		$(this).toggleClass('selected unselected');
 		$('.checked', this).toggleClass('show noshow');
+		toggleCheckbox($('input[name="tools"]', this));
+		$('input[name="tools"]')
 	});
 	
 	$.getJSON('/groups.js', function(data){
@@ -110,11 +159,7 @@ $(document).ready(function(){
 	
 	$('.check_box').click(function(event){
 		$(this).toggleClass('checked_box');
-		if($('.check_box_inner', this).is(':checked')){
-			$('.check_box_inner', this).prop('checked', false);
-		}else{
-			$('.check_box_inner', this).prop('checked', true);
-		}
+		toggleCheckbox($('.check_box_inner', this));
 	});
 	
 	$('.form_more').click(function(){

@@ -53,6 +53,18 @@ table {
 /*TYPOGRAPHY*/
 
 /*Section Headers*/
+#form_title h1{
+	font-size: 31px;
+	font-weight: 300;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+#form_title h3{
+	font-size: 20px;
+	text-align: center;
+}
+
 h2{
 	font-size: 30px;
 	font-weight: 500;
@@ -70,7 +82,7 @@ h3{
 }
 
 /*Page Title Headers*/
-h1.headline{
+#banner h1.headline{
 	line-height: 70px;
 	font-family: 'Asap', sans-serif;
 	font-weight: 500;
@@ -79,7 +91,7 @@ h1.headline{
 }
 
 /*SEMANTIC ELEMENT STYLING*/
-header{
+#banner{
 	position: fixed;
 	left:0;
 	right:0;
@@ -132,15 +144,15 @@ footer{
 	margin-left: auto;
 	margin-right: auto;
 	width: 1110px;
-	margin-bottom: 20px;
 	overflow: auto;
+	margin-top: 60px;
 
 }
 
 .horz_break{
 	position: relative;
 	width: 100%;
-	border-top: 1px solid #d1d3d4;
+	border-top: 1px solid black;
 	margin-top: 25px;
 	margin-bottom: 25px;
 }
@@ -221,6 +233,11 @@ input[name="age"]{
 }
 
 /*OBEJCT STYLING*/
+
+/*title*/
+#form_title{
+	margin-bottom: 20px;
+}
 
 /*conditional box*/
 .conditional_info{
@@ -322,7 +339,7 @@ input[name="age"]{
 	position: relative;
 	float: left;
 	width: 100%;
-	height: 315px;
+	height: 255px;
 }
 
 #group_search{
@@ -331,7 +348,7 @@ input[name="age"]{
 	width: 100%;
 	background-color: white;
 	border-radius: 6px;
-	z-index: 1000;
+	z-index: 1;
 }
 
 #group_search input{
@@ -457,9 +474,11 @@ p.auto_num{
 /*ACCOMMODATION*/
 #accommodation_input{
 	position: relative;
-	float: right;
+	float: left;
 	width: 90%;
 	height: 100px;
+	padding-left: 30px;
+	overflow: hidden;
 }
 
 #accommodation_input textarea{
@@ -472,10 +491,17 @@ p.auto_num{
 	font-family: 'Asap', sans-serif;
 }
 
-/*SUBMIT BUTTON*/
-#submit{
+.accomm_contact{
 	position: relative;
 	float: left;
+	margin-top: 10;
+	color: white;
+	margin-left: 5%;
+	padding-left: 30px;
+}
+
+/*SUBMIT BUTTON*/
+#submit{
 	height: 64px;
 	width: 162px;
 	border-radius: 6px;
@@ -484,6 +510,7 @@ p.auto_num{
 	border-style: none;
 	font-size: 20px;
 	font-family: 'Asap',sans-serif;
+	margin-bottom: 20px;
 }
 
 #confirmation_check{
