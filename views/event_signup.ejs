@@ -25,7 +25,7 @@
 				<h3>1000 Elmwood Ave</h3>
 				<h3>Providence, RI 02905</h3>
 			</header>
-			<form>
+			<form action="/earthday" method="POST">
 				<section id="contact_info" class="signup_section">
 					<h2>1. Contact Information</h2>
 					<div class="horz_break"></div>
@@ -35,7 +35,7 @@
 								<h3>First Name</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="firstname">
+								<input type="text" name="firstname" placeholder="Johhny" required>
 							</div>
 						</div>
 						<div class="form_row">
@@ -43,7 +43,7 @@
 								<h3>Last Name</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="lastname">
+								<input type="text" name="lastname" placeholder="Karate" required>
 							</div>
 						</div>
 						<div class="form_row">
@@ -51,7 +51,7 @@
 								<h3>Phone #</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="phone" placeholder="xxx-xxx-xxxx">
+								<input type="text" name="phone" placeholder="xxx-xxx-xxxx" required>
 							</div>
 						</div>
 						<div class="form_row">
@@ -59,7 +59,7 @@
 								<h3>Emergency Contact #</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="emergency_phone"  placeholder="xxx-xxx-xxxx">
+								<input type="text" name="emergency_phone"  placeholder="xxx-xxx-xxxx" required>
 							</div>
 						</div>
 					</section>
@@ -69,7 +69,7 @@
 								<h3>Address</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="address" placeholder="123 Main St.">
+								<input type="text" name="address" placeholder="123 Main St." required>
 							</div>
 						</div>
 						<div class="form_row">
@@ -77,7 +77,7 @@
 								<h3>Zip Code</h3>
 							</div>
 							<div class="row_input">
-								<input type="text" name="zip" placeholder="01234">
+								<input type="text" name="zip" placeholder="01234" required>
 							</div>
 						</div>
 						
@@ -86,14 +86,14 @@
 								<h3>E-Mail</h3>
 							</div>
 							<div class="row_input">
-								<input type="email" name="email">
+								<input type="email" name="email" placeholder="johnny@karate.com" required>
 							</div>
 						</div>
 						<div class="form_row">
 							<div class="row_text">
 								<h3>Age</h3>
 							</div>
-							<div class="radio_input">
+							<div id="age_options" class="radio_input">
 								<input type="radio" name="age" value="0">&lt; 18
 								<input type="radio" name="age" value="1">18-24
 								<input type="radio" name="age" value="2">25-54
@@ -138,7 +138,7 @@
 					<div class="horz_break"></div>
 					<section id="group_selection">
 						<div id="group_search">
-							<input type="search" placeholder="Group Name">
+							<input name="group" type="text" placeholder="Group Name">
 							<div id="search_icon">
 							</div>
 						</div>
@@ -224,17 +224,15 @@
 					</section>
 				</section>
 				<section class="signup_section">
-					<button type="submit" onclick="verify_send(); return false;" id="submit">FINISH</button>
 					<p>For any questions regarding how we're using this information please email ___@serveri.com!</p>
+					<input type="submit" onclick="return(verify_send());" id="submit" value="FINISH">
+					<div id="error_check" style="display: none;">
+						<div class="exclame"></div>
+						<p>We're missing some info!</p>
+					</div>
+					<br>
 				</section>
 			</form>
-		</main>
-		<main id="confirmation">
-			<div id="confirmation_check">
-			</div>
-			<h2 class="confirmation_text">THANKS!</h2>
-			<p class="confirmation_text"></p>
-			<p class="confirmation_link"><a href="">Send again</a></p>
 		</main>
 		<footer>
 		</footer>

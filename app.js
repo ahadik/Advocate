@@ -13,8 +13,6 @@ var accountCreate = require('./routes/register');
 var upload = require('./routes/upload');
 var account = require('./routes/account');
 var index = require('./routes/index');
-//import event file for EarthDay beta
-var event = require('./routes/event')
 var orgs = require('./routes/orgs');
 var register = require('./routes/register');
 var twitter = require('./routes/twitter');
@@ -27,7 +25,10 @@ var MemoryStore = express.session.MemoryStore;
 var sessionStore = new MemoryStore();
 var ObjectID = require('mongodb').ObjectID;
 var dbase = require('./lib/db');
+
+//import event file for EarthDay beta
 var signup = require('./lib/signup');
+var event = require('./routes/event');
 
 
 twitter.twitter(passport, TwitterStrategy);
@@ -100,47 +101,10 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		event.signup(req,res);
 	});
 	
-	app.get('/makegroups', function(req,res){
-		var groups = [{
-			name: "The Musketeers",
-			members: 1
-		},
-		{
-			name: "Providence Baptist Church",
-			members: 12
-		},
-		{
-			name: "Pawtucket Baptist Church",
-			members: 16
-		},
-		{
-			name: "Barrington Boy Scout Troop",
-			members: 9
-		},
-		{
-			name: "Troop 328",
-			members: 16
-		},
-		{
-			name: "Troop 21 Warren",
-			members: 18
-		},
-		{
-			name: "Brown University Alpha Beta Pi Fraternity",
-			members: 7
-		},
-		{
-			name: "RISD Service Club",
-			members: 9
-		}];
-		
-		for (var i=0; i<groups.length; i++){
-			signup.addGroup(groups[i]);
-		}
-		
-		res.redirect('/earthday');
-		
+	app.post('/earthday', function(req, res){
+		event.submit(req,res);
 	});
+	
 	
 	app.get('/groups.js', function(req,res){
 		res.setHeader('Content-Type', 'application/json');

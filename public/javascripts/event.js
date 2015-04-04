@@ -27,29 +27,74 @@ function phone_validate(ref, val){
 	}
 	if(phone_num.length != 10){
 		$(ref).addClass('bad_input');
-		return val;
+		$(ref).val(val);
+		return false;
 	}
-	return phone_num.slice(0,3)+'-'+phone_num.slice(3,6)+'-'+phone_num.slice(6,10);
+	$(ref).val(phone_num.slice(0,3)+'-'+phone_num.slice(3,6)+'-'+phone_num.slice(6,10));
+	return true;
 }
 
 function validate(){
-	var result = false;
+	//each time validate is called, attach an event handler to all inputs so that the form is revalidated for every change the user makes
+	$('body').off('blur', 'input', validate);
+	$('body').off('click', '.check_box', validate);
+	$('body').on('blur', 'input', validate);
+	$('body').on('click', '.check_box', validate);
+	$('#error_check').hide();
+	var result = true;
 	var inputs = $(':input');
+	$('input, div').removeClass('bad_input');
 	for(var i=0; i<inputs.length; i++){
-		$(this).removeClass('bad_input');
-		//console.log($(inputs[i]).attr('type'));
 		var input = $(inputs[i]);
-		if((input.attr('type') == 'text') || (input.attr('type') == 'email') || (input.attr('type') == 'search')){
+		if(input.attr('required')){
 			if (input.val().length == 0){
 				input.addClass('bad_input');
+				result = false;
+			}
+			if(input.attr('type') == 'email'){
+				if(!/@*.\./.test(input.val())){
+					input.addClass('bad_input');
+					result = false;
+				}
 			}
 		}
 		
-		if(input.attr('name') == 'phone'){
-			
+		if((input.attr('name') == 'phone') || (input.attr('name') == 'emergency_phone')){
+			result = phone_validate(inputs[i], input.val());
+		}
+		
+		if((input.attr('name') == 'media') || (input.attr('name') == 'liability')){
+			if(!input.is(':checked')){
+				input.parent().addClass('bad_input');
+				result = false;
+			}
 		}
 		
 	}
+	if($('input[name="age"]:checked').size()==0){
+		result = false;
+	}
+	
+	//check if user is under 18 and validate guardian info if they are
+	if($('input[name="age"]:checked').val() == "0"){
+		var name = $('input[name="guard_name"]');
+		if (name.val().length == 0){
+			$('input[name="guard_name"]').addClass('bad_input');
+			result = false;
+		}
+		var email = $('input[name="guard_email"]');
+		if ((email.val().length == 0) || (!/@*.\./.test(email.val()))){
+			$('input[name="guard_email"]').addClass('bad_input');
+			result = false;
+		}
+	}
+	
+	//if there's an error, set the warning view to visible
+	if(!result){
+		$('#error_check').show();
+	}
+	
+	return result;
 }
 
 function search_and_show(term){
@@ -74,7 +119,7 @@ function search_and_show(term){
 	var groups_sorted = match_groups.sort(function(a, b) {return b.score - a.score});
 	
 	$('#group_auto').html('');
-	$('#group_auto').css({top: $('#groups').position().top+140+'px', left: $('#groups').css('margin-left')});
+	$('#group_auto').css({top: $('#groups').position().top+196+'px', left: $('#groups').offset().left});
 	$('#group_auto').show();
 	for(var i=0; i<match_groups.length; i++){
 		$('#group_auto').append('<div class="search_result">'+
@@ -91,9 +136,11 @@ function search_and_show(term){
 
 
 function verify_send(){
-	$('p.confirmation_text').html('A confirmation email has been sent to</br> '+$("input[name='email']").val()+'.');
-	$('#form_body').fadeOut();
-	$('#confirmation').fadeIn();
+	
+	if(validate()){
+		return true;
+	}
+	return false;
 }
 
 function toggleCheckbox(box){
@@ -107,11 +154,10 @@ function toggleCheckbox(box){
 $(document).ready(function(){	
 	
 	$('input[name="phone"],input[name="emergency_phone"]').blur(function(){
-		$(this).val(phone_validate(this, $(this).val().toString()));
+		phone_validate(this, $(this).val().toString());
 	});
 	
-	$('#group_auto').hide().css({top: $('#groups').position().top+140+'px', left: $('#groups').css('margin-left')});
-	$('#confirmation').hide();
+	$('#group_auto').hide().css({top: $('#groups').position().top+196+'px', left: $('#groups').offset().left});
 	$("input[name='age']").change(function(){
 		var age = $("input[name='age']:checked").val();
 		if(age == 0){

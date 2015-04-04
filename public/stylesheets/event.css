@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Asap:200, 400,700,400italic,700italic);
+@import url("http://fonts.googleapis.com/css?family=Asap:200, 400,700,400italic,700italic");
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -214,6 +214,32 @@ footer{
 	border: 2px solid #f08a8b !important;
 }
 
+.exclame{
+	position: relative;
+	float: left;
+	width: 11px;
+	height: 64px;
+	background-image: url('../resources/exclamation.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#error_check{
+	position: relative;
+	height: 64px;
+	float: left;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#error_check p{
+	position: relative;
+	float: left;
+	color:#ED1C24;
+	line-height: 64px;
+	margin-left: 10px;
+}
+
 .radio_opt{
 	position: relative;
 	float: left;
@@ -226,6 +252,8 @@ input[name="age"]{
 }
 
 .sub_text{
+	position: relative;
+	float: left;
 	margin-top: 10px;
 	font-size: 15px;
 	font-style: italic;
@@ -327,7 +355,7 @@ input[name="age"]{
 .form_more{
 	position: relative;
 	float: right;
-	width 15%;
+	width: 15%;
 }
 
 .form_data p{
@@ -502,6 +530,9 @@ p.auto_num{
 
 /*SUBMIT BUTTON*/
 #submit{
+	position: relative;
+	float: left;
+	margin-top: 10px;
 	height: 64px;
 	width: 162px;
 	border-radius: 6px;
@@ -513,17 +544,24 @@ p.auto_num{
 	margin-bottom: 20px;
 }
 
-#confirmation_check{
+#confirmation_circle{
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
 	width: 200px;
 	height: 200px;
 	margin-top: 200px;
-	background-image: url('../resources/big_check.png');
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-bottom: 40px;
+}
+
+.confirmation_check{
+	background-image: url('../resources/big_check.png');
+}
+
+.confirmation_fail{
+	background-image: url('../resources/big_exclamation.png');
 }
 
 .confirmation_text{
