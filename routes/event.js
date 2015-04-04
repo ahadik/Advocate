@@ -31,28 +31,14 @@ exports.submit = function(req, res){
 	}
 	
 	if(!valid_entry){
-		console.log("DATA PROBLEM");
-		console.log(new_volunteer);
+		res.render('event_signup_failure', {});
+		return false;
 	}
 	
-	
-	//add the group 
-	var group_name = req.body['group'];
-	var update = signup.updateGroup(group_name);
-	if(!update){
-		console.log("GROUP UPDATE FAILED");
-		valid_entry = false;
-	}
-	
-	if(valid_entry){
-		if(signup.addVolunteer(new_volunteer)){
+	signup.addVolunteer(new_volunteer, function(){
+		signup.updateGroup(new_volunteer['group'], function(){
 			res.render('event_signup_success',{email : new_volunteer['email']});
-		}else{
-			console.log("VOLUNTEER CREATION FAILED");
-			res.render('event_signup_failure');
-		}
-	}else{
-		res.render('event_signup_failure');
-	}
-	
+			return true;
+		});
+	});
 };
