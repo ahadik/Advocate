@@ -38,7 +38,8 @@ exports.submit = function(req, res){
 	
 	//add the group 
 	var group_name = req.body['group'];
-	if(!signup.updateGroup(group_name)){
+	var update = signup.updateGroup(group_name);
+	if(!update){
 		console.log("GROUP UPDATE FAILED");
 		valid_entry = false;
 	}
