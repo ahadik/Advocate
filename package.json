@@ -38,6 +38,8 @@
     "connect-mongo" :  "*",
     "express-session" : "~1.7.6",
     "request" : "*",
-    "moment" : "~2.8"
+    "moment" : "~2.8",
+    "nodemailer" : "^1.0",
+    "nodemailer-smtp-transport": "*"
   }
 }

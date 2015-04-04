@@ -25,13 +25,30 @@ var MemoryStore = express.session.MemoryStore;
 var sessionStore = new MemoryStore();
 var ObjectID = require('mongodb').ObjectID;
 var dbase = require('./lib/db');
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 
 //import event file for EarthDay beta
 var signup = require('./lib/signup');
 var event = require('./routes/event');
 
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 twitter.twitter(passport, TwitterStrategy);
+
+var transporter = nodemailer.createTransport(smtpTransport({
+	host : 'gmail.com',
+	port : 25,
+	
+}))
+
+// create reusable transporter object using SMTP transport
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'alex@getadvocate.co',
+        pass: 'Vt33qqYxjExTmz'
+    }
+});
 
 var accountIDs = {};
 var notifIDs = {};
@@ -101,8 +118,12 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		event.signup(req,res);
 	});
 	
+	app.get('/event_confirm', function(req, res){
+		event.resend(req, res, transporter);
+	});
+	
 	app.post('/earthday', function(req, res){
-		event.submit(req,res);
+		event.submit(req,res, transporter);
 	});
 	
 
