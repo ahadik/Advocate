@@ -105,6 +105,7 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 		event.submit(req,res);
 	});
 	
+
 	
 	app.get('/groups.js', function(req,res){
 		res.setHeader('Content-Type', 'application/json');

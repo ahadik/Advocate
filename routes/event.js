@@ -30,9 +30,16 @@ exports.submit = function(req, res){
 		}
 	}
 	
+	if(!valid_entry){
+		console.log("DATA PROBLEM");
+		console.log(new_volunteer);
+	}
+	
+	
 	//add the group 
 	var group_name = req.body['group'];
 	if(!signup.updateGroup(group_name)){
+		console.log("GROUP UPDATE FAILED");
 		valid_entry = false;
 	}
 	
@@ -40,6 +47,7 @@ exports.submit = function(req, res){
 		if(signup.addVolunteer(new_volunteer)){
 			res.render('event_signup_success',{email : new_volunteer['email']});
 		}else{
+			console.log("VOLUNTEER CREATION FAILED");
 			res.render('event_signup_failure');
 		}
 	}else{
