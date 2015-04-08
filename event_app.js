@@ -44,8 +44,8 @@ var transporter = nodemailer.createTransport(smtpTransport({
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'alex@getadvocate.co',
-        pass: 'Vt33qqYxjExTmz'
+        user: 'volunteer@serverhodeisland.org',
+        pass: 'service655!'
     }
 });
 
