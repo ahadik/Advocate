@@ -4,7 +4,7 @@ function sendemails(new_volunteer, transporter){
 	if(new_volunteer['age'] == '0'){
 				// setup e-mail data with unicode symbols
 				var mailOptions = {
-				    from: 'Alexander Hadik <alex@getadvocate.co>', // sender address
+				    from: 'Serve Rhode Island <volunteer@serverhodeisland.org>', // sender address
 				    to: new_volunteer['guard_email'], // list of receivers
 				    subject: 'Serve Rhode Island Earthday Confirmation', // Subject line
 				    text: 'Hello,\n'+new_volunteer['firstname']+' '+new_volunteer['lastname']+' ('+new_volunteer['email']+') has registered as a volunteer at Serve Rhode Island\'s Earth Day Park Clean Up. The event will be held on April 25th, at Roger Williams Park. As '+new_volunteer['firstname']+' indicated they are younger than 18 years old, they have provided your name and email address as their legal guardian. If you have any questions or concerns about this designation, please contact Maya Ambroise at mambroise@serverhodeisland.org.\n\nSincerely Serve Rhode Island', // plaintext body
