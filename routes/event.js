@@ -20,7 +20,7 @@ function sendemails(new_volunteer, transporter){
 			}
 			
 			var mailOptions = {
-			    from: 'Alexander Hadik <alex@getadvocate.co>', // sender address
+			    from: 'Serve Rhode Island <volunteer@serverhodeisland.org>', // sender address
 			    to: new_volunteer['email'], // list of receivers
 			    subject: 'Serve Rhode Island Earthday Confirmation', // Subject line
 			    text: 'Hello,\nThis is your confirmation email for volunteering at Serve Rhode Island\'s Earth Day Park Cleanup on April 25th. The event will be held in Roger Williams Park. You will receive an email in the days before the event indicating your assigned cleanup location.\nThanks for volunteering with Serve Rhode Island!\nServe Rhode Island', // plaintext body
