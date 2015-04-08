@@ -22,9 +22,9 @@ function sendemails(new_volunteer, transporter){
 			var mailOptions = {
 			    from: 'Serve Rhode Island <volunteer@serverhodeisland.org>', // sender address
 			    to: new_volunteer['email'], // list of receivers
-			    subject: 'Serve Rhode Island Earthday Confirmation', // Subject line
-			    text: 'Hello,\nThis is your confirmation email for volunteering at Serve Rhode Island\'s Earth Day Park Cleanup on April 25th. The event will be held in Roger Williams Park. You will receive an email in the days before the event indicating your assigned cleanup location.\nThanks for volunteering with Serve Rhode Island!\nServe Rhode Island', // plaintext body
-			    html: '<p>Hello,</p><p>This is your confirmation email for volunteering at Serve Rhode Island\'s Earth Day Park Cleanup on April 25th. The event will be held in Roger Williams Park. You will receive an email in the days before the event indicating your assigned cleanup location.</p><p>Thanks for volunteering with Serve Rhode Island!</p><p>Serve Rhode Island</p>' // html body
+			    subject: 'Your Confirmation for Serve Rhode Island’s Earth Day', // Subject line
+			    text: 'Hello,\nThis is your confirmation email for volunteering at Serve Rhode Island\'s Earth Day Park Cleanup on April 25th. The event will be held in Roger Williams Park. You\'ll receive an email in the days before the event indicating your assigned cleanup location.\nFor any questions, please email us at volunteer@serverhodeisland.org.\nWe\'ll see you there!\nServe Rhode Island', // plaintext body
+			    html: '<p>Hello,</p><p>This is your confirmation email for volunteering at Serve Rhode Island\'s Earth Day Park Cleanup on April 25th. The event will be held in Roger Williams Park. You\'ll receive an email in the days before the event indicating your assigned cleanup location.</p><p>For any questions, please email us at volunteer@serverhodeisland.org.</p><p>We\'ll see you there!</p><p>Serve Rhode Island</p>' // html body
 			};
 			transporter.sendMail(mailOptions, function(error, info){
 			    if(error){
