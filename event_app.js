@@ -91,12 +91,20 @@ var notifIDs = {};
 		event.signup(req,res);
 	});
 	
+	app.get('/event/view', function(req, res){
+		event.view(req, res);
+	});
+	
 	app.get('/event_confirm', function(req, res){
 		event.resend(req, res, transporter);
 	});
 	
 	app.post('/earthday', function(req, res){
 		event.submit(req,res, transporter);
+	});
+	
+	app.post('/event/view', function(req, res){
+		event.view(req,res);
 	});
 	
 

@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title>Advocate Event Signup</title>
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		  ga('create', 'UA-52390719-2', 'auto');
+		  ga('send', 'pageview');
+		
+		</script>
+		 <link rel="stylesheet" href="/stylesheets/event_volunteer_view.css" title="Event Style" type="text/css" media="screen" charset="utf-8">
+		 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		 <script src="/javascripts/data_view.js"></script>
+		 <script src="/groups.js"></script>
+	</head>
+	<body>
+		<header id="banner">
+			<section>
+				<h1 class="headline">advocate</h1>
+			</section>
+			<section>
+				<h1 class="headline">VOLUNTEERS</h1>
+			</section>
+		</header>
+		<main id="form_body">
+
+			<form action="/earthday" method="POST">
+				<section id="contact_info" class="main_section">
+					<h2>Registered Volunteers</h2>
+					<section class="three-quarter-col" id="volunteers">
+						<table class="data_table" id="volunteer_data">
+							<col style="width: 35%">
+							<col style="width: 10%">
+							<col style="width: 35%">
+							<col style="width: 20%">
+							<tr class="header">
+								<td>Name</td>
+								<td>Age</td>
+								<td>Email</td>
+								<td>Phone</td>
+							</tr>
+							<%for(var i=0; i<volunteers.length; i++){%>
+								<tr group="<%=volunteers[i].group%>">
+									<td><%=volunteers[i].firstname%> <%=volunteers[i].lastname%></td>
+									<%if(volunteers[i].age == 0){%>
+										<td>&lt;18</td>
+									<%}else if(volunteers[i].age == 1){%>
+										<td>18-24</td>
+									<%}else if(volunteers[i].age == 2){%>
+										<td>25-54</td>
+									<%}else if(volunteers[i].age == 3){%>
+										<td>55+</td>
+									<%}%>
+									<td><%=volunteers[i].email%></td>
+									<td><%=volunteers[i].phone%></td>
+								</tr>
+							<%}%>
+						</table>				
+					</section>
+					<section class="one-quarter-col" id="actions">
+						<div style="padding-left: 47px;">
+							<h3>FILTER</h3>
+							<div class="horz_break"></div>
+							<div class="filter_option filter_selected" onclick="filter_table($('#volunteer_data'), 'group', groups.map(function(group){return group.name;})); $('.filter_option').removeClass('filter_selected'); $(this).addClass('filter_selected');">All Groups (<%=groups.map(function(group){return group.members}).reduce(function(a, b){return a + b;})%>)</div>
+							<%for(var i=0; i<groups.length; i++){%>
+								<%if(groups[i].name == ""){%>
+									<div class="filter_option filter_select" group="<%=groups[i].name%>">No Group (<%=groups[i].members%>)</div>
+								<%}else{%>
+									<div class="filter_option filter_select" group="<%=groups[i].name%>"><%=groups[i].name%> (<%=groups[i].members%>)</div>
+								<%}%>
+							<%}%>
+						</div>
+					</section>
+				</section>
+			</form>
+		</main>
+		<footer>
+		</footer>
+	</body>
+</html>

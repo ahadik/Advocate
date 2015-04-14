@@ -45,6 +45,19 @@ exports.signup = function(req, res){
 	res.render('event_signup', {});
 }
 
+exports.view = function(req, res){
+	var password = req.body['password'];
+	if (password == 'earthday2015'){
+		signup.Volunteer.find({}, function(err, volunteers){
+			signup.Group.find({}, function(err, groups){
+				res.render('event_signup_view', {volunteers : volunteers, groups : groups});
+			});
+		});
+	}else{
+		res.render('event_signup_login', {});
+	}
+}
+
 exports.submit = function(req, res, transporter){
 	
 	var valid_entry = true;
