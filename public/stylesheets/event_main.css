@@ -104,11 +104,14 @@ h3{
 table{
 	border-collapse: separate;
     border-spacing: 0 3px;
+    width: 100%;
+	table-layout: fixed;
 }
 td{
 	background-color: white;
 	padding: 10px;
 	padding-bottom: 3px;
+	white-space: nowrap;
 }
 tr{
 	height: 73px;
