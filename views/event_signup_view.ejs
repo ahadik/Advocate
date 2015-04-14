@@ -46,7 +46,7 @@
 								<td>Phone</td>
 							</tr>
 							<%for(var i=0; i<volunteers.length; i++){%>
-								<tr group="<%=volunteers[i].group%>">
+								<tr group="<%=volunteers[i].group%>" class="include">
 									<td><%=volunteers[i].firstname%> <%=volunteers[i].lastname%></td>
 									<%if(volunteers[i].age == 0){%>
 										<td>&lt;18</td>
@@ -57,7 +57,7 @@
 									<%}else if(volunteers[i].age == 3){%>
 										<td>55+</td>
 									<%}%>
-									<td><%=volunteers[i].email%><div class="cell_gradient"></div></td>
+									<td><a href="mailto:<%=volunteers[i].email%>"><%=volunteers[i].email%><div class="cell_gradient"></div></td>
 									<td><%=volunteers[i].phone%></td>
 								</tr>
 							<%}%>

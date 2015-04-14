@@ -11,6 +11,7 @@ function filter_table(table, parameter, values){
 		filter += 'tr['+parameter+' = "'+values[i]+'"], ';
 	}
 	filter = filter.slice(0,-2);
+
 	$(filter, table).show();
 }
 
