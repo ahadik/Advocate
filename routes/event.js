@@ -48,7 +48,7 @@ exports.signup = function(req, res){
 exports.view = function(req, res){
 	var password = req.body['password'];
 	if (password == 'earthday2015'){
-		signup.Volunteer.find({}, function(err, volunteers){
+		signup.Volunteer.find({}).sort({added: -1}).exec(function(err, volunteers){
 			signup.Group.find({}, function(err, groups){
 				res.render('event_signup_view', {volunteers : volunteers, groups : groups});
 			});

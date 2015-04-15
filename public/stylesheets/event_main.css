@@ -38,6 +38,7 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 	font-family: 'Asap', sans-serif;
@@ -161,15 +162,30 @@ td a{
 
 
 /*SEMANTIC ELEMENT STYLING*/
-.main_section{
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	width: 1110px;
-	overflow: hidden;
-	padding-bottom: 10px;
-	margin-top: 60px;
+@media (min-width: 1110px) {
+	.main_section{
+		position: relative;
+		margin-left: auto;
+		margin-right: auto;
+		width: 1110px;
+		overflow: hidden;
+		padding-bottom: 10px;
+		margin-top: 60px;
+	
+	}
+}
 
+@media (min-width: 1110px) {
+	.main_section{
+		position: relative;
+		margin-left: auto;
+		margin-right: auto;
+		width: 1110px;
+		overflow: hidden;
+		padding-bottom: 10px;
+		margin-top: 60px;
+	
+	}
 }
 
 #banner{
@@ -197,13 +213,26 @@ header section:nth-child(2){
 	text-align: center;
 }
 
-main{
-	position: absolute;
-	width: 100%;
-	min-height: 100%;
-	background-color: #efecea;
-	padding-top: 210px;
-	padding-bottom: 20px;
+@media (min-width: 1110px) {
+	main{
+		position: absolute;
+		width: 100%;
+		min-height: 100%;
+		background-color: #efecea;
+		padding-top: 210px;
+		padding-bottom: 20px;
+	}
+}
+
+@media (max-width: 1109px) {
+	main{
+		position: absolute;
+		width: 100%;
+		min-height: 100%;
+		background-color: #efecea;
+		padding-top: 210px;
+		padding-bottom: 20px;
+	}
 }
 
 #confirmation{
