@@ -4,6 +4,7 @@ var https = require('https');
 var fs = require('fs');
 var path = require('path');
 var mongoose = require('mongoose');
+ObjectId = mongoose.Types.ObjectId;
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
@@ -30,6 +31,7 @@ var smtpTransport = require('nodemailer-smtp-transport');
 
 //import event file for EarthDay beta
 var signup = require('./lib/signup');
+var eventIndex = require('./lib/event');
 var event = require('./routes/event');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -91,6 +93,11 @@ var notifIDs = {};
 		event.signup(req,res);
 	});
 	
+	app.get('/event_add', function(req,res){
+		res.setHeader('Content-Type', 'text/html');
+		event.create_event(req,res);
+	});
+	
 	app.get('/event/view', function(req, res){
 		event.view(req, res);
 	});
@@ -113,6 +120,22 @@ var notifIDs = {};
 		res.setHeader('Content-Type', 'application/json');
 		signup.Group.find({}, function(err, groups){
 			res.end(JSON.stringify(groups));
+		});
+	});
+	
+	app.get('/volunteers.js', function(req, res){
+		var id = req.query.id;
+		eventIndex.Event.find({"_id": ObjectID.fromString(id)}, function(err, event){
+			if(err || (event.length == 0)){
+				console.log('error retrieving requested event: '+id);
+				res.setHeader('Content-Type', 'text/html');
+				res.end('Error retrieving requested event!');
+			}else{
+				res.setHeader('Content-Type', 'application/json');
+				signup.Volunteer.find({event : event.volunteerID}).sort({firstName : 1}).exec(function(err, volunteers){
+					res.end(JSON.stringify(volunteers));
+				});
+			}
 		});
 	});
 	

@@ -1,4 +1,6 @@
 var signup = require('../lib/signup');
+var event = require('../lib/event');
+var crypto = require('crypto');
 
 function sendemails(new_volunteer, transporter){
 	if(new_volunteer['age'] == '0'){
@@ -35,6 +37,15 @@ function sendemails(new_volunteer, transporter){
 			});
 }
 
+
+exports.create_event = function(req, res){
+	if(req.query.name != null){
+		event.addEvent({name: req.query.name, volunteerID : crypto.randomBytes(16).toString('hex')}, function(){
+			res.end('Event Added');
+		});
+	}
+	
+}
 
 exports.resend = function(req, res, transporter){
 	sendemails({email : req.param("email"), firstname : req.param("firstname"), lastname : req.param("lastname")}, transporter);
