@@ -12,7 +12,7 @@ function full_table(table){
 $(document).ready(function(){
 	$('.filter_select').click(function(){
 		//set up the filter object
-		filters.group = $(ref).attr('group').split(',');
+		filters.group = $(this).attr('group').split(',');
 		//filter using the filter object
 		filter($('#volunteer_data'),'tr');
 		$('tr.header', $('#volunteer_data')).show();
