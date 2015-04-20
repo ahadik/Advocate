@@ -16,6 +16,7 @@
 		</script>
 		 <link rel="stylesheet" href="/stylesheets/event_volunteer_view.css" title="Event Style" type="text/css" media="screen" charset="utf-8">
 		 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		 <script src="/javascripts/filter.js"></script>
 		 <script src="/javascripts/data_view.js"></script>
 		 <script src="/groups.js"></script>
 	</head>
@@ -67,7 +68,7 @@
 						<div style="padding-left: 47px;">
 							<h3>FILTER</h3>
 							<div class="horz_break"></div>
-							<div class="filter_option filter_selected" onclick="filter_table($('#volunteer_data'), 'group', groups.map(function(group){return group.name;})); $('.filter_option').removeClass('filter_selected'); $(this).addClass('filter_selected');">All Groups (<%=groups.map(function(group){return group.members}).reduce(function(a, b){return a + b;})%>)</div>
+							<div class="filter_option filter_select filter_selected" style="margin-left: 0;" group="<%=groups.map(function(group){return group.name})%>">All Groups (<%=groups.map(function(group){return group.members}).reduce(function(a, b){return a + b;})%>)</div>
 							<%for(var i=0; i<groups.length; i++){%>
 								<%if(groups[i].name == ""){%>
 									<div class="filter_option filter_select" group="<%=groups[i].name%>">No Group (<%=groups[i].members%>)</div>
@@ -75,6 +76,9 @@
 									<div class="filter_option filter_select" group="<%=groups[i].name%>"><%=groups[i].name%> (<%=groups[i].members%>)</div>
 								<%}%>
 							<%}%>
+							<h3 style="padding-top: 20px;">ACTIONS</h3>
+							<div class="horz_break"></div>
+							<div><a href="/event/export?id=<%=event.id%>" style="color: black; text-decoration: none;">Export Volunteers</a></div>
 						</div>
 					</section>
 				</section>

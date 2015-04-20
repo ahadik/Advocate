@@ -1,14 +1,44 @@
 <html>
 	<head>
+		<script src="/socket.io/socket.io.js"></script>
 		<meta name="viewport" content="width=device-width">
+		<meta name="event" key="<%=eventID%>">
 		<link rel="apple-touch-startup-image" href="launch6.png" media="(device-width: 375px)">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!<link rel="apple-touch-icon" href="resources/launch.png">
 		<title>Advocate Volunteer Management</title>
-		<link rel="stylesheet" href="/stylesheets/mobile_management.css" title="UMI Style" type="text/css" media="screen" charset="utf-8">
-		<script src="/javascripts/socket.io.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+		<script src="/javascripts/swipe.js"></script>
+		<link rel="stylesheet" href="/stylesheets/mobile_management.css" title="Advocate Mobile Style" type="text/css" media="screen" charset="utf-8">
+		<script src="/javascripts/checkin_management.js"></script>
+		<script src="/javascripts/filter.js"></script>
 	</head>
 	<body>
+		<header></header>
+		<section id="group_sort_title">
+			<h2>All Groups</h2>
+			<div class="down_arrow"></div>
+		</section>
+		<section id="group_dropdown" class="retracted" style="height:0px">
+			<div class="group_item" group="<%=groups.map(function(group){return group.name})%>" style="font-weight: bold;"><menuitem>All Groups (<%=groups.map(function(group){return group.members}).reduce(function(a, b){return a + b;})%>)</menuitem></div>
+			<%for(var i=0; i<groups.length; i++){%>
+				<%if(groups[i].name != ""){%>
+					<div class="group_item filter_select" group="<%=groups[i].name%>"><menuitem><%=groups[i].name%> (<%=groups[i].members%>)</menuitem></div>
+				<%}%>
+			<%}%>
+		</section>
+		<section id="volunteers">
+			<%for(var i=0; i<volunteers.length; i++){%>
+				<div class="volunteer_wrapper" group="<%=volunteers[i].group%>" status="<%=volunteers[i].status%>" uniqueID="<%=volunteers[i]._id.toString()%>">
+					<div class="action check_in"></div>
+					<div class="volunteer">
+						<div class="bubble bubble_green"></div>
+						<h3><%=volunteers[i].firstname%> <%=volunteers[i].lastname%></h3>
+					</div>
+				</div>
+			<%}%>
+		</section>
 	</body>
 </html>

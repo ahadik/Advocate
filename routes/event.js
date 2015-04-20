@@ -56,18 +56,22 @@ exports.signup = function(req, res){
 	res.render('event_signup', {});
 }
 
+
 exports.view = function(req, res){
 	var password = req.body['password'];
 	if (password == 'earthday2015'){
+		var id='55312b1abacded1e15000001';
 		signup.Volunteer.find({}).sort({added: -1}).exec(function(err, volunteers){
 			signup.Group.find({}, function(err, groups){
-				res.render('event_signup_view', {volunteers : volunteers, groups : groups});
+				res.render('event_signup_view', {volunteers : volunteers, groups : groups, event : {id : id}});
 			});
 		});
 	}else{
 		res.render('event_signup_login', {});
 	}
 }
+
+
 
 exports.submit = function(req, res, transporter){
 	
@@ -108,3 +112,25 @@ exports.submit = function(req, res, transporter){
 		});
 	});
 };
+
+
+//CHECKIN
+exports.checkin = function(req,res, groups){
+	event.Event.find({name : "Earth Day"}, function(err, events){
+		if(events.length == 0){
+			res.end('No matching events');
+		}else if(events.length > 1){
+			res.end('Multiple matching events');
+		}else{
+			signup.Volunteer.find({eventID : events[0].volunteerID}).sort({name : 1}).exec(function(err,volunteers){
+				if(err){
+					console.log('Error fetching volunteers from database!');
+					res.end();
+				}else{
+					res.render('checkin', {eventID : events[0]._id.toString(), groups : groups, volunteers : volunteers});
+				}
+			});
+			
+		}
+	});
+}

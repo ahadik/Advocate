@@ -1,0 +1,257 @@
+@import url("https://fonts.googleapis.com/css?family=Asap:200, 400,700,400italic,700italic");
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+textarea:focus, input:focus{
+    outline: 0;
+}
+
+input{
+	font-family: 'Asap', sans-serif;
+	border-radius: 6px;
+	border: none;
+	font-size: 22px;
+	padding: 15px;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+	font-family: 'Asap', sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+header{
+	position: fixed;
+	top: 0;
+	height: 54px;
+	background-color: #ED5665;
+	width: 100%;
+}
+
+#group_sort_title{
+	position: fixed;
+	top: 54px;
+	height: 54px;
+	width: 100%;
+	background-color: rgba(240, 237, 235, 0.75);
+	text-align: left;
+	line-height: 54px;
+	z-index: 1;
+}
+
+#group_sort_title h2{
+	margin-left: 20px;
+}
+
+/*Typography*/
+h2{
+	font-weight: 100;
+	font-size: 18px;
+}
+
+/*Generic Styling*/
+.down_arrow{
+	width: 13px;
+	background-image: url('/resources/down_arrow.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/*checkin styling*/
+#group_sort_title h2{
+	position: relative;
+	float: left;
+}
+
+#group_sort_title .down_arrow{
+	position: relative;
+	float: right;
+	margin-right: 20px;
+	height: 100%;
+}
+
+#group_dropdown{
+	position: absolute;
+	z-index: 1;
+	top: 108px;
+	background-color: #6b6b6b;
+}
+
+.group_item{
+	position: relative;
+	float: left;
+	width: 100%;	
+	margin-bottom: 2px;
+	background-color: #8f8f8f;
+	color: white;
+	height: 45px;
+	line-height: 45px;
+}
+
+.group_item menuitem{
+	margin-left: 30px;
+}
+
+.retracted{
+	overflow: hidden;
+	height: 0;
+	-webkit-transition: height 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: height 0.5s;
+}
+
+.extended{
+	overflow-y: scroll;
+	-webkit-transition: height 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: height 0.5s;
+}
+
+#volunteers{
+	position: absolute;
+	top: 108px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow-y: scroll;
+	background-color: #EFECEA;
+}
+
+.volunteer_wrapper{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 90px;
+	margin-bottom: 3px;
+}
+
+.volunteer{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	overflow: hidden;
+}
+
+.volunteer h3{
+	margin-top: 35px;
+	margin-left: 50px;
+}
+
+.action{
+	position: absolute;
+	right: 0;
+	width: 48px;
+	height: 90px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	z-index: 0;
+	overflow: hidden;
+}
+
+.check_in{
+	background-image: url('/resources/check_in.png');
+}
+
+.check_out{
+	background-image: url('/resources/check_out.png');	
+}
+
+.slide_opened{
+	left:-48px;
+	-webkit-transition: left 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: left 0.5s;
+}
+
+.slide_closed{
+	left:0px;
+	-webkit-transition: left 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: left 0.5s;
+}
+
+.bubble{
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: -10px;
+	border-radius: 50%;
+}
+
+@keyframes bubble_expand{
+	from{width: 0; height: 0;}
+	to{width: 500px; height: 500px;}
+}
+
+@-webkit-keyframes bubble_expand{
+	from{width: 0; height: 0;}
+	to{width: 500px; height: 500px;}
+}
+
+@keyframes bubble_fade{
+	from{opacity : 1;}
+	to{opacity : 0;}
+}
+
+@-webkit-keyframes bubble_fade{
+	from{opacity : 1;}
+	to{opacity : 0;}
+}
+
+.bubble_green{
+	background-color: #26957E;
+}
+
+.bubble_red{
+	background-color: #F07A7C;
+}
+
+.bubble_show{
+	width: 0;
+	height: 0;
+	-webkit-animation: bubble_expand 1s, bubble_fade 0.5s; /* Chrome, Safari, Opera */
+	-webkit-animation-delay: 0s, 0.75s;
+
+}
+
+.checked_in h3{
+	color: #ababab;
+}
