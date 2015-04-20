@@ -125,16 +125,29 @@ app.get('/event_confirm', function(req, res){
 	event.resend(req, res, transporter);
 });
 
+
+
 app.post('/earthday', function(req, res){
-	event.submit(req,res, transporter);
-	signup.Group.find({}, function(err, groups){
-		if(err){
-			//if something goes wrong, set groups to false to indicate it isn't an accurate count.
-			mem_groups = false;
+	
+	var event_id;
+	eventIndex.Event.find({name : 'Earth Day'}, function(err, events){
+		if(err || events.length != 1){
+			console.log('Error finding specific event!');
+			res.end();
 		}else{
-			mem_groups = groups;
+			event_id = events[0].volunteerID;
+			event.submit(req,res, transporter, event_id);
+			signup.Group.find({}, function(err, groups){
+				if(err){
+					//if something goes wrong, set groups to false to indicate it isn't an accurate count.
+					mem_groups = false;
+				}else{
+					mem_groups = groups;
+				}
+			});
 		}
 	});
+	
 });
 
 app.post('/event/view', function(req, res){

@@ -60,12 +60,17 @@ exports.signup = function(req, res){
 exports.view = function(req, res){
 	var password = req.body['password'];
 	if (password == 'earthday2015'){
-		var id='55312b1abacded1e15000001';
-		signup.Volunteer.find({}).sort({added: -1}).exec(function(err, volunteers){
-			signup.Group.find({}, function(err, groups){
-				res.render('event_signup_view', {volunteers : volunteers, groups : groups, event : {id : id}});
-			});
-		});
+		event.Event.find({name : "Earth Day"}, function(err, events){
+			if(err || events.length != 1){
+				res.end('Error finding matching event!');
+			}else{
+				signup.Volunteer.find({}).sort({added: -1}).exec(function(err, volunteers){
+					signup.Group.find({}, function(err, groups){
+						res.render('event_signup_view', {volunteers : volunteers, groups : groups, event : {id : id}});
+					});
+				});
+			}
+		});		
 	}else{
 		res.render('event_signup_login', {});
 	}
@@ -73,7 +78,7 @@ exports.view = function(req, res){
 
 
 
-exports.submit = function(req, res, transporter){
+exports.submit = function(req, res, transporter, eventID){
 	
 	var valid_entry = true;
 	var new_volunteer = {};
@@ -98,6 +103,11 @@ exports.submit = function(req, res, transporter){
 			new_volunteer[key] = req.body[key];
 		}
 	}
+	
+	new_volunteer['status'] = 0;
+	new_volunteer['eventID'] = eventID;
+	console.log(eventID);
+	console.log(new_volunteer);
 	
 	if(!valid_entry){
 		res.render('event_signup_failure', {});
