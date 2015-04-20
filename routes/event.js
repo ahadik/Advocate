@@ -66,7 +66,7 @@ exports.view = function(req, res){
 			}else{
 				signup.Volunteer.find({}).sort({added: -1}).exec(function(err, volunteers){
 					signup.Group.find({}, function(err, groups){
-						res.render('event_signup_view', {volunteers : volunteers, groups : groups, event : {id : id}});
+						res.render('event_signup_view', {volunteers : volunteers, groups : groups, event : {id : events[0]._id}});
 					});
 				});
 			}

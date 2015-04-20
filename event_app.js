@@ -238,7 +238,6 @@ app.get('/event/export', function(req,res){
 	    
 	    json2csv({data: volunteers, fields: ['firstname', 'lastname', 'group', 'email', 'phone', 'address', 'zip', 'age', 'accommodations', 'accommodatation_details', 'guard_name', 'guard_email']}, function(err, csv) {
 		  if (err) console.log(err);
-		  console.log(csv);
 		  res.end(csv);
 		});
 	});
