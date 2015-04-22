@@ -132,7 +132,7 @@ exports.checkin = function(req,res, groups){
 		}else if(events.length > 1){
 			res.end('Multiple matching events');
 		}else{
-			signup.Volunteer.find({eventID : events[0].volunteerID}).sort({name : 1}).exec(function(err,volunteers){
+			signup.Volunteer.find({eventID : events[0].volunteerID}).sort({firstname : 1}).exec(function(err,volunteers){
 				if(err){
 					console.log('Error fetching volunteers from database!');
 					res.end();

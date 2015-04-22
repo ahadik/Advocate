@@ -97,6 +97,49 @@ h2{
 }
 
 /*checkin styling*/
+
+#top_nav{
+	position: absolute;
+	margin:auto;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;	
+	width: 160px;
+	height: 37px;
+	border-radius: 3px;
+	border: 1px solid white;
+}
+
+.nav_sect{
+	position: relative;
+	float: left;
+	width: 25%;
+	height: 100%;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.icon_all{
+	background-image: url('/resources/nav_icon-all.png');
+}
+
+.icon_unarrived{
+	background-image: url('/resources/nav_icon-unarrived.png');
+}
+
+.icon_checked_in{
+	background-image: url('/resources/nav_icon-checked-in.png');
+}
+
+.icon_checked_out{
+	background-image: url('/resources/nav_icon-checked-out.png');
+}
+
+.nav_selected{
+	background-color: #F28989;
+}
+
 #group_sort_title h2{
 	position: relative;
 	float: left;
@@ -169,6 +212,9 @@ h2{
 	height: 100%;
 	background-color: white;
 	overflow: hidden;
+	background-image: url('/resources/grab.png');
+	background-position: right center;
+	background-repeat: no-repeat;
 }
 
 .volunteer h3{
@@ -254,4 +300,11 @@ h2{
 
 .checked_in h3{
 	color: #ababab;
+}
+
+.volunteer_mask{
+	position: relative;
+	float: left;
+	width: 80%;
+	height: 100%;
 }

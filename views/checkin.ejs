@@ -3,11 +3,31 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<meta name="viewport" content="width=device-width">
 		<meta name="event" key="<%=eventID%>">
-		<link rel="apple-touch-startup-image" href="launch6.png" media="(device-width: 375px)">
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<!<link rel="apple-touch-icon" href="resources/launch.png">
-		<title>Advocate Volunteer Management</title>
+		<meta name="apple-mobile-web-app-status-bar-style" content="transparent">
+		<link rel="apple-touch-icon" href="/resources/icon.png">
+		<!-- iPhone 6 -->
+		<link href="/resources/loader-iphone-6.png" media="(device-width: 375px) and (device-height: 667px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+		
+		<!-- iPhone 6+ Portrait -->
+		<link href="/resources/loader-iphone-6-plus.png" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image">
+		
+		<link rel="apple-touch-startup-image" media="(device-width: 320px)" href="/resources/loader-iphone-4.png">
+		<!-- iPhone (Retina) -->
+		<link rel="apple-touch-startup-image" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" href="/resources/loader-iphone-4-retina">
+		
+		<!-- iPad (portrait) -->
+		<link rel="apple-touch-startup-image" media="(device-width: 768px) and (orientation: portrait)" href="/resources/loader-ipad.png">
+		<!-- iPad (Retina, portrait) -->
+		<link rel="apple-touch-startup-image" media="(device-width: 768px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="/resources/loader-ipad-retina.png">
+
+		<!-- iPhone 5 startup image -->
+		<link href="/resources/loader-iphone-5-tall.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+ 
+		<!-- iPhone < 5 retina startup image -->
+		<link href="/resources/loader-iphone-5.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+		
+		<title>Advocate</title>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 		<script src="/javascripts/swipe.js"></script>
@@ -16,7 +36,14 @@
 		<script src="/javascripts/filter.js"></script>
 	</head>
 	<body>
-		<header></header>
+		<header>
+			<nav id="top_nav">
+				<div class="nav_sect icon_all nav_selected" status="0,1,2"></div>
+				<div class="nav_sect icon_unarrived" status="0"></div>
+				<div class="nav_sect icon_checked_in" status="1"></div>
+				<div class="nav_sect icon_checked_out" status="2"></div>
+			</nav>
+		</header>
 		<section id="group_sort_title">
 			<h2>All Groups</h2>
 			<div class="down_arrow"></div>
@@ -36,6 +63,8 @@
 					<div class="volunteer">
 						<div class="bubble bubble_green"></div>
 						<h3><%=volunteers[i].firstname%> <%=volunteers[i].lastname%></h3>
+					</div>
+					<div class="volunteer_mask">
 					</div>
 				</div>
 			<%}%>

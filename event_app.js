@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-var http = require('http').Server(app);
-//var https = require('https');
+var http = require('http');
+var https = require('https');
 var fs = require('fs');
 var path = require('path');
 var mongoose = require('mongoose');
@@ -19,7 +19,7 @@ var orgs = require('./routes/orgs');
 var register = require('./routes/register');
 var twitter = require('./routes/twitter');
 var geo = require('./lib/geo.js');
-var io = require('socket.io')(http);
+var io = require('socket.io');
 var flash    = require('connect-flash');
 var mongodb = require('mongodb')
   , MongoClient = mongodb.MongoClient;
@@ -163,12 +163,23 @@ app.get('/event/checkin', function(req,res){
 			event.checkin(req,res, retrieved_groups);
 		});		
 	}
-	
 });
 
 app.get('/update_volunteers', function(req, res){
-	signup.Volunteer.update({},{eventID : req.query.id, status : 0}, {multi: true}, function(err, numberAffected){
+	signup.Volunteer.update({},{time_out : []}, {multi: true}, function(err, numberAffected){
 		res.end('Affected: '+numberAffected);
+	});
+});
+
+app.get('/reset_volunteers', function(req,res){
+	signup.Volunteer.find({}, function(err, volunteers){
+		for (var i=0; i<volunteers.length; i++){
+			volunteers[i].time_in = [];
+			volunteers[i].time_out = [];
+			volunteers[i].status = 0;
+			volunteers[i].save();
+		}
+		res.end('Affected: '+volunteers.length);
 	});
 });
 
@@ -198,7 +209,7 @@ function getVolunteers(req, fail, succeed){
 				fail();
 				return false;
 			}else{
-				signup.Volunteer.find({eventID : event[0].volunteerID}).sort({firstName : 1}).exec(function(err, volunteers){
+				signup.Volunteer.find({eventID : event[0].volunteerID}, null, {sort: {firstname : -1}}, function(err, volunteers){
 					if(err){
 						return false;
 					}else{
@@ -263,9 +274,12 @@ app.use(function(req, res, next){
 	}
 });
 
-http.listen(app.get('port'), function(){
+var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+var checkinServer = require('./lib/checkin_server');
+checkinServer.listen(server, io, express);
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

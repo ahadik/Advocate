@@ -370,8 +370,8 @@ MongoClient.connect(process.env.MONGOHQ_DB, function(err, db) {
 	});
 
 	var formServer = require('./lib/form_server');
-	formServer.listen(server, socketio, express, sessionStore, userData);
-});
+		formServer.listen(server, socketio, express, sessionStore, userData);
+	});
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

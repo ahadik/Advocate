@@ -13,15 +13,25 @@ function collect(){
 
 function filter(ref, obj){
 	$(obj, ref).hide();
-	var filter_combo = '';
 	
+	var matched_elements = $(obj,ref);
 	for(var filter in filters){
+		var filter_combo = '';
 		for(var i=0;i<filters[filter].length; i++){
 			filter_combo += obj+'['+filter+' = "'+filters[filter][i]+'"], ';
 		}
+		filter_combo = filter_combo.slice(0,-2);
+		filtered_results = $(filter_combo, ref);
+		var temp_elements = [];
+		for (var j=0; j<filtered_results.length; j++){
+			if ($.inArray(filtered_results[j], matched_elements) != -1){
+				temp_elements.push(filtered_results[j]);
+			}
+		}
+		matched_elements = temp_elements;
 	}
-	filter_combo = filter_combo.slice(0,-2);
-	$(filter_combo, ref).show();
+	
+	$(matched_elements).show();
 }
 
 function full(obj, ref, selector){
