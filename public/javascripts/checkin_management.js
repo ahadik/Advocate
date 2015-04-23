@@ -51,11 +51,22 @@ socket.on('swipe_update', function(data){
 	
 });
 
+function reload_volunteers(volunteers){
+	for (var i=0; i<volunteers.length; i++){
+		$('.volunteers[uniqueid="'+volunteers[i]._id+'"]').attr('status', volunteers[i].status);
+		
+	}
+	reclass_volunteers();
+}
+
 socket.on('swipe_success', function(data){
 	
-	var volunteer_wrapper = $('.volunteer_wrapper[uniqueid="'+data.uniqueid+'"]');
-	var volunteer = $('.volunteer', volunteer_wrapper);
+	var swiped_vol = data.swiped;
+	var volunteers = data.vols;
 	
+	var volunteer_wrapper = $('.volunteer_wrapper[uniqueid="'+swiped_vol.uniqueid+'"]');
+	var volunteer = $('.volunteer', volunteer_wrapper);
+	reload_volunteers(volunteers);
 	$('.bubble', volunteer_wrapper).addClass('bubble_show');
 	$(volunteer).animate({
 		left : "0px"
@@ -67,7 +78,7 @@ socket.on('swipe_success', function(data){
 		}
 	});
 	
-	volunteer_wrapper.attr('status', data.status);
+	volunteer_wrapper.attr('status', swiped_vol.status);
 });
 
 function emit_swipe(curr_status, uniqueid){
@@ -112,12 +123,19 @@ function toggle_groups(){
 	
 }
 
-$(document).ready(function(){
-	
+function reclass_volunteers(){
 	//make sure volunteers that come in as checked in are marked as such
 	var checked_in_wrappers = $('.volunteer_wrapper[status="1"]');
 	var checked_in_volunteers = $('.volunteer', checked_in_wrappers);
 	checked_in_volunteers.addClass('checked_in');
+	
+	$('.action', checked_in_wrappers).removeClass('check_in').addClass('check_out');
+}
+
+$(document).ready(function(){
+	
+	//make sure volunteers that come in as checked in are marked as such
+	reclass_volunteers();
 	
 	$('.action', checked_in_wrappers).removeClass('check_in').addClass('check_out');
 	
