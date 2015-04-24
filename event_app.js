@@ -88,7 +88,7 @@ String.prototype.toObjectId = function() {
 };
 
 function getGroups(callback){
-	signup.Group.find({}, function(err, groups){
+	signup.Group.find({}, null, {sort : {name : 1}}, function(err, groups){
 		if(err){
 			//if something goes wrong, set groups to false to indicate it isn't an accurate count.
 			callback(false);
@@ -137,7 +137,7 @@ app.post('/earthday', function(req, res){
 		}else{
 			event_id = events[0].volunteerID;
 			event.submit(req,res, transporter, event_id);
-			signup.Group.find({}, function(err, groups){
+			signup.Group.find({}, null, {sort : {name : 1}}, function(err, groups){
 				if(err){
 					//if something goes wrong, set groups to false to indicate it isn't an accurate count.
 					mem_groups = false;

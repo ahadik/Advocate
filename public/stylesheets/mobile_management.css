@@ -114,26 +114,19 @@ h2{
 .nav_sect{
 	position: relative;
 	float: left;
-	width: 25%;
+	width: 50%;
 	height: 100%;
+	font-size: small;
+	color: white;
 	background-position: center center;
 	background-repeat: no-repeat;
 }
-
-.icon_all{
-	background-image: url('/resources/nav_icon-all.png');
+.icon_blank{
+	background-image: url('/resources/nav_icon_blank.png');
 }
 
-.icon_unarrived{
-	background-image: url('/resources/nav_icon-unarrived.png');
-}
-
-.icon_checked_in{
-	background-image: url('/resources/nav_icon-checked-in.png');
-}
-
-.icon_checked_out{
-	background-image: url('/resources/nav_icon-checked-out.png');
+.icon_check{
+	background-image: url('/resources/nav_icon_check.png');
 }
 
 .nav_selected{
@@ -194,6 +187,8 @@ h2{
 	left: 0;
 	right: 0;
 	overflow-y: scroll;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
 	background-color: #EFECEA;
 }
 
@@ -203,6 +198,7 @@ h2{
 	width: 100%;
 	height: 90px;
 	margin-bottom: 3px;
+	overflow-x: hidden;
 }
 
 .volunteer{
@@ -212,9 +208,11 @@ h2{
 	height: 100%;
 	background-color: white;
 	overflow: hidden;
+	/*
 	background-image: url('/resources/grab.png');
 	background-position: right center;
 	background-repeat: no-repeat;
+	*/
 }
 
 .volunteer h3{
@@ -224,10 +222,10 @@ h2{
 
 .action{
 	position: absolute;
-	right: 0;
-	width: 48px;
+	left: 0 !important;
+	width: 100%;
 	height: 90px;
-	background-position: center center;
+	background-position: left center;
 	background-repeat: no-repeat;
 	z-index: 0;
 	overflow: hidden;
@@ -235,10 +233,12 @@ h2{
 
 .check_in{
 	background-image: url('/resources/check_in.png');
+	background-color: #26957E;
 }
 
 .check_out{
 	background-image: url('/resources/check_out.png');	
+	background-color: #F07A7C;
 }
 
 .slide_opened{
@@ -253,6 +253,7 @@ h2{
     transition: left 0.5s;
 }
 
+/*
 .bubble{
 	position: absolute;
 	margin: auto;
@@ -293,9 +294,38 @@ h2{
 .bubble_show{
 	width: 0;
 	height: 0;
-	-webkit-animation: bubble_expand 1s, bubble_fade 0.5s; /* Chrome, Safari, Opera */
+	-webkit-animation: bubble_expand 1s, bubble_fade 0.5s;
 	-webkit-animation-delay: 0s, 0.75s;
 
+}
+*/
+@keyframes cell_collapse{
+	from{height: 90px;}
+	to{height: 0}
+}
+
+@-webkit-keyframes cell_collapse{
+	from{height: 90px;}
+	to{height: 0}
+}
+
+.collapse{
+	-webkit-animation: cell_collapse 1s;
+}
+
+@keyframes cell_expand{
+	from{height: 0}
+	to{height: 90px}
+}
+
+@-webkit-keyframes cell_expand{
+	from{height: 0}
+	to{height: 90px}
+}
+
+
+.expand{
+	-webkit-animation: cell_expand 1s;
 }
 
 .checked_in h3{
@@ -304,7 +334,7 @@ h2{
 
 .volunteer_mask{
 	position: relative;
-	float: left;
+	float: right;
 	width: 80%;
 	height: 100%;
 }

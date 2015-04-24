@@ -5,11 +5,6 @@ var in_swipe = false;
 function revert_swipe(data){
 	var volunteer_wrapper = $('.volunteer_wrapper[uniqueid="'+data.uniqueid+'"]');
 	var volunteer = $('.volunteer', volunteer_wrapper);
-	if(volunteer.hasClass('checked_in')){
-		volunteer.removeClass('checked_in');
-	}else{
-		volunteer.addClass('checked_in');
-	}
 }
 
 socket.on('invalid_status', function(data){
@@ -38,10 +33,11 @@ function trigger_filter(){
 }
 
 socket.on('swipe_update', function(data){
+	
 	var volunteer_wrapper = $('.volunteer_wrapper[uniqueid="'+data.uniqueid+'"]');
 	var volunteer = $('.volunteer', volunteer_wrapper);
 	volunteer_wrapper.attr('status', data.status);
-	if(data.status==0){
+	if(data.status=="1"){
 		$('.action', volunteer_wrapper).removeClass('check_in').addClass('check_out');
 	}else{
 		$('.action', volunteer_wrapper).removeClass('check_out').addClass('check_in');
@@ -54,30 +50,17 @@ socket.on('swipe_update', function(data){
 function reload_volunteers(volunteers){
 	for (var i=0; i<volunteers.length; i++){
 		$('.volunteers[uniqueid="'+volunteers[i]._id+'"]').attr('status', volunteers[i].status);
-		
 	}
 	reclass_volunteers();
 }
 
 socket.on('swipe_success', function(data){
-	
 	var swiped_vol = data.swiped;
 	var volunteers = data.vols;
-	
 	var volunteer_wrapper = $('.volunteer_wrapper[uniqueid="'+swiped_vol.uniqueid+'"]');
 	var volunteer = $('.volunteer', volunteer_wrapper);
 	reload_volunteers(volunteers);
-	$('.bubble', volunteer_wrapper).addClass('bubble_show');
-	$(volunteer).animate({
-		left : "0px"
-	}, 100, function(){
-		if(data.status==0){
-			$('.action', volunteer_wrapper).removeClass('check_in').addClass('check_out');
-		}else{
-			$('.action', volunteer_wrapper).removeClass('check_out').addClass('check_in');
-		}
-	});
-	
+	volunteer_wrapper.addClass('collapse');
 	volunteer_wrapper.attr('status', swiped_vol.status);
 });
 
@@ -86,7 +69,7 @@ function emit_swipe(curr_status, uniqueid){
 	if(curr_status == '0'){
 		status = '1';
 	}else if(curr_status == '1'){
-		status = '2';
+		status = '0';
 	}else if(curr_status == '2'){
 		status = '1';
 	}else{
@@ -98,7 +81,6 @@ function emit_swipe(curr_status, uniqueid){
 
 function check_in(ref){
 	$('.bubble', ref).removeClass('bubble_red').addClass('bubble_green');
-	
 }
 
 function check_out(ref){
@@ -127,27 +109,26 @@ function reclass_volunteers(){
 	//make sure volunteers that come in as checked in are marked as such
 	var checked_in_wrappers = $('.volunteer_wrapper[status="1"]');
 	var checked_in_volunteers = $('.volunteer', checked_in_wrappers);
-	checked_in_volunteers.addClass('checked_in');
-	
 	$('.action', checked_in_wrappers).removeClass('check_in').addClass('check_out');
 }
 
 $(document).ready(function(){
-	
+	filters.status = $('.nav_sect[status="0"]').attr('status').split(',');
+	filter($('#volunteers'), 'div.volunteer_wrapper');
 	//make sure volunteers that come in as checked in are marked as such
 	reclass_volunteers();
-	
+	var checked_in_wrappers = $('.volunteer_wrapper[status="1"]');
 	$('.action', checked_in_wrappers).removeClass('check_in').addClass('check_out');
-	
 	var volunteers = $('meta[name="event"]').attr('key');
-	
+	var width = $(window).width();
 	$('.volunteer').draggable({
 		axis: 'x',
 		create: function( event, ui ) {},
 		start : function(event, ui) {},
 		drag: function(event, ui) {},
 		stop: function(event, ui){},
-		containment: [-48, 0, 0, 0]
+		containment: [0, 0, width, 0],
+		scroll : false
 	});
 	
 	$('.bubble').bind('webkitAnimationEnd',function(){ 
@@ -158,6 +139,20 @@ $(document).ready(function(){
 			$($(this).parent()).addClass('checked_in');
 		}else{
 			$($(this).parent()).removeClass('checked_in'); 
+		}
+		trigger_filter();
+	});
+	
+	$('.volunteer_wrapper').bind('webkitAnimationEnd', function(){
+		$(this).removeClass('collapse');
+		var volunteer_wrapper = $($($(this).parent()).parent());
+		var status = volunteer_wrapper.attr('status');
+		if(status == '1'){
+			$('.action',this).removeClass('check_out').addClass('check_in');
+		}else{
+			console.log($('.action',this));
+			$('.action',this).removeClass('check_in').addClass('check_out');
+			$('.volunteer', this).css({left : 0});
 		}
 		trigger_filter();
 	});
@@ -190,12 +185,12 @@ $(document).ready(function(){
 	
 	$( ".volunteer").on("dragstop", function( event, ui ) {
 		in_swipe = false;
-		if(ui.position.left < -30){
+		if(ui.position.left > width*(1/3)){
 			$(this).animate({
-				left : "-48px"
+				left : width+"px"
 			}, 100);
 			var status = $($(this).parent()).attr('status');
-			if(status==1){
+			if(status=="1"){
 				check_out(this);
 			}else{
 				check_in(this);
