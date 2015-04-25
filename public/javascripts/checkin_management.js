@@ -43,7 +43,7 @@ socket.on('swipe_update', function(data){
 		$('.action', volunteer_wrapper).removeClass('check_out').addClass('check_in');
 	}
 	trigger_filter();
-	$('.bubble', volunteer_wrapper).addClass('bubble_show');
+	volunteer_wrapper.addClass('expand');
 	
 });
 
@@ -131,6 +131,11 @@ $(document).ready(function(){
 		scroll : false
 	});
 	
+	$('#volunteers').scroll(function(){
+		$('.info_show').removeClass('info_show').addClass('info_no_show');
+		$('.info_active').removeClass('info_active').addClass('info_inactive');
+	});
+	
 	$('.bubble').bind('webkitAnimationEnd',function(){ 
 		$(this).removeClass('bubble_show');
 		var volunteer_wrapper = $($($(this).parent()).parent());
@@ -150,17 +155,34 @@ $(document).ready(function(){
 		if(status == '1'){
 			$('.action',this).removeClass('check_out').addClass('check_in');
 		}else{
-			console.log($('.action',this));
 			$('.action',this).removeClass('check_in').addClass('check_out');
 			$('.volunteer', this).css({left : 0});
 		}
 		trigger_filter();
 	});
 	
+	$('.info_icon').click(function(){
+		var status = $(this).closest('.volunteer_wrapper').hasClass('info_show');
+		$('.info_icon').removeClass('info_active').addClass('info_inactive');
+		$('.info_show').removeClass('info_show').addClass('info_no_show');
+		
+		if(!status){
+			$($(this).closest('.volunteer_wrapper')).removeClass('info_no_show').addClass('info_show');
+			$(this).addClass('info_active');
+		}else{
+			$($(this).closest('.volunteer_wrapper')).removeClass('info_show').addClass('info_no_show');
+		}
+	});
+	
 	$('.nav_sect').click(function(){
 		$('.nav_sect').removeClass('nav_selected');
 		$(this).addClass('nav_selected');
 		filters.status = $(this).attr('status').split(',');
+		filter($('#volunteers'), 'div.volunteer_wrapper');
+	});
+	
+	$('#group_drop').change(function(){
+		filters.group = $('#group_drop').val().split(',');
 		filter($('#volunteers'), 'div.volunteer_wrapper');
 	});
 	
@@ -203,5 +225,4 @@ $(document).ready(function(){
 			}, 100);
 		}
 	});
-	
 });

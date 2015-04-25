@@ -5,6 +5,7 @@
 		<meta name="event" key="<%=eventID%>">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="transparent">
+		<meta name="viewport" content="width=device-width, user-scalable=no" />
 		<link rel="apple-touch-icon" href="/resources/icon.png">
 		<!-- iPhone 6 -->
 		<link href="/resources/loader-iphone-6.png" media="(device-width: 375px) and (device-height: 667px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
@@ -35,7 +36,7 @@
 		<script src="/javascripts/checkin_management.js"></script>
 		<script src="/javascripts/filter.js"></script>
 	</head>
-	<body>
+	<body class="preload">
 		<header>
 			<nav id="top_nav">
 				<!--<div class="nav_sect icon_all" status="0,1,2"></div>-->
@@ -45,28 +46,41 @@
 			</nav>
 		</header>
 		<section id="group_sort_title">
-			<h2>Everyone</h2>
-			<div class="down_arrow"></div>
-		</section>
-		<section id="group_dropdown" class="retracted" style="height:0px">
-			<div class="group_item" group="<%=groups.map(function(group){return group.name})%>" style="font-weight: bold;"><menuitem>All Groups (<%=groups.map(function(group){return group.members}).reduce(function(a, b){return a + b;})%>)</menuitem></div>
-			<%for(var i=0; i<groups.length; i++){%>
-				<%if(groups[i].name != ""){%>
-					<div class="group_item filter_select" group="<%=groups[i].name%>"><menuitem><%=groups[i].name%> (<%=groups[i].members%>)</menuitem></div>
-				<%}else{%>
-					<div class="group_item filter_select" group="<%=groups[i].name%>"><menuitem>Unaffiliated (<%=groups[i].members%>)</menuitem></div>
-				<%}%>
-			<%}%>
+			<div id="select_wrap">
+				<select id="group_drop">
+					<%for(var i=0; i<groups.length; i++){%>
+						<%if(groups[i].name != ""){%>
+							<option value="<%=groups[i].name%>"><%=groups[i].name%> (<%=groups[i].members%>)</option>
+						<%}else{%>
+							<option value="<%=groups[i].name%>">Unaffiliated (<%=groups[i].members%>)</option>
+						<%}%>
+					<%}%>
+				</select>
+				<div class="down_arrow"></div>
+			</div>
 		</section>
 		<section id="volunteers">
 			<%for(var i=0; i<volunteers.length; i++){%>
 				<div class="volunteer_wrapper" group="<%=volunteers[i].group%>" status="<%=volunteers[i].status%>" uniqueID="<%=volunteers[i]._id.toString()%>">
 					<div class="action check_in"></div>
 					<div class="volunteer">
-						<!--<div class="bubble bubble_green"></div>-->
+						<div class="bubble bubble_green"></div>
 						<h3><%=volunteers[i].firstname%> <%=volunteers[i].lastname%></h3>
+						<div class="info_icon info_inactive"></div>
 					</div>
 					<div class="volunteer_mask">
+					</div>
+					<div class="volunteer_info">
+						<div class="info_headers">
+							<info>phone #:</info>
+							<br>
+							<info>emerg. #:</info>
+						</div>
+						<div class="info_data">
+							<info><a href="tel:<%=volunteers[i].phone%>"><%=volunteers[i].phone%></a</info>
+							<br>
+							<info><a href="tel:<%=volunteers[i].emergency_phone%>"><%=volunteers[i].emergency_phone%></a></info>
+						</div>
 					</div>
 				</div>
 			<%}%>
